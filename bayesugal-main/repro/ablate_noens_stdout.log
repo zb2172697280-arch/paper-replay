@@ -1,0 +1,11 @@
+====================================================================================================
+RUN 2026-09-20 21:04:13 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ablate_noensemble', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 32, 'infer_chunk': 64, 'seqlen': 20, 'models': 1, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.55, 'mem_frac': 0.23, 'only_folds': '0', 'tag': 'noens'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 1.89 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x1 = 266048   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.4433 kl=2611.6  1m 56.7s
+      fold0 ep  11/200 lr=6.60e-04 ce=0.3996 kl=2962.9  20m 40.2s

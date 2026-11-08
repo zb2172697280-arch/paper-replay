@@ -1,0 +1,104 @@
+====================================================================================================
+RUN 2026-09-23 12:42:53 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': True, 'out_act': 'logits', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sharebn'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 4.88 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+      params/expert=265536  x2 = 531072   (paper 5.3e5)
+      CV  acc=31.29 mf1=21.30 k=0.1790  per-class F1=['36.9', '5.3', '0.0', '64.3', '0.0']
+      fold 0 done in 162m 45.9s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 31.289427201614938,
+  "mf1": 21.295894639505185,
+  "kappa": 0.17901927209881008,
+  "per_f1": [
+   36.86274509803922,
+   5.305039787798409,
+   0.0,
+   64.31168831168831,
+   0.0
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 15:25:58 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': False, 'out_act': 'sigmoid', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sigmoid'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=81.63 mf1=77.32 k=0.7522  per-class F1=['85.5', '51.2', '83.7', '83.6', '82.7']
+      fold 0 done in 164m 16.8s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 81.630078223568,
+  "mf1": 77.31784235296092,
+  "kappa": 0.7522298177628473,
+  "per_f1": [
+   85.50488599348535,
+   51.162790697674424,
+   83.65475814100537,
+   83.60548661005879,
+   82.66129032258065
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 19:22:30 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': True, 'out_act': 'logits', 'infer_bn': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sharebnB_inferbatch'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 3.55 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+      params/expert=265536  x2 = 531072   (paper 5.3e5)
+      CV  acc=79.86 mf1=75.37 k=0.7227  per-class F1=['84.8', '48.1', '82.6', '82.2', '79.1']
+      fold 0 done in 237m 32.3s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 79.86373959121877,
+  "mf1": 75.36754093400816,
+  "kappa": 0.7226862570597206,
+  "per_f1": [
+   84.77119279819955,
+   48.14159292035398,
+   82.57093225246092,
+   82.24151539068666,
+   79.1124713083397
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 23:20:14 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': False, 'out_act': 'logits', 'infer_bn': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sepbnA_inferbatch'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=80.32 mf1=75.74 k=0.7292  per-class F1=['85.1', '49.1', '83.5', '80.9', '80.1']
+      fold 0 done in 151m 14.4s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 80.31794095382287,
+  "mf1": 75.73560340604371,
+  "kappa": 0.7292192643839948,
+  "per_f1": [
+   85.07795100222717,
+   49.11660777385159,
+   83.4544925850538,
+   80.90982940698619,
+   80.11913626209977
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)

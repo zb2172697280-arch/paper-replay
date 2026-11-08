@@ -1,0 +1,196 @@
+====================================================================================================
+RUN 2026-09-23 12:42:53 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': True, 'out_act': 'logits', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sharebn'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 4.88 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=265536  x2 = 531072   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.4962 kl=2611.2  1m 1.6s
+      fold0 ep  11/200 lr=6.60e-04 ce=0.4315 kl=2819.7  9m 20.4s
+      fold0 ep  21/200 lr=1.20e-03 ce=0.3362 kl=3281.5  17m 45.3s
+      fold0 ep  31/200 lr=1.19e-03 ce=0.3036 kl=3748.5  26m 9.5s
+      fold0 ep  41/200 lr=1.16e-03 ce=0.2701 kl=4236.5  34m 35.3s
+      fold0 ep  51/200 lr=1.11e-03 ce=0.2499 kl=4658.3  42m 59.0s
+      fold0 ep  61/200 lr=1.05e-03 ce=0.2335 kl=5056.4  51m 15.5s
+      fold0 ep  71/200 lr=9.78e-04 ce=0.2171 kl=5434.8  59m 20.3s
+      fold0 ep  81/200 lr=8.91e-04 ce=0.2010 kl=5781.5  67m 7.6s
+      fold0 ep  91/200 lr=7.95e-04 ce=0.1839 kl=6076.3  74m 44.7s
+      fold0 ep 101/200 lr=6.94e-04 ce=0.1693 kl=6342.2  82m 22.1s
+      fold0 ep 111/200 lr=5.90e-04 ce=0.1601 kl=6582.7  89m 59.3s
+      fold0 ep 121/200 lr=4.86e-04 ce=0.1536 kl=6766.9  97m 36.3s
+      fold0 ep 131/200 lr=3.85e-04 ce=0.1444 kl=6920.9  105m 13.2s
+      fold0 ep 141/200 lr=2.91e-04 ce=0.1434 kl=7037.9  112m 50.2s
+      fold0 ep 151/200 lr=2.06e-04 ce=0.1308 kl=7120.4  120m 27.1s
+      fold0 ep 161/200 lr=1.34e-04 ce=0.1303 kl=7177.5  128m 4.0s
+      fold0 ep 171/200 lr=7.52e-05 ce=0.1208 kl=7214.0  135m 41.1s
+      fold0 ep 181/200 lr=3.27e-05 ce=0.1241 kl=7230.4  143m 18.0s
+      fold0 ep 191/200 lr=7.39e-06 ce=0.1230 kl=7236.8  150m 54.9s
+      fold0 ep 200/200 lr=0.00e+00 ce=0.1202 kl=7237.6  157m 46.2s
+      CV  acc=31.29 mf1=21.30 k=0.1790  per-class F1=['36.9', '5.3', '0.0', '64.3', '0.0']
+      fold 0 done in 162m 45.9s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 31.289427201614938,
+  "mf1": 21.295894639505185,
+  "kappa": 0.17901927209881008,
+  "per_f1": [
+   36.86274509803922,
+   5.305039787798409,
+   0.0,
+   64.31168831168831,
+   0.0
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 15:25:58 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': False, 'out_act': 'sigmoid', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sigmoid'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.5731 kl=2611.2  0m 55.2s
+      fold0 ep  11/200 lr=6.60e-04 ce=1.1160 kl=2817.8  8m 28.2s
+      fold0 ep  21/200 lr=1.20e-03 ce=1.0279 kl=3186.6  16m 1.2s
+      fold0 ep  31/200 lr=1.19e-03 ce=1.0123 kl=3528.5  23m 34.4s
+      fold0 ep  41/200 lr=1.16e-03 ce=1.0009 kl=3817.1  31m 42.8s
+      fold0 ep  51/200 lr=1.11e-03 ce=0.9963 kl=4103.8  39m 51.2s
+      fold0 ep  61/200 lr=1.05e-03 ce=0.9897 kl=4355.0  47m 48.1s
+      fold0 ep  71/200 lr=9.78e-04 ce=0.9863 kl=4588.0  55m 55.0s
+      fold0 ep  81/200 lr=8.91e-04 ce=0.9827 kl=4816.6  63m 52.9s
+      fold0 ep  91/200 lr=7.95e-04 ce=0.9795 kl=4992.4  71m 57.2s
+      fold0 ep 101/200 lr=6.94e-04 ce=0.9770 kl=5140.3  80m 13.8s
+      fold0 ep 111/200 lr=5.90e-04 ce=0.9749 kl=5268.7  88m 19.1s
+      fold0 ep 121/200 lr=4.86e-04 ce=0.9733 kl=5355.9  96m 17.6s
+      fold0 ep 131/200 lr=3.85e-04 ce=0.9715 kl=5436.0  104m 8.2s
+      fold0 ep 141/200 lr=2.91e-04 ce=0.9699 kl=5502.9  111m 56.4s
+      fold0 ep 151/200 lr=2.06e-04 ce=0.9672 kl=5548.2  119m 48.3s
+      fold0 ep 161/200 lr=1.34e-04 ce=0.9659 kl=5578.6  127m 51.9s
+      fold0 ep 171/200 lr=7.52e-05 ce=0.9646 kl=5598.9  135m 48.1s
+      fold0 ep 181/200 lr=3.27e-05 ce=0.9658 kl=5608.4  143m 38.9s
+      fold0 ep 191/200 lr=7.39e-06 ce=0.9653 kl=5611.9  151m 46.9s
+      fold0 ep 200/200 lr=0.00e+00 ce=0.9652 kl=5612.3  159m 4.2s
+      CV  acc=81.63 mf1=77.32 k=0.7522  per-class F1=['85.5', '51.2', '83.7', '83.6', '82.7']
+      fold 0 done in 164m 16.8s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 81.630078223568,
+  "mf1": 77.31784235296092,
+  "kappa": 0.7522298177628473,
+  "per_f1": [
+   85.50488599348535,
+   51.162790697674424,
+   83.65475814100537,
+   83.60548661005879,
+   82.66129032258065
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 19:22:30 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': True, 'out_act': 'logits', 'infer_bn': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sharebnB_inferbatch'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 3.55 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=265536  x2 = 531072   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.4962 kl=2611.2  1m 45.0s
+      fold0 ep  11/200 lr=6.60e-04 ce=0.4317 kl=2814.8  17m 29.1s
+      fold0 ep  21/200 lr=1.20e-03 ce=0.3359 kl=3281.4  30m 32.6s
+      fold0 ep  31/200 lr=1.19e-03 ce=0.3024 kl=3749.0  45m 18.2s
+      fold0 ep  41/200 lr=1.16e-03 ce=0.2740 kl=4245.5  58m 48.1s
+      fold0 ep  51/200 lr=1.11e-03 ce=0.2514 kl=4654.3  73m 26.4s
+      fold0 ep  61/200 lr=1.05e-03 ce=0.2337 kl=5041.1  86m 52.2s
+      fold0 ep  71/200 lr=9.78e-04 ce=0.2167 kl=5402.8  102m 0.1s
+      fold0 ep  81/200 lr=8.91e-04 ce=0.2035 kl=5745.8  115m 9.4s
+      fold0 ep  91/200 lr=7.95e-04 ce=0.1843 kl=6028.7  129m 29.3s
+      fold0 ep 101/200 lr=6.94e-04 ce=0.1709 kl=6298.9  142m 33.8s
+      fold0 ep 111/200 lr=5.90e-04 ce=0.1641 kl=6512.1  157m 16.3s
+      fold0 ep 121/200 lr=4.86e-04 ce=0.1576 kl=6695.5  168m 20.2s
+      fold0 ep 131/200 lr=3.85e-04 ce=0.1458 kl=6845.5  176m 31.1s
+      fold0 ep 141/200 lr=2.91e-04 ce=0.1459 kl=6961.6  184m 42.7s
+      fold0 ep 151/200 lr=2.06e-04 ce=0.1308 kl=7049.1  192m 48.4s
+      fold0 ep 161/200 lr=1.34e-04 ce=0.1330 kl=7108.2  201m 4.5s
+      fold0 ep 171/200 lr=7.52e-05 ce=0.1218 kl=7142.5  209m 6.6s
+      fold0 ep 181/200 lr=3.27e-05 ce=0.1278 kl=7158.9  217m 2.6s
+      fold0 ep 191/200 lr=7.39e-06 ce=0.1269 kl=7165.4  224m 26.8s
+      fold0 ep 200/200 lr=0.00e+00 ce=0.1226 kl=7166.1  231m 6.2s
+      CV  acc=79.86 mf1=75.37 k=0.7227  per-class F1=['84.8', '48.1', '82.6', '82.2', '79.1']
+      fold 0 done in 237m 32.3s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 79.86373959121877,
+  "mf1": 75.36754093400816,
+  "kappa": 0.7226862570597206,
+  "per_f1": [
+   84.77119279819955,
+   48.14159292035398,
+   82.57093225246092,
+   82.24151539068666,
+   79.1124713083397
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
+====================================================================================================
+RUN 2026-09-23 23:20:14 | {'data_root': 'D:/dataset/sleep-edf-20/processed', 'out': 'repro/results_ab_probe', 'mode': 'cv', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'share_bn': False, 'out_act': 'logits', 'infer_bn': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '0', 'tag': 'sepbnA_inferbatch'}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.4962 kl=2611.2  0m 53.4s
+      fold0 ep  11/200 lr=6.60e-04 ce=0.4296 kl=2815.0  8m 10.4s
+      fold0 ep  21/200 lr=1.20e-03 ce=0.3409 kl=3281.7  15m 27.3s
+      fold0 ep  31/200 lr=1.19e-03 ce=0.2954 kl=3758.5  22m 44.6s
+      fold0 ep  41/200 lr=1.16e-03 ce=0.2651 kl=4218.3  30m 2.0s
+      fold0 ep  51/200 lr=1.11e-03 ce=0.2468 kl=4621.6  37m 19.0s
+      fold0 ep  61/200 lr=1.05e-03 ce=0.2302 kl=5014.4  44m 36.0s
+      fold0 ep  71/200 lr=9.78e-04 ce=0.2118 kl=5372.6  51m 53.2s
+      fold0 ep  81/200 lr=8.91e-04 ce=0.1995 kl=5689.1  59m 10.4s
+      fold0 ep  91/200 lr=7.95e-04 ce=0.1850 kl=5980.9  66m 27.9s
+      fold0 ep 101/200 lr=6.94e-04 ce=0.1706 kl=6223.4  73m 45.6s
+      fold0 ep 111/200 lr=5.90e-04 ce=0.1630 kl=6439.2  81m 3.3s
+      fold0 ep 121/200 lr=4.86e-04 ce=0.1573 kl=6626.8  88m 21.1s
+      fold0 ep 131/200 lr=3.85e-04 ce=0.1447 kl=6769.2  95m 38.7s
+      fold0 ep 141/200 lr=2.91e-04 ce=0.1439 kl=6879.5  102m 56.3s
+      fold0 ep 151/200 lr=2.06e-04 ce=0.1313 kl=6960.7  110m 14.1s
+      fold0 ep 161/200 lr=1.34e-04 ce=0.1299 kl=7013.0  117m 32.0s
+      fold0 ep 171/200 lr=7.52e-05 ce=0.1231 kl=7043.2  124m 49.9s
+      fold0 ep 181/200 lr=3.27e-05 ce=0.1273 kl=7060.3  132m 7.8s
+      fold0 ep 191/200 lr=7.39e-06 ce=0.1234 kl=7066.3  139m 25.7s
+      fold0 ep 200/200 lr=0.00e+00 ce=0.1208 kl=7067.0  145m 59.7s
+      CV  acc=80.32 mf1=75.74 k=0.7292  per-class F1=['85.1', '49.1', '83.5', '80.9', '80.1']
+      fold 0 done in 151m 14.4s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 1,
+  "acc": 80.31794095382287,
+  "mf1": 75.73560340604371,
+  "kappa": 0.7292192643839948,
+  "per_f1": [
+   85.07795100222717,
+   49.11660777385159,
+   83.4544925850538,
+   80.90982940698619,
+   80.11913626209977
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)

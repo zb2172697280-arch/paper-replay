@@ -1,0 +1,1101 @@
+
+===== PAGE 1 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023 1
+Efficient Sleep Staging with Bayesian
+Uncertainty-Guided Active Learning
+Tianyou Yu, Member, IEEE, Rui Huang, Fei Wang, Member, IEEE, Jun Zhang, Wei Wu, Senior Member,
+IEEE, Zhuliang Yu, Member, IEEE, Yuanqing Li, Fellow, IEEE, Jun Xiao*, Member, IEEE, Zhenghui Gu*
+Abstract—Automated sleep staging is essential for representativehigh-capacitystate-of-the-artmodels.These
+large-scale and home-based sleep monitoring; however, results demonstrate the clinical promise of uncertainty-
+in routine clinical practice, sleep annotation remains aware active learning as a practical and cost-efficient
+largelydependentonexperiencedexpertsperformingtime- paradigmforsemi-automatedsleepstaging.Codeisavail-
+consuming and labor-intensive manual scoring. Existing ableathttps://github.com/yuty2009/bayesugal.
+automatic systems often struggle to adapt reliably to new
+IndexTerms—Automaticsleepstaging,Bayesianneural
+subjects,limitingtheirclinicaladoptionandreinforcingthe
+networks,uncertaintyestimation,activelearning.
+reliance on expert review. This creates a strong demand
+for adaptive and efficient sleep staging systems that can
+substantially reduce annotation workload while preserv- I. INTRODUCTION
+ing expert-level accuracy. We propose BayesSleepNet, a
+novelframeworkthatintegratesBayesianuncertaintyquan- SLEEP plays a vital role in maintaining both mental
+tification with active learning for adaptive sleep staging. and physical health [1]. Accurate classification of sleep
+BayesSleepNet employs principled Bayesian modeling by stages—commonly referred to as sleep staging—is essential
+placing distributions over network weights and perform-
+for diagnosing and treating sleep disorders [2]. Polysomnog-
+ing Monte Carlo sampling at inference, enabling explicit
+raphy (PSG), the gold standard for sleep assessment, records
+quantification of model (epistemic) uncertainty. These un-
+certainty estimates drive a two-stage sample selection multiple physiological signals, such as electroencephalogram
+strategy that first fine-tunes the model using represen- (EEG),electrooculogram(EOG),electromyogram(EMG),and
+tative epochs and subsequently prioritizes persistently electrocardiogram (ECG). These signals are segmented into
+uncertain samples for expert review. Across four public
+20- or 30-second epochs and scored by experts according
+sleep datasets, BayesSleepNet consistently improves per-
+to established guidelines, including those of Rechtschaffen
+formance—by 7.60% in accuracy, 8.27% in macro-F1, and
+0.104 in Cohen’s κ—while requiring manual annotation of and Kales (R&K) [3] or the American Academy of Sleep
+only 20% of data from new subjects. Despite its adaptive Medicine (AASM) [4]. However, manual sleep scoring is
+learning capability, BayesSleepNet remains computation- labor-intensive—often requiring up to two hours per record-
+allylightweight,usingsubstantiallyfewerparametersthan
+ing [5]—and is subject to inter-scorer variability, which can
+lead to inconsistent results [6], [7].
+This work was supported in part by the STI 2030-Major project In recent years, machine learning—particularly deep
+(2022ZD0208900toYuanqingLi),theNationalNaturalScienceFoun-
+learning (DL)—has shown significant promise in automat-
+dation of China under grants U22A20293, U24A20338, 62376098,
+and 62276102, and GuangDong Basic and Applied Basic Research ing sleep staging. Many models now achieve performance
+Foundation2024A1515011983.(Correspondingauthors:JunXiaoand comparable to that of human experts while greatly reduc-
+ZhenghuiGu.)
+ing analysis time. These methods typically combine con-
+Tianyou Yu, Rui Huang, Zhuliang Yu, Yuanqing Li, and Zhenghui
+Gu are with the School of Automation Science and Engineering, volutional neural networks (CNNs) for feature extraction
+SouthChinaUniversityofTechnology,Guangzhou510640,China,and with recurrent or sequence models to capture temporal
+also with the Research Center for Brain-Computer Interface, Pazhou
+dependencies across sleep stages [8], [9], [10], [11]. How-
+Laboratory, Guangzhou 510330, China (email: auyuty@scut.edu.cn;
+aurhuang@mail.scut.edu.cn; zlyu@scut.edu.cn; auyqli@scut.edu.cn; ever, despite encouraging results on controlled benchmark
+zhgu@scut.edu.cn;). datasets, the performance of most automated systems
+Jun Xiao is with the School of Electric Power Engineering, South
+remains around 80% accuracy, and their generalization
+China University of Technology, Guangzhou 510640, China, and also
+withtheResearchCenterforBrain-ComputerInterface,PazhouLabo- acrosssubjects,recordingcenters,oracquisitionsettingsis
+ratory,Guangzhou510330,China(email:junxiao@scut.edu.cn). still limited [12]. Importantly, even when subject-adaptive
+FeiWangiswiththeSchoolofArtificialIntelligence,SouthChinaNor-
+or transfer learning techniques are applied, the resulting
+malUniversity,Guangzhou510631,China,andalsowiththeResearch
+Center for Brain-Computer Interface, Pazhou Laboratory, Guangzhou performance often remains below the reliability threshold
+510330,China(email:fwang@scnu.edu.cn). required for routine clinical use. As a consequence, sleep
+Jun Zhang is with the School of Information Engineering, Guang-
+expertscontinuetorelyheavilyontime-consumingmanual
+dong University of Technology, Guangzhou, 510320, China (email:
+jzhang@gdut.edu.cn). annotation in real-world practice, especially when analyz-
+Wei Wu is with the Songjiang Hospital and Songjiang Research ing data from new individuals or nonstandard recording
+Institute,ShanghaiKeyLaboratoryofEmotionsandAffectiveDisorders,
+conditions. This highlights a fundamental gap between
+ShanghaiJiaoTongUniversitySchoolofMedicine,Shanghai201600,
+China(email:weiwuneuro@sjtu.edu.cn). algorithmic performance and clinical acceptance. Rather
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 2 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+2 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+than eliminating expert involvement entirely, a more ployment—remains largely unexplored.
+practical objective is to minimize expert workload while To address these challenges, we propose BayesSleepNet, a
+preserving expert-level reliability—an aspect that remains novelframeworkthatintegratesBayesianuncertaintyquantifi-
+insufficiently addressed by existing fully automated sleep cation with active learning for efficient and reliable automatic
+staging approaches [13]. sleep staging. BayesSleepNet leverages Bayesian neural net-
+Active learning (AL) provides a natural framework works to provide principled estimates of model (epistemic)
+to address this gap by explicitly incorporating expert uncertainty, enabling the model to identify and prioritize the
+feedback into the deployment process. Instead of labeling most informative samples for annotation. Our approach em-
+large volumes of data, AL selectively queries a small ploys a two-stage active learning strategy: first, representative
+subset of informative samples for annotation, enabling samples spanning the uncertainty spectrum are selected for
+efficient model refinement with minimal expert effort [14]. model adaptation; second, persistently uncertain samples are
+Uncertainty-basedstrategies,suchasuncertaintysampling forwardedforexpertreview.Thisprocesssubstantiallyreduces
+and query-by-committee, prioritize ambiguous or high- manual labeling requirements while maintaining high classi-
+impact samples that are most valuable for improving fication accuracy. The lightweight design of BayesSleepNet
+modelperformance[15].WhileALhasbeenwidelystudied furtherfacilitatespracticaldeploymentinclinicalsettings.The
+in computer vision and natural language processing, its main contributions of this work are as follows:
+application to physiological time-series data—and sleep • WeintroduceBayesSleepNet,thefirstuncertainty-guided
+EEG in particular—remains largely unexplored [16]. This activelearningframeworkforsleepstagingthatexplicitly
+is notable because sleep staging exhibits precisely the quantifies and utilizes predictive uncertainty to minimize
+characteristics that make AL effective: high annotation annotation effort.
+cost, substantial inter-subject variability, and uneven in- • We design a two-stage sample selection strategy that
+formativeness across epochs. By enabling targeted, expert- combines systematic sampling across the uncertainty
+in-the-looprefinementratherthanfullreannotation,active range with targeted expert review of challenging cases,
+learning offers a clinically meaningful pathway toward improving adaptation to new subjects.
+semi-automated sleep staging systems that reduce annota- • We demonstrate the effectiveness and generalizability
+tion burden while maintaining diagnostic reliability [17]. of BayesSleepNet on four large public sleep datasets,
+A key challenge in effective active learning is obtaining achieving consistent performance gains while reducing
+a reliable measure of prediction uncertainty, as it directly manual annotation by up to 80%.
+governs the selection of the most informative samples
+Theremainderofthispaperisorganizedasfollows.Section
+for annotation. Accurate and well-calibrated uncertainty
+II reviews classical sleep staging models and Bayesian neural
+estimates enable a model to focus labeling effort on
+networks. Section III presents the architecture of BayesSleep-
+ambiguous or high-value instances, thereby maximizing
+Net and elaborates on the uncertainty-guided active learning
+performance gains under limited annotation budgets [18].
+framework. Section IV describes the datasets, experimental
+While several prior studies have relied on softmax-
+setup, sleep staging results, uncertainty estimation outcomes,
+based outputs—such as hypnodensity maps—as proxies
+and the ablation study. Section V discusses the implications
+for model confidence [19], these representations primarily
+of the findings, and Section VI concludes the paper.
+reflect normalized class probability distributions rather
+than true predictive uncertainty. In particular, softmax
+II. PRELIMINARIES
+probabilities are well known to be overconfident and
+The primary objective of this work is to enhance the
+fundamentally unable to capture epistemic uncertainty,
+performance and generalization of automatic sleep staging
+which arises from limited training data or insufficient
+models by leveraging uncertainty quantification and active
+model knowledge and is critical for reliable decision
+learning strategies. To provide necessary context, this section
+support and uncertainty-aware sample selection. Bayesian
+introduces the basic sleep staging model architecture and the
+learning offers a principled framework for modeling such
+Bayesian neural networks (BNNs) employed in our proposed
+uncertaintybyexplicitlyrepresentinguncertaintyinmodel
+framework. For simplicity, we evaluate our framework us-
+parameters. Among Bayesian approaches, Bayesian neu-
+ing single-channel EEG signals, the most commonly utilized
+ral networks (BNNs) provide a practical mechanism for
+modalityinsleepstagingtasks.Nevertheless,theapproachcan
+quantifying epistemic uncertainty by placing probability
+be readily extended to multi-channel EEG or other physiolog-
+distributions over network weights and approximating
+ical signals.
+posterior variability via Monte Carlo sampling at infer-
+ence time [20]. This form of uncertainty is especially
+A. VanillaSleepStagingModel
+well suited for active learning, as it directly reflects the
+model’s confidence and can be reduced through targeted Sleep staging involves processing a sequence of EEG
+supervision. Although BNN-based uncertainty estimation epochs to predict the sleep stage label of the current epoch,
+has demonstrated clear benefits in medical imaging and using preceding epochs as context. Formally, given N EEG
+other clinical AI applications, its integration with active epochs x ,...,x , where x ∈ R3000×1 represents a 30-
+1 N i
+learning for automatic sleep staging—particularly in the second EEG segment sampled at 100 Hz, the model predicts
+context of subject adaptation and annotation-efficient de- the sleep stage for the current epoch x . The predicted label
+N
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 3 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 3
+Epoch 𝑖−𝑁+1 Epoch 𝑖−1 Epoch 𝑖
+EEG … EEG EEG Prediction
+Conv Conv Conv
+LSTM … LSTM LSTM W N1 N2 N3REM
+Fig. 1. Overview of the vanilla sleep staging model architecture. The model comprises: (1) an epoch-level feature extractor using stacked
+convolutional layers to learn representations from each EEG epoch, and (2) a temporal sequence modeling module based on an LSTM layer
+tocaptureinter-epochdependencies.Thefinalsleepstagepredictionisproducedbyafullyconnectedclassificationlayer.
+TABLEI neural networks is generally intractable; therefore, variational
+ARCHITECTUREDETAILSOFTHEBASELINESLEEPSTAGINGMODEL. inference is commonly employed to approximate the poste-
+rior [22], [21]. This approach seeks a variational distribution
+Layer Configuration OutputDimension
+q(w|θ) that minimizes the Kullback-Leibler (KL) divergence
+Input RawEEGsegment [BS×SL,1,3000]
+to the true posterior:
+Conv1 Conv1D(19,64,stride=4)+BN+ReLU [BS×SL,64,750]
+Conv2 Conv1D(11,64,stride=4)+BN+ReLU [BS×SL,64,188]
+Pool1 MaxPool1D(6)+Dropout(0.5) [BS×SL,64,31] θ∗ =argminKL[q(w|θ)∥P(w|D)]
+Conv3 Conv1D(7,64,stride=1)+BN+ReLU [BS×SL,64,31] θ
+Conv4 Conv1D(7,64,stride=1)+BN+ReLU [BS×SL,64,31] (cid:90) (cid:18) q(w|θ) (cid:19)
+Conv5 Conv1D(7,64,stride=1)+BN+ReLU [BS×SL,64,31] =argmin q(w|θ)log dw
+P(w)P(D|w)
+Pool2 MaxPool1D(4)+Dropout(0.5) [BS×SL,64,7] θ
+Reshape Flattentemporalaxis [BS,SL,448] =argminKL[q(w|θ)∥P(w)]−E [logP(D|w)] (2)
+q(w|θ)
+LSTM BiLSTM(64)+Dropout(0.5) [BS,64] θ
+Output FullyConnected(64→5)+Softmax [BS,5]
+where
+(cid:90) (cid:18) q(w|θ) (cid:19)
+KL[q(w|θ)∥P(w)]= q(w|θ)log dw. (3)
+yˆ N ∈ 0,1,2,3,4 corresponds to the stages W, N1, N2, N3, P(w)
+and REM, following AASM guidelines [4].
+Thus,ourobjectiveistomaximizethelikelihoodfunctionthat
+Avanillasleepstagingmodeltypicallycomprisestwomain
+encourages the model to fit the training data while simultane-
+components:(1)aCNN-basedepoch-levelfeatureencoderand
+ously minimizing the KL divergence between the variational
+(2) an RNN module to capture temporal dependencies across
+posterior distribution q(w|θ) and the prior distribution P(w).
+epochs. As shown in Fig. 1, the epoch-wise feature encoder
+The resulting cost function is:
+consists of multiple convolutional layers, each followed by
+batch normalization and ReLU activation. The sequence mod- L(D,θ)=KL[q(w|θ)∥P(w)]−E [logP(D|w)].
+q(w|θ)
+eling module includes an LSTM layer and a fully connected (4)
+classifier. Despite its compact structure and relatively small
+By rearranging KL[q(w|θ)∥P(w)], L(D,θ) can be written
+number of parameters, this architecture provides a strong
+as:
+baseline for automatic sleep staging. The detailed layer con-
+(cid:90)
+figurations are summarized in Table 1.
+L(D,θ)= q(w|θ)[logq(w|θ)
+B. BayesianNeuralNetworks −logP(w)−logP(D|w)]dw (5)
+Deterministic models produce single-point predictions but
+TominimizeL(D,θ)inneuralnetworks,Blundelletal.[21]
+cannot quantify output uncertainty, which limits their reliabil-
+proposed the Bayes by Backprop algorithm, which learns
+ity in clinical applications. In contrast, Bayesian neural net-
+weight distributions using Monte Carlo sampling combined
+works(BNNs)overcomethislimitationbyplacingprobability
+with standard backpropagation. The expectation in (5) is
+distributions over model parameters, enabling the generation
+approximated via Monte Carlo as:
+of predictive distributions that provide both class predictions
+and calibrated uncertainty estimates [21]. (cid:88) n
+L(D,θ)≈ [logq(w |θ)−logP(w )−logP(D|w )]
+In BNNs, the posterior distribution of the weights given i i i
+the training data, P(w|D), is used to compute the predictive i=1
+(6)
+distribution for new data points:
+wherew denotesthei-thMonteCarlosampledrawnfromthe
+P(y|x)=E [P(y|x,w)] (1) i
+P(w|D) variational posterior q(w|θ). Optimal variational parameters
+where x is the input, y is the predicted output, and w repre- θ are then obtained by minimizing (6) through stochastic
+sents the model weights. Exact Bayesian inference for deep gradient descent.
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 4 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+4 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+input
+B. Uncertainty-WeightedMixtureofBayesianExperts
+The Mixture of Experts (MoE) paradigm is well-suited
+for tasks that require combining specialized models to han-
+filter
+dle complex input distributions, as it allows different ex-
+perts to capture complementary patterns and improves overall
+robustness [23]. Motivated by this advantage, we propose
+output BayesSleepNet, an ensemble framework that fuses predic-
+tions from two Bayesian sleep staging models through an
+uncertainty-aware gating mechanism (Fig. 3). Such a design
+not only leverages complementary expertise from indepen-
+dently trained submodels but also provides more stable uncer-
+tainty estimates by reducing variance from individual models.
+1) Dual-ExpertFusionandGatingMechanism: Given a se-
+quence of N consecutive EEG epochs x ,...,x , the final
+1 N
+prediction yˆ is computed as a convex combination of the
+predictions from two structurally identical Bayesian sleep
+staging experts, E and E :
+1 2
+yˆ=w (x)·E[y|x,E ]+w (x)·E[y|x,E ] (7)
+1 1 2 2
+where E[y|x,E ] is the expected prediction from expert E ,
+i i
+and w (x) denotes the dynamic weight assigned to expert
+i
+E . These weights are input-dependent and derived from pre-
+i
+Fig. 2. Illustration of a Bayesian convolutional layer. Unlike standard dictive uncertainties, forming a simplified uncertainty-driven
+convolutional layers with fixed weights, Bayesian convolutional layers
+MoE model. During inference, each expert performs mul-
+model weights as probability distributions, enabling principled uncer-
+taintyestimationthroughMonteCarlosampling. tiple stochastic forward passes to estimate class-wise mean
+probabilities and their variability, which together guide the
+computationofuncertainty-basedgatingweights.Thedetailed
+Bayesian layers replace deterministic counterparts (e.g., formulation of this mechanism is presented in the subsequent
+standard convolutional layers) with probabilistic versions that subsection. This design allows BayesSleepNet to dynamically
+parameterize weights as distributions, typically Gaussian (see emphasize the expert with lower uncertainty, thereby improv-
+Fig. 2). These layers enable Monte Carlo sampling for pre- ing prediction robustness and stability.
+dictive inference, allowing multiple stochastic forward passes Additionally, to promote diversity, the two experts are
+during inference to approximate the output distribution and trained independently on disjoint subsets D and D sampled
+1 2
+capture model (epistemic) uncertainty [20]. from the full dataset D, ensuring D ∪D = D and D ∩
+1 2 1
+D =∅. Similar to “data sharding” in MoE systems [24], this
+2
+strategyallowsexpertstolearncomplementaryrepresentations
+III. BAYESIAN UNCERTAINTY-GUIDED ACTIVE LEARNING
+from different portions of the data distribution, further en-
+FRAMEWORK
+hancingensemblediversityandreducingtheriskofcorrelated
+A. BayesianSleepStagingModel errors.
+We extend the vanilla sleep staging model by replacing 2) Uncertainty Quantification: BayesSleepNet estimates the
+selecteddeterministicconvolutionallayerswithBayesiancon- predictive uncertainty via Monte Carlo sampling over the
+volutional layers (Fig. 2). These layers assume Gaussian Bayesian convolutional layers of both expert networks. Dur-
+distributionsoverweightsandallowposteriorsamplingduring ing inference, T stochastic forward passes are performed to
+inference. This modification enables the model to provide approximate the posterior predictive distribution. From these
+uncertainty estimates alongside sleep stage predictions with- outputs, class-wise mean probabilities and their variability are
+out significantly increasing computational complexity. The computed as:
+model also incorporates Monte Carlo dropout layers, which
+introduce additional uncertainty by randomly dropping out a
+T
+subsetofneuronsduringeachforwardpass.Thiscombination µ =E[P(y =j|x,E )]≈ 1 (cid:88) P(y =j|x,E ) (8)
+of Bayesian convolutional layers and Monte Carlo dropout ij i T i
+t=1
+enables the model to capture its epistemic uncertainty in
+(cid:118)
+its predictions. The resulting Bayesian architecture enhances (cid:117) T
+(cid:117)1 (cid:88)
+interpretability, improves robustness to domain shifts, and σ =(cid:116) (P(y =j|x,E )−µ )2. (9)
+ij T i ij
+formsthefoundationfortheuncertainty-guidedactivelearning
+t=1
+strategy proposed in this work.
+To capture both prediction confidence, we introduce a
+novel model uncertainty measure, Bayesian entropy, inspired
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 5 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 5
+Model 𝜀
+1
+𝑤 (𝑥)𝑦 (𝑥)
+1 𝑖 1 𝑖
+W N1 N2 N3 REM
+Training
+SUM
+Subset 1 𝑤 (𝑥)
+Uncertainty 1 𝑖
+Training Quantification 𝑤 2 (𝑥 𝑖 )
+Subset 2
+W N1 N2 N3 REM
+Prediction 𝑦ො
+𝑖
+𝑤 (𝑥)𝑦 (𝑥)
+Model 𝜀 2 𝑖 2 𝑖
+2
+Training Process Uncertainty
+EEG𝑥 W N1 N2 N3 REM
+𝑖
+Weighting
+Fig.3. OverviewoftheBayesSleepNetarchitecture.TheframeworkemploysadualBayesianexpertensemblewithanuncertainty-weightedgating
+mechanism,enablingrobustsleepstagepredictionandprincipleduncertaintyestimationforactivelearning.
+by Shannon entropy but incorporating mean and variance • Stage 1: Systematic sampling for model adaptation.
+information: All unlabeled samples from the target subject are first
+passed through BayesSleepNet to compute their quan-
+4
+(cid:88)
+H (y )=− µασ1−αlog(µ ) (10) tified uncertainty (QU) scores, which capture model
+Bayes i ij ij ij
+(epistemic) uncertainty. These samples are then sorted
+j=0
+in ascending order of QU. To avoid selecting only the
+whereα∈[0,1]controlstherelativecontributionofmeanand
+most uncertain or least uncertain samples—which could
+variance. In all experiments, the parameter α was fixed
+bias the fine-tuning process—we apply an uncertainty-
+to 0.5 to equally balance the contributions of predictive
+stratified systematic sampling with a fixed interval k =
+confidence and variability. To ensure numerical stability
+10, ensuring that selected samples span the entire un-
+when computing log(µ ), a small constant ϵ = 10−8 was
+ij certainty range. This approach provides diversity while
+added to µ in the implementation. These entropy values
+ij preservinginformativeness.Theresulting10%ofsamples
+are then used to compute expert-specific uncertainty weights
+selected through this strategy are annotated by experts
+via a softmax over the negative entropy values, ensuring
+and used to fine-tune BayesSleepNet. This fine-tuning
+that more confident experts receive higher gating weights:
+stepenablesthemodeltoadaptitsparameterstosubject-
+exp(−H (y )) specific characteristics, thereby reducing uncertainty and
+w (x)= Bayes i . (11)
+i (cid:80) exp(−H (y )) improving predictive accuracy for the remaining data.
+k Bayes k
+• Stage 2: Expert review of persistently uncertain
+For numerical stability, a small constant ϵ is implicitly
+samples. After fine-tuning, the model performs a sec-
+added during computation to avoid singularities when
+ond inference pass to recompute QU for the remain-
+H ≈0. The final prediction is obtained by averaging the
+Bayes ing unlabeled samples. The top 10% with the high-
+expertoutputs,weightedbytheirrespectiveuncertaintyscores:
+est QU—primarily reflecting persistent epistemic un-
+yˆ=w (x)·E[y|x,E ]+w (x)·E[y|x,E ] (12) certainty—are considered diagnostically challenging and
+1 1 2 2
+are forwarded for manual annotation by clinical experts.
+To guide active learning, we define the overall quantified Thishuman-in-the-loop(HITL)phaseensuresthatcritical
+uncertainty for sample x as the sum of both experts’ uncer- edge cases, which are unlikely to be resolved through
+tainties: model adaptation alone, receive expert review. This se-
+QU(x)=H (y )+H (y ) (13) lective annotation minimizes clinician workload while
+Bayes 1 Bayes 2
+safeguarding clinical reliability.
+This QU(x) score is used to stratify or rank samples during
+The overall active learning process is summarized in Al-
+the two-stage selection process for expert annotation.
+gorithm 1. UGAL balances informativeness and diversity,
+reducing manual labeling by up to 80% while preserving
+C. Uncertainty-GuidedActiveLearning(UGAL) model performance on the remaining data.
+To minimize expert annotation, we propose a two-stage
+uncertainty-guided active learning strategy (Fig. 4). IV. EXPERIMENTS AND RESULTS
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 6 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+6 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+Samples from Remained input Fine-tuned output Samples Sorted
+by Uncertainty
+New Subjects Samples BayesSleepNet
+input
+Fine-tune
+output Samples with
+Pretrained Sorted Systematic Representative Low Uncertainty
+BayesSleepNet Samples Sampling Labeled Samples and
+High Accuracy
+output
+Representative Secondary
+Clinicians
+Samples review
+input
+Fig.4. Overviewoftheproposeduncertainty-guidedactivelearningframeworkusingBayesSleepNet.Theworkflowconsistsof:(1)initialinference
+with uncertainty estimation, (2) systematic sampling to select representative samples across the uncertainty spectrum, and (3) a two-stage
+annotationstrategythatfirstfine-tunesthemodelwithdiversesamplesandthentargetspersistentlyuncertaincasesforexpertreview.
+Uncertainty sette (SC) subset [25], [26]. It includes 20 healthy subjects
+aged 25-34, evenly split between males and females. Each
+subject underwent two consecutive day-night PSG recordings,
+except for one participant whose second-night recording was
+lostduetodevicefailure.Each30-secondepochwasmanually
+labeledintooneofeightcategories(W,N1,N2,N3,N4,REM,
+… …
+MOVEMENT,UNKNOWN)followingtheR&Kstandard[3].
+Sample
+𝑘−1 𝑘−1 𝑘−1 𝑘−1 To maintain consistency with prior studies [8], [9], [10], [11],
+stages N3 and N4 were merged into a single N3 stage, while
+MOVEMENTandUNKNOWNepochswereexcluded.Inthis
+… …
+study, we used the Fpz-Cz EEG channel.
+Representative Samples
+SleepEDF-78: SleepEDF-78 is an updated version of the
+Fig. 5. Illustration of the systematic sampling strategy for selecting Sleep-EDFExpandeddataset[25],[26],containingrecordings
+representativesamplesintheactivelearningframework. from78healthyCaucasiansubjectsaged25-101.Eachsubject
+completed two consecutive PSG sessions, except for subjects
+Algorithm 1: UGAL with BayesSleepNet 13, 36, and 52, whose recordings were incomplete due to
+Input: Unlabeled sample set U from target subject; device failure. Manual scoring was performed according to
+trained model M; sampling interval k; subset the R&K standard [3], labeling each 30-second epoch into
+ratio r =10%. eight categories (W, N1, N2, N3, N4, REM, MOVEMENT,
+Output: Fine-tuned model M∗; annotated subsets A. UNKNOWN). Following standard practice, stages N3 and N4
+werecombinedasN3,andMOVEMENT/UNKNOWNepochs
+Stage 1: Systematic sampling for model adaptation
+were excluded. The Fpz-Cz EEG channel was used for all
+1. Compute QU(x) for all x∈U using M.;
+recordings.
+2. Sort U by QU in ascending order.;
+MASS: The Montreal Archive of Sleep Studies (MASS)
+3. Select every k-th sample until |S |=r|U|.;
+1 dataset comprises whole-night PSG recordings collected from
+4. Annotate S and fine-tune M to obtain M∗.;
+1 multiple hospital-based sleep laboratories, involving 200 sub-
+Stage 2: Expert review of high-uncertainty samples jects (97 males and 103 females) aged 18-76 years. Manual
+5. Recompute QU(x) for U \S 1 using M∗.; scoring was conducted according to either the AASM stan-
+6. Select top r% samples with highest QU as S 2 .; dard [4] (for SS1 and SS3 subsets) or the R&K standard [3]
+7. Annotate S 2 and update A=S 1 ∪S 2 .; (for SS2, SS4, and SS5 subsets). Consistent with previous
+return M∗, A; work [27], [28], R&K annotations were mapped to AASM’s
+five-stage system (W, N1, N2, N3, REM). Epochs originally
+annotated with a length of 20 seconds were converted to 30
+secondsbyextending5secondsbeforeandafter.Inthisstudy,
+A. Datasets
+the C4-A1 EEG channel was used.
+We evaluated BayesSleepNet on four publicly available Physio2018: The Physio2018 dataset, provided by Mas-
+datasets:SleepEDF-20,SleepEDF-78,theMontrealArchiveof sachusetts General Hospital’s Computational Clinical Neuro-
+Sleep Studies (MASS), and Physio2018. A summary of these physiology Laboratory, was released for the 2018 PhysioNet
+datasets, including subject count, EEG channel, evaluation Challenge [26], [29], focusing on arousal detection during
+protocol, and sleep stage distribution, is provided in Table II. sleep. Since the official test set lacked labels, we used the
+SleepEDF-20: SleepEDF-20 is a subset of the Sleep-EDF training set, which contains data from 994 subjects aged 18-
+Expanded dataset (version 2013), specifically the Sleep Cas- 90. Sleep stages were manually scored by experts following
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 7 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 7
+TABLEII
+SUMMARYOFTHEFOURPUBLICSLEEPDATASETSUSEDINTHISSTUDY,INCLUDINGTHENUMBEROFSUBJECTS,EEGCHANNEL,EVALUATION
+PROTOCOL,ANDDISTRIBUTIONOFSLEEPSTAGES(NUMBEROF30-SECONDEPOCHSPERSTAGE).
+Dataset SubjectNum EEGChannel EvaluationScheme W N1 N2 N3 REM Total
+SleepEDF-20 20 Fpz-Cz 10-foldCV 10,197 2,804 17,799 5,703 7,717 44,220
+SleepEDF-78 79 Fpz-Cz 10-foldCV 69,824 21,522 69,132 13,039 25,835 199,352
+MASS 200 C4-A1 10-foldCV 31,184 19,359 107,930 30,383 40,184 229,040
+Physio2018 994 C3-A2 5-foldCV 157,945 136,978 377,870 102,592 116,877 892,262
+AASMguidelines[4].Forthisstudy,weonlyusedtheC3-A2 additional 10% of the most uncertain samples were annotated
+EEG channel. and incorporated following fine-tuning. Model performance
+All signals were resampled to 100 Hz for consistency was reported on the remaining 80% unlabeled samples to
+acrossdatasets.Thesedatasetscollectivelyallowustoevaluate reflect adaptation efficiency.
+BayesSleepNet’s robustness across varying sizes and distribu- Evaluation metrics: Overall performance was assessed
+tions. using Accuracy (ACC), Macro F1-score (MF1), and Cohen’s
+Kappa(κ)[31].Per-classperformancewasevaluatedusingthe
+B. ExperimentalSetup F1-score. Precision and Recall for class i were computed as:
+In BayesSleepNet, only the first convolutional layer
+TP TP
+is implemented as a Bayesian convolutional layer, while PR = i , RE = i (14)
+i TP +FP i TP +FN
+all subsequent convolutional and recurrent layers remain i i i i
+deterministic. This configuration is adopted to balance whereTP ,FP ,andFN denotetruepositives,falsepositives,
+i i i
+uncertainty modeling capability with computational effi- and false negatives for class i. The overall MF1 and Cohen’s
+ciency. Empirically, uncertainty in sleep EEG signals is κ were calculated as:
+mostprominentatearlyfeatureextractionstages,whereas
+deeper layers mainly perform representation refinement.
+MF1=
+1 N (cid:88)class−1 2×PR
+i
+×RE
+i (15)
+FortheBayesianconvolutionallayer,anindependentzero-
+N PR +RE
+class i i
+mean Gaussian prior is imposed on the weights, i.e., i=0
+p(w)=N(0,σ2) with σ =1.0. The corresponding varia-
+p p
+tionalposteriorsaremodeledasfullyfactorizedGaussians 1−ACC
+and optimized via variational inference during training. κ=1− (16)
+1−P
+e
+We conducted two types of experiments to evaluate
+BayesSleepNet: (1) standard k-fold cross-validation to assess
+where P =
+(cid:80)Nclass−1a
+×b , with a and b denoting the
+e i=0 i i i i
+baseline performance; (2) uncertainty-guided active learning
+predicted and true class proportions, respectively.
+(UGAL) to simulate subject-adaptation with limited annota-
+tion.
+Cross-validation protocol: Models were evaluated on four
+C. SleepStagingPerformance
+datasets using k-fold cross-validation: k = 10 for SleepEDF-
+20, SleepEDF-78, and MASS, and k = 5 for Physio2018 Table III summarizes BayesSleepNet’s performance under
+(Table II). Each fold contained non-overlapping subjects to standard cross-validation and the proposed uncertainty-guided
+ensure subject-independent evaluation. Models were trained active learning (UGAL) framework, compared with state-of-
+for 200 epochs using the AdamW optimizer, with an initial the-art (SOTA) models. All models were evaluated using a
+learning rate of 1.2 × 10−3, β = 0.9, and β = 0.95. A single-channelEEG toensure afaircomparison. Undercross-
+1 2
+cosine annealing schedule with a warm-up of 20 epochs and validation without clinician involvement, BayesSleepNet out-
+a minimum learning rate of zero was applied [30]. The mini- performed competing methods across all datasets. Compared
+batch size was 1024, and the sequence length was 20. For KL with the best-performing baselines, BayesSleepNet improved
+loss regularization, a weighting factor of 2×10−8 yielded the overallaccuracyby+0.45%,+0.40%,+1.65%,and+0.49%on
+best performance. For uncertainty estimation, we performed SleepEDF-20, SleepEDF-78, MASS, and Physio2018, respec-
+N × T = 200 forward passes (two experts, T = 100 per tively. Corresponding gains in MF1 were +0.52%, +0.65%,
+expert). +1.86%, and +0.20%, with Cohen’s κ improving by up to
+UGAL protocol: To assess real-world adaptability, UGAL +0.023.
+experiments were conducted using the same folds as cross- When integrated into UGAL, BayesSleepNet demonstrated
+validation, but the test set consisted of unseen subjects. substantialperformanceimprovementwithminimaladditional
+In Stage 1, 10% of samples were selected via systematic annotation.Withclinicianlabelsforonly20%ofsamplesfrom
+sampling across the uncertainty spectrum and annotated by new subjects, the model achieved average gains of +7.60% in
+clinicians. These were used to fine-tune both experts in accuracy, +8.27% in MF1, and +0.104 in κ, highlighting the
+BayesSleepNetwitha fixedlearningrateof 3.6×10−4,while effectivenessofuncertainty-guidedactivelearninginreducing
+other hyperparameters remained unchanged. In Stage 2, an labeling effort while preserving staging accuracy.
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 8 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+8 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+TABLEIII
+COMPARISONOFBAYESSLEEPNET(WITHANDWITHOUTUGAL)AGAINSTSTATE-OF-THE-ARTMETHODSONFOURDATASETS.BOLDVALUES
+INDICATETHEBESTPERFORMANCEFOREACHMETRIC.UNDERLINEDVALUESINDICATETHESECOND-BESTRESULTS.
+Dataset Method ACC MF1 κ W N1 N2 N3 REM
+BayesSleepNet(UGAL) 94.58 89.24 0.925 97.6 64.1 95.5 94.6 94.5
+BayesSleepNet 86.75 81.12 0.819 91.6 51.2 88.6 87.0 87.1
+XSleepNet[32] 86.30 80.60 0.813 92.2 51.8 88.0 86.8 83.9
+TinySleepNet[11] 85.40 80.50 0.800 90.1 51.4 88.5 88.3 84.3
+SleepEDF-20
+SleepEEGNet[10] 84.30 79.70 0.790 89.2 52.2 86.8 85.1 85.0
+IITNet[9] 84.00 77.70 0.780 87.9 44.7 88.0 85.7 82.1
+DeepSleepNet-lite[33] 84.00 78.00 0.780 87.1 44.4 87.9 88.2 82.4
+DeepSleepNet[8] 81.40 75.60 0.750 83.9 43.5 85.4 84.1 81.1
+BayesSleepNet(UGAL) 93.33 89.38 0.905 97.3 70.9 94.0 90.4 94.2
+BayesSleepNet 84.40 78.55 0.783 93.3 50.3 86.1 79.4 83.6
+XSleepNet[32] 84.00 77.90 0.778 93.3 49.9 86.0 78.7 81.8
+TinySleepNet[11] 83.10 78.10 0.770 92.8 51.0 85.3 81.1 80.3
+SleepEDF-78 SleepTransformer[34] 81.40 74.30 0.743 91.7 40.4 84.3 77.9 77.2
+U-Time[35] 81.30 76.30 0.745 92.0 51.0 83.5 74.6 80.2
+DeepSleepNet-lite[33] 80.30 75.20 0.730 91.5 46.0 82.9 79.2 76.4
+SleepEEGNet[10] 80.00 73.60 0.730 91.7 44.1 82.5 73.5 76.1
+DeepSleepNet[8] 76.90 70.70 0.690 90.8 44.8 78.5 67.9 71.3
+BayesSleepNet(UGAL) 92.24 87.99 0.886 94.6 66.7 94.2 89.3 95.1
+BayesSleepNet 86.85 82.46 0.811 89.5 59.7 90.3 82.8 90.0
+MASS TinySleepNet[11] 85.51 81.18 0.793 88.2 58.7 89.3 81.4 88.4
+XSleepNet[32] 85.20 80.60 0.788 – – – – –
+DeepSleepNet[8] 83.88 78.93 0.769 86.3 53.9 88.2 79.6 86.8
+BayesSleepNet(UGAL) 89.00 87.38 0.848 90.9 72.7 91.7 88.3 93.2
+BayesSleepNet 80.79 78.80 0.737 84.2 59.5 85.2 79.6 85.4
+XSleepNet[32] 80.30 78.60 0.732 – – – – –
+Physio2018
+TinySleepNet[11] 78.99 77.02 0.713 82.9 56.4 83.6 79.2 83.0
+U-Time[35] 78.80 77.40 0.714 82.5 59.0 83.1 79.0 83.5
+DeepSleepNet[8] 76.35 74.10 0.676 80.4 51.7 81.7 76.5 80.1
+D. UncertaintyEstimation 95.04%
+SleepEDF20
+93.43% SleepEDF78
+IntroducingBayesianconvolutionallayersandMonteCarlo 92.77% MASS
+dropout enables BayesSleepNet to estimate predictive uncer- 90.75% 91.42% Physio2018
+92.63%
+tainty, which plays a central role in uncertainty-guided active y c a 89.23% 89.58%
+learning. An effective uncertainty measure should satisfy two r u c 90.45% 88.21% 88.01%
+properties: (1) predictions with lower uncertainty should be c A 88.32% 87.10%
+more reliable, and (2) predicted probabilities and uncertainty lla r e 87.45% 86.85%
+estimates should be well calibrated with empirical outcomes. v 86.58%
+O
+To examine whether uncertainty correlates with prediction re- 83.83% 85.33%
+82.76% 84.40%
+liability,wesortedtestsamplesbytheirquantifieduncertainty
+81.93%
+and evaluated overall accuracy on progressively larger subsets 81.40% 81.06% 80.79%
+consistingofthe50%–90%mostconfidentpredictions.Fig.6
+comparestheseresultswithperformanceobtainedusingalltest 50% 60% 70% 80% 90% 100%
+Fraction of Data with Lowest Uncertainty (%)
+samples (100%).
+As shown in Fig. 6, BayesSleepNet consistently achieves Fig. 6. Overall accuracy on subsets of test samples with the lowest
+substantially higher accuracy on low-uncertainty subsets, and predictive uncertainty (top 50%–90%), compared to using all samples
+(100%),acrossfourdatasets.
+performancedegradesmonotonicallyasincreasinglyuncertain
+samplesareincluded.Thisbehaviorindicatesthattheproposed
+uncertaintyestimatesaremeaningfullyalignedwithprediction
+difficulty, allowing the model to distinguish easy-to-classify five sleep stages in a one-vs-rest setting. These analyses
+epochsfromambiguousorchallengingones.Thispropertydi- compared four models: a vanilla CNN–LSTM baseline
+rectlyunderpinstheeffectivenessofuncertainty-guidedsample (Vanilla), Bayesian Sleep Network without active learning
+selection in the proposed active learning framework. (BSN),BSNwith predictive-entropy-basedacquisition[36]
+Beyond accuracy trends, the practical usefulness of (BSN+Entropy), and BSN with uncertainty-guided active
+uncertainty-guided learning also depends on whether pre- learning (BSN+UGAL).
+dicted probabilities are well calibrated. To assess cali- As shown in Fig. 7, all models exhibit reasonably
+bration quality, we evaluated Expected Calibration Er- good calibration, with predicted probabilities closely fol-
+ror (ECE), Brier score, and reliability diagrams for all lowing the ideal diagonal across sleep stages. Impor-
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 9 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 9
+Fig. 7. Reliability diagrams for sleep stage classification across five one-vs-rest settings (W, N1, N2, N3, and REM). Each subplot compares
+probabilitycalibrationoffourmodels:avanillaCNN–LSTMbaseline(Vanilla),BayesianSleepNetworkwithoutactivelearning(BSN),BSNwith
+predictive-entropy-basedacquisition(BSN+Entropy),andBSNwithuncertainty-guidedactivelearning(BSN+UGAL).Thedasheddiagonaldenotes
+perfectcalibration.ExpectedCalibrationError(ECE)andBrierscorearereportedineachlegend.
+tantly, the proposed Bayesian models—including BSN and consistently degrades performance. On average, removing
+BSN+UGAL—maintain calibration quality comparable to GaussianweightdistributionsfromtheBayesianconvolutional
+the vanilla baseline and the entropy-based acquisition layersdecreasedaccuracy(ACC),macroF1-score(MF1),and
+strategy. While no single method consistently achieves the Cohen’sκby0.22%,0.23%,and0.003,respectively.Similarly,
+lowest ECE or Brier score across all stages, the results eliminating the dropout mechanism during inference—thus
+demonstrate that incorporating Bayesian uncertainty es- disabling Monte Carlo sampling—reduced ACC, MF1, and
+timation and uncertainty-guided active learning does not κ by 0.25%, 0.11%, and 0.003, respectively. Removing the
+degrade probability calibration. uncertainty-guided mixture stage produced a comparable per-
+Taken together, these results indicate that BayesSleep- formance decline, underscoring the complementary role of
+Net produces uncertainty estimates that are both dis- ensemble learning in our framework.
+criminative (correlated with prediction reliability) and
+2) Label Efficiency of UGAL: To further examine the
+well calibrated. This combination is essential for reliable
+robustnessandlabelefficiencyoftheproposeduncertainty-
+expert-in-the-loop adaptation and supports the practical
+guided active learning (UGAL) framework, we analyze its
+deployment of BayesSleepNet in semi-automated sleep
+performance under varying annotation budgets and com-
+staging workflows.
+pare it against standard acquisition strategies: predictive-
+entropy-based acquisition [36] and random sampling.
+E. AblationStudy Specifically, we report overall accuracy and macro F1-
+scoreasfunctionsofthelabelingbudget,rangingfrom5%
+1) Impact of Individual Components: We carried out com-
+to 50% of samples from a new subject. The performance
+prehensive ablation studies to evaluate the impact of indi-
+was assessed on the remaining unlabeled data.
+vidual components integrated into BayesSleepNet, which is
+builtuponthevanillaCNN-LSTMarchitecture.Theevaluated As shown in Fig. 8, UGAL consistently achieves higher
+components include: (1) Monte Carlo Dropout, (2) Bayesian performance than random sampling across all labeling
+convolutional layers, and (3) the mixture-of-experts ensemble budgets, demonstrating the clear benefit of uncertainty-
+stage. By isolating and disabling each component in turn, guided sample selection. Compared with predictive-
+we aimed to quantify its specific contribution to overall entropy-based acquisition—a widely adopted baseline in
+sleep staging performance. Detailed results are summarized uncertainty-basedactivelearning—UGALprovidesnotice-
+in Table IV. able gains in the low-budget regime (5%-20%), where
+The results show that removing any of these components annotation efficiency is most critical. As the labeling
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 10 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+10 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+Fig.8. Label-efficiencycurvesunderdifferentacquisitionstrategiesontheSleepEDF-78dataset.Overallaccuracy(left)andmacroF1-score(right)
+arereportedasfunctionsofthelabelingbudget.Resultscompareuncertainty-guidedactivelearning(UGAL)withdifferentsystematicsampling
+intervals (k = 5,10,20) against predictive-entropy-based acquisition and random sampling, under identical annotation budgets. The results
+illustratetherobustnessofUGALtothechoiceofkanditsimprovedlabelefficiencyoverbaselinestrategies.
+budget increases, the performance gap between different
+acquisitionstrategiesgraduallynarrows,whichisexpected
+TABLEIV
+since sufficient labeled data reduces the impact of the
+ABLATIONSTUDYOFBAYESSLEEPNETCOMPONENTSANDSAMPLE
+SELECTIONSTRATEGIESACROSSDATASETS.RESULTSCOMPARETHE sampling strategy.
+EFFECTSOFUNCERTAINTY-GUIDEDSELECTION(UGAL),RANDOM We further investigate the influence of the systematic
+SELECTION,MONTECARLODROPOUT,BAYESIANCONVOLUTIONAL samplingintervalkusedinStage1ofUGALbyevaluating
+LAYERS,ANDTHEENSEMBLEMECHANISM.BOLDVALUESINDICATETHE
+three representative values (k = 5,10,20). While all
+BESTPERFORMANCEFOREACHDATASET.
+variants of UGAL outperform baseline strategies at the
+Dataset System ACC MF1 κ samebudget,k =10yieldsthemoststableandconsistently
+BayesSleepNet(UGAL) 94.58 89.24 0.925 strong performance across both accuracy and macro F1-
+BayesSleepNet(Entropy) 94.71 88.84 0.919 score. Smaller values of k tend to over-emphasize highly
+BayesSleepNet(Random) 91.98 88.15 0.890
+uncertainsamples,whereaslargervaluesincreasediversity
+SleepEDF-20
+BayesSleepNet 86.75 81.12 0.819 at the cost of informativeness. Importantly, the differences
+w/oensemble 86.60 80.91 0.817
+among different k values diminish as the labeling budget
+w/oBayesianconv 86.74 81.22 0.819
+w/oMCdropout 86.56 81.00 0.817 increases, indicating that UGAL is not overly sensitive to
+Vanillamodel 86.49 81.23 0.816 this design choice. k only controls the spacing along the
+BayesSleepNet(UGAL) 93.33 89.38 0.905 uncertainty-ranked list. We always select exactly ⌊0.1N⌋
+BayesSleepNet(Entropy) 91.65 88.20 0.890
+samples in Stage 1. If the end of the list is reached before
+BayesSleepNet(Random) 91.20 88.03 0.878
+SleepEDF-78 the budget is met, sampling continues from the beginning
+BayesSleepNet 84.40 78.55 0.783
+to ensure a constant budget.
+w/oensemble 84.04 78.37 0.778
+w/oBayesianconv 84.09 78.19 0.779 Overall, these results demonstrate that UGAL achieves
+w/oMCdropout 84.16 78.61 0.781 improved label efficiency over standard acquisition strate-
+Vanillamodel 83.36 77.56 0.769
+giesunderidenticalannotationbudgets,whilemaintaining
+BayesSleepNet(UGAL) 92.24 87.99 0.886 robustness with respect to the sampling interval. This
+BayesSleepNet(Entropy) 91.12 86.88 0.871
+behavior supports the practical applicability of UGAL in
+BayesSleepNet(Random) 89.64 86.05 0.851
+MASS semi-automated sleep staging scenarios, where annotation
+BayesSleepNet 86.85 82.46 0.811
+w/oensemble 86.80 82.48 0.811 budgets are limited and consistent performance across
+w/oBayesianconv 86.80 82.39 0.811 subjects is required.
+w/oMCdropout 86.68 82.47 0.810
+3) Number of Expert Models: Finally, we investigated the
+Vanillamodel 86.51 82.22 0.807
+effect of the number of experts in the ensemble on model
+BayesSleepNet(UGAL) 89.00 87.38 0.848
+performancebycomparingconfigurationswithone,two,three,
+BayesSleepNet(Entropy) 88.15 86.38 0.829
+BayesSleepNet(Random) 86.49 85.26 0.815 four, and five experts. Each expert was trained on a disjoint
+Physio2018 BayesSleepNet 80.79 78.80 0.737 subset of the training data, such that every model received
+w/oensemble 80.60 78.63 0.734 only 1/N of the available samples, where N denotes the total
+w/oBayesianconv 80.30 78.20 0.730
+number of experts. All evaluations were performed using k-
+w/oMCdropout 80.30 78.59 0.732
+Vanillamodel 80.05 77.81 0.727 fold cross-validation to ensure fairness. The results, presented
+in Fig. 9, indicate that using two experts provides the best
+trade-offbetweenaccuracyandcomputationalcost.Increasing
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 11 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 11
+the number of experts beyond two does not deliver additional Bayesian convolutional layers, and the uncertainty-guided
+performance gains and instead introduces significant memory expert mixture all play pivotal roles in enhancing perfor-
+and computation overhead. mance. Notably, Bayesian weight distributions and stochastic
+dropout provide complementary stochasticity, outperforming
+configurations that rely on either approach alone. Moreover,
+SleepEDF20 SleepEDF78 MASS Physio2018
+incorporating an uncertainty-weighted ensemble strategy for
+86.80% 86.85% 86.76% prediction fusion significantly boosts classification reliability,
+86.69%
+86.53% underscoring the value of uncertainty-aware decision-making
+y c 86.60% 86.75% 86.69% 86.53% 86.29% in automated sleep staging.
+a
+r u c c A 84.04% 84.40% 84.41% 84.27% 84.29% to F s r u o p m po a rt c a lin s i e c m al i- p a e u r t s o p m e a ct t i e v d e, w B o a r y k e fl s o S w lee r p a N th e e t r is th d a e n sig fu n l e l d y
+lla replaceexpertscoring.Byexplicitlyquantifyingpredictive
+r
+e
+v uncertainty, the system can identify a limited subset of
+O
+epochs that require expert review, allowing clinicians to
+80.60% 80.79% 80.81% 80.81% 80.78%
+focus on diagnostically ambiguous segments such as stage
+transitions.Thisparadigmalignswellwithreal-worldsleep
+laboratories and home monitoring scenarios, where full-
+1 2 3 4 5
+Number of Expert Models night manual scoring remains costly and time-consuming.
+Fig.9. Effectofthenumberofexpertmodelsintheensembleonoverall
+sleepstagingaccuracy. B. ComplexityandEfficiency
+4) Hyperparameters: We conducted sensitivity analyses on
+key hyperparameters, including the weighting factor α in the TABLEVI
+Bayesian entropy calculation (Eq. 10). As shown in Table V, NUMBEROFTRAINABLEPARAMETERSFORBAYESSLEEPNETAND
+BASELINEMODELS.LOWERVALUESINDICATEMORELIGHTWEIGHT
+varyingαbetween0.25and0.75resultedinonlyminorfluctu-
+ARCHITECTURES.
+ationsinperformance,indicatingthatBayesSleepNetisrobust
+to this parameter choice. An α value of 0.50 consistently Model Parameters
+yielded the best results across metrics. BayesSleepNet 5.3×105
+DeepSleepNet 2.5×107
+SleepEEGNet 2.6×106
+TABLEV SleepTransformer 3.7×106
+SENSITIVITYANALYSISOFTHEPARAMETERαINBAYESIANENTROPY TinySleepNet 1.3×106
+ONSLEEPEDF-78. XSleepNet 5.8×106
+α ACC(%) MF1(%) DeepSleepNet-lite 6.0×105
+0.25 93.21 89.02 U-Time 1.6×106
+0.50 93.33 89.38
+0.75 93.18 89.10
+Although BayesSleepNet achieves superior accuracy, it
+maintains a lightweight architecture with approximately 5.3×
+105 trainable parameters in total (Table VI), which has sub-
+V. DISCUSSION
+stantially fewer parameters than high-capacity models such
+A. PerformanceandClinicalRelevance as XSleepNet (5.8×106) and SleepTransformer (3.7×106).
+This study introduces BayesSleepNet, a novel framework Notably, this parameter count corresponds to the combined
+that bridges a critical reliability gap in automated sleep stag- size of two expert models, each trained on a disjoint half of
+ing by combining Bayesian uncertainty quantification with thetrainingdata.Asaresult,theper-expertmodelsizeremains
+uncertainty-guided active learning. By leveraging predictive compact (approximately 2.6 × 105 parameters), supporting
+uncertainty, BayesSleepNet reduces clinician labeling require- efficient training and scalability.
+ments to just 20% of samples from new subjects while Despite employing Monte Carlo sampling to esti-
+achieving substantial performance improvements. Across four mate predictive uncertainty, the inference overhead of
+benchmark datasets, overall accuracy, macro F1-score, and BayesSleepNet remains tractable and well controlled in
+Cohen’s κ improved from 84.70%, 80.23%, and 0.788 (with- practice. To quantify the runtime cost introduced by
+out manual annotations) to 92.29%, 88.50%, and 0.896, re- MonteCarlosampling,webenchmarkedinferencelatency,
+spectively—demonstrating that active learning can effectively throughput, and peak GPU memory usage under dif-
+balance diagnostic accuracy with annotation efficiency. These ferent numbers of stochastic forward passes, with T ∈
+findings suggest that BayesSleepNet offers a clinically practi- {1,10,50,100}. All experiments were conducted on an
+cal pathway toward scalable, cost-effective sleep staging sys- NVIDIA RTX 3090 GPU using a batch size of 256.
+tems, with the potential to reduce workload in sleep medicine AssummarizedinTableVII,inferencelatencyincreases
+while maintaining expert-level reliability. approximately linearly with T, ranging from 11.9 ms per
+Comprehensive ablation studies further validate the con- batch at T =1 to 1176.6 ms at T =100, while peak GPU
+tribution of each core component. Monte Carlo Dropout, memory usage remains nearly constant at approximately
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 12 =====
+12 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+5(0
+1
+1
+1
+:
+KWXU7GQXRU*
+5(0
+1
+1
+1
+:
+GHQLDUWHU3
+$FFXUDF\
+0)
+.DSSD
+5(0
+1
+1
+1
+:
+GHQXWHQL)
+$FFXUDF\
+0)
+.DSSD
+5(0
+1
+1
+1
+:
+     
+(SRFK
+GHWDWRQQ$
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+Fig.10. Visualizationofsleepstageclassificationforarepresentativesubject.Fromtoptobottom:(1)groundtruthsleepstages,(2)predictions
+bythepretrainedBayesSleepNet,(3)predictionsafterfine-tuningwithactivelearning(redmarkersindicatemisclassifiedepochs),and(4)epochs
+selected by the uncertainty-guided active learning strategy. Orange regions denote epochs chosen for expert annotation, while green regions
+highlightpersistentlyhigh-uncertaintyepochsafterfine-tuning.
+TABLEVII selected by the proposed uncertainty-guided active learn-
+INFERENCERUNTIMEANDMEMORYFOOTPRINTOFBAYESSLEEPNET ing strategy.
+UNDERDIFFERENTMONTECARLOSAMPLINGNUMBERST,EVALUATED
+Orange-shaded regions denote representative epochs
+ONANNVIDIARTX3090GPUWITHBATCHSIZE256.
+selectedforexpertannotationduringtheadaptationstage,
+T Time/batch(ms) Throughput(epochs/s) Memory(MB) which are distributed across all sleep stages and ensure
+1 11.89±0.41 21526.2 1943.8 balanced coverage of the subject’s sleep architecture. In
+10 119.32±3.92 2145.6 1943.8 contrast, green-shaded regions correspond to epochs that
+50 591.32±9.29 432.9 1944.0
+remain highly uncertain after fine-tuning. Notably, these
+100 1176.57±16.58 217.6 1944.2
+high-uncertainty epochs are predominantly concentrated
+around transitions between adjacent sleep stages—periods
+that are widely recognized as intrinsically ambiguous
+1.94GBacrossallsettings.ThisindicatesthatMonteCarlo
+and prone to inter-scorer variability in both manual and
+sampling introduces computational overhead primarily
+automated sleep staging.
+throughrepeatedforwardpasses,withoutincreasingmem-
+After incorporating expert annotations for these chal-
+oryconsumption,asnetworkparametersandintermediate
+lenging epochs, the refined predictions exhibit substan-
+activations are reused.
+tially improved agreement with the ground truth. This
+Importantly, large values of T are only required during
+observation indicates that the proposed uncertainty esti-
+uncertaintyestimationforuncertainty-guidedactivelearn-
+mation effectively identifies transition-related ambiguities
+ing (UGAL), which is performed offline or intermittently
+and enables BayesSleepNet to focus expert effort on the
+when adapting the model to a new subject. For routine
+mostdifficult-to-stagesegments,therebyimprovingoverall
+inference after adaptation, BayesSleepNet operates in a
+reliability while minimizing annotation burden through a
+deterministic mode (T = 1), achieving a throughput
+human-in-the-loop workflow.
+exceeding 21,000 epochs per second, comparable to con-
+ventional CNN-LSTM baselines and substantially more
+D. LimitationsandFutureWork
+efficient than transformer-based models.
+Despite the strong performance of BayesSleepNet, several
+limitations remain. First, our evaluation was conducted
+C. Interpretability
+on publicly available datasets that predominantly consist
+Fig. 10 illustrates sleep stage classification results for of healthy subjects and were analyzed within subject-
+a representative subject. The first three panels show the independent, within-dataset settings. As a result, the cur-
+ground-truth hypnogram, predictions from the pretrained rent study does not fully capture the combined challenges
+BayesSleepNet, and predictions after uncertainty-guided posed by heterogeneous clinical populations and distribu-
+fine-tuning,respectively.Thefourthpanelvisualizesepochs tion shifts across datasets or recording centers. Although
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 13 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+AUTHORetal.:PREPARATIONOFPAPERSFORIEEETRANSACTIONSANDJOURNALS(DECEMBER2023) 13
+BayesSleepNet is designed to support uncertainty-aware [5] A.Malhotra,M.Younes,S.T.Kuna,R.Benca,C.A.Kushida,J.Walsh,
+adaptation, its performance under explicit cross-dataset A.Hanlon,B.Staley,A.I.Pack,andG.W.Pien,“Performanceofan
+automated polysomnography scoring system versus computer-assisted
+or cross-center transfer scenarios warrants further inves-
+manualscoring,”Sleep,vol.36,no.4,pp.573–582,2013.
+tigation and will be an important direction for future [6] H. Danker-Hopfe, P. Anderer, J. Zeitlhofer, M. Boeck, H. Dorn,
+work. Second, the current approach is implemented in a G. Gruber, E. Heller, E. Loretz, D. Moser, S. Parapatics, B. Saletu,
+A. Schmidt, and G. Dorffner, “Interrater reliability for sleep scoring
+single-channel EEG setting with a CNN–LSTM backbone,
+according to the rechtschaffen & kales and the new AASM standard,”
+whereas real-world sleep assessment often relies on multi- Journal of Sleep Research, vol. 18, no. 1, pp. 74–84, Mar 2009.
+channel or multimodal PSG recordings and operates [Online].Available:https://doi.org/10.1111/j.1365-2869.2008.00700.x
+[7] R. S. Rosenberg and S. V. Hout, “The american academy of sleep
+underlesscontrolledclinicalconditions.Thisdesignchoice
+medicineinter-scorerreliabilityprogram:Sleepstagescoring,”Journal
+was made to emphasize computational efficiency and to ofClinicalSleepMedicine,vol.9,no.1,pp.81–87,Jan2013.[Online].
+isolate the contribution of uncertainty-guided active learn- Available:https://doi.org/10.5664/jcsm.2350
+ing. Nevertheless, more expressive architectures—such as [8] A. Supratak, H. Dong, C. Wu, and Y. Guo, “DeepSleepNet: A model
+for automatic sleep stage scoring based on raw single-channel EEG,”
+Transformer- or attention-based models—and evaluations IEEETransactionsonNeuralSystemsandRehabilitationEngineering,
+in real-world clinical or home-monitoring scenarios may vol.25,no.11,pp.1998–2008,2017.
+further improve robustness and applicability. Exploring [9] H.Seo,S.Back,S.Lee,D.Park,T.Kim,andK.Lee,“Intra-andinter-
+epoch temporal context network (IITNet) using sub-epoch features for
+how the proposed Bayesian uncertainty estimation and
+automaticsleepscoringonrawsingle-channelEEG,”BiomedicalSignal
+active learning framework scales to such settings remains ProcessingandControl,vol.61,p.102037,2020.
+an important direction for future work.Third,althoughthe [10] S.Mousavi,F.Afghah,andU.R.Acharya,“SleepEEGNet:Automated
+sleepstagescoringwithsequencetosequencedeeplearningapproach,”
+model provides quantified uncertainty, the interpretability of
+PloSOne,vol.14,no.5,p.e0216456,2019.
+these uncertainty estimates remains limited. Developing more [11] A. Supratak and Y. Guo, “TinySleepNet: An efficient deep learning
+transparent uncertainty explanations and integrating them into model for sleep stage scoring based on raw single-channel EEG,” in
+2020 42nd Annual International Conference of the IEEE Engineering
+clinical workflows will be important for practical adoption.
+inMedicine&BiologySociety(EMBC). IEEE,2020,pp.641–644.
+[12] N.Banluesombatkul,P.Ouppaphan,P.Leelaarporn,P.Lakhan,B.Chai-
+VI. CONCLUSIONS tusaney, N. Jaimchariyatam, E. Chuangsuwanich, W. Chen, H. Phan,
+N. Dilokthanakul, and T. Wilaiprasitporn, “MetaSleepLearner: A pilot
+In this work, we introduced BayesSleepNet, a novel
+studyonfastadaptationofbio-signals-basedsleepstageclassifiertonew
+uncertainty-aware framework for automated sleep staging that individualsubjectusingmeta-learning,”IEEEJournalofBiomedicaland
+combines Bayesian neural networks with a two-stage active HealthInformatics,vol.25,no.6,pp.1949–1963,2021.
+[13] A. Malhotra, M. Younes, S. T. Kuna, R. Benca, C. A. Kushida,
+learning strategy. Our approach moves beyond heuristic un-
+J. Walsh, A. Hanlon, B. Staley, A. I. Pack, and G. W. Pien,
+certaintyproxies(e.g.,softmaxorhypnodensity)byleveraging “Performanceofanautomatedpolysomnographyscoringsystemversus
+principled, Monte Carlo-based uncertainty estimates, offering computer-assistedmanualscoring,”Sleep,vol.36,no.4,pp.573–582,
+042013.[Online].Available:https://doi.org/10.5665/sleep.2548
+a more robust foundation for active sample selection. By
+[14] B.Settles,“Activelearningliteraturesurvey,”2009.
+focusing on the most informative and diagnostically uncertain
+[15] Y. Freund, H. S. Seung, E. Shamir, and N. Tishby, “Selective
+epochs, BayesSleepNet requires only 20% of expert annota- samplingusingthequerybycommitteealgorithm,”MachineLearning,
+tions for subject adaptation while achieving expert-level accu- vol. 28, no. 2, pp. 133–168, Aug. 1997. [Online]. Available:
+https://doi.org/10.1023/A:1007330508534
+racy. This balance of performance and efficiency was consis-
+[16] M. Wu, C. Li, and Z. Yao, “Deep active learning for computer vision
+tently validated across four benchmark datasets. The model’s tasks: methodologies, applications, and challenges,” Applied Sciences,
+lightweight architecture further facilitates clinical deployment vol.12,no.16,p.8103,2022.
+[17] M. Macas, N. Grimova, V. Gerla, L. Lhotska, and E. Saifutdinova,
+without excessive computational demands. Additionally, we
+“Active learning for semiautomatic sleep staging and transitional EEG
+provideextensiveablationstudiesanduncertainty-basedanaly- segments,” in 2018 IEEE International Conference on Bioinformatics
+ses,demonstratinghoweachcomponentcontributestoperfor- andBiomedicine(BIBM),2018,pp.2621–2627.
+[18] J.Li,P.Chen,S.Yu,S.Liu,andJ.Jia,“Bal:Balancingdiversityand
+manceandinterpretability.Lookingforward,weaimtoextend
+noveltyforactivelearning,”IEEETransactionsonPatternAnalysisand
+BayesSleepNettomulti-channelandpathologicaldatasetsand MachineIntelligence,vol.46,no.5,pp.3653–3664,2024.
+to further enhance the interpretability of uncertainty esti- [19] J. B. Stephansen, A. N. Olesen, M. Olsen, A. Ambati, E. B.
+Leary, H. E. Moore, O. Carrillo, L. Lin, F. Han, H. Yan, Y. L.
+mates in clinical workflows. Overall, our findings suggest that
+Sun, Y. Dauvilliers, S. Scholz, L. Barateau, B. Hogl, A. Stefani,
+Bayesian active learning can play a central role in building S. C. Hong, T. W. Kim, F. Pizza, G. Plazzi, S. Vandi, E. Antelmi,
+practical and trustworthy sleep AI systems. D. Perrin, S. T. Kuna, P. K. Schweitzer, C. Kushida, P. E. Peppard,
+H.B.D.Sorensen,P.Jennum,andE.Mignot,“Neuralnetworkanalysis
+of sleep stages enables efficient diagnosis of narcolepsy,” Nature
+REFERENCES
+Communications, vol. 9, no. 1, p. 5229, 2018. [Online]. Available:
+[1] P. Maquet, “The role of sleep in learning and memory,” Science, vol. https://www.ncbi.nlm.nih.gov/pubmed/30523329
+294,no.5544,pp.1048–1052,2001. [20] A. Kendall and Y. Gal, “What uncertainties do we need in bayesian
+[2] K.Wulff,S.Gatti,J.G.Wettstein,andR.G.Foster,“Sleepandcircadian deep learning for computer vision?” Advances in Neural Information
+rhythmdisruptioninpsychiatricandneurodegenerativedisease,”Nature ProcessingSystems,vol.30,2017.
+ReviewsNeuroscience,vol.11,no.8,pp.589–599,2010. [21] C. Blundell, J. Cornebise, K. Kavukcuoglu, and D. Wierstra, “Weight
+[3] E.A.Wolpert,“Amanualofstandardizedterminology,techniquesand uncertaintyinneuralnetwork,”inInternationalConferenceonMachine
+scoringsystemforsleepstagesofhumansubjects,”ArchivesofGeneral Learning. PMLR,2015,pp.1613–1622.
+Psychiatry,vol.20,no.2,pp.246–247,1969. [22] A. Graves, “Practical variational inference for neural networks,” Ad-
+[4] R. B. Berry, R. Brooks, C. E. Gamaldo, S. M. Harding, C. Marcus, vancesinNeuralInformationProcessingSystems,vol.24,2011.
+B. V. Vaughn et al., “The AASM manual for the scoring of sleep [23] R.A.Jacobs,M.I.Jordan,S.J.Nowlan,andG.E.Hinton,“Adaptive
+andassociatedevents,”Rules,TerminologyandTechnicalSpecifications, mixturesoflocalexperts,”NeuralComputation,vol.3,no.1,pp.79–87,
+Darien, Illinois, American Academy of Sleep Medicine, vol. 176, no. 1991.
+2012,p.7,2012. [24] W. Fedus, B. Zoph, and N. Shazeer,“Switch Transformers: Scaling to
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+===== PAGE 14 =====
+This article has been accepted for publication in IEEE Journal of Biomedical and Health Informatics. This is the author's version which has not been fully edited and
+content may change prior to final publication. Citation information: DOI 10.1109/JBHI.2026.3678608
+14 GENERICCOLORIZEDJOURNAL,VOL.XX,NO.XX,XXXX2023
+trillionparametermodelswithsimpleandefficientsparsity,”Journalof
+MachineLearningResearch,vol.23,no.120,pp.1–39,2022.
+[25] B. Kemp, A. H. Zwinderman, B. Tuk, H. A. Kamphuisen, and J. J.
+Oberye, “Analysis of a sleep-dependent neuronal feedback loop: the
+slow-wavemicrocontinuityoftheEEG,”IEEETransactionsonBiomed-
+icalEngineering,vol.47,no.9,pp.1185–1194,2000.
+[26] A. L. Goldberger, L. A. Amaral, L. Glass, J. M. Hausdorff, P. C.
+Ivanov,R.G.Mark,J.E.Mietus,G.B.Moody,C.-K.Peng,andH.E.
+Stanley, “Physiobank, physiotoolkit, and physionet: components of a
+new research resource for complex physiologic signals,” Circulation,
+vol.101,no.23,pp.e215–e220,2000.
+[27] H. Phan, F. Andreotti, N. Cooray, O. Y. Che´n, and M. De Vos, “Joint
+classificationandpredictionCNNframeworkforautomaticsleepstage
+classification,”IEEETransactionsonBiomedicalEngineering,vol.66,
+no.5,pp.1285–1296,2018.
+[28] ——, “SeqSleepNet: end-to-end hierarchical recurrent neural network
+for sequence-to-sequence automatic sleep staging,” IEEE Transactions
+on Neural Systems and Rehabilitation Engineering, vol. 27, no. 3, pp.
+400–410,2019.
+[29] M. M. Ghassemi, B. E. Moody, L.-W. H. Lehman, C. Song, Q. Li,
+H.Sun,R.G.Mark,M.B.Westover,andG.D.Clifford,“Yousnooze,
+you win: the physionet/computing in cardiology challenge 2018,” in
+2018 Computing in Cardiology Conference (CinC), vol. 45. IEEE,
+2018,pp.1–4.
+[30] I. Loshchilov and F. Hutter, “Sgdr: Stochastic gradient descent with
+warmrestarts,”arXivpreprintarXiv:1608.03983,2016.
+[31] M. Sokolova and G. Lapalme, “A systematic analysis of performance
+measures for classification tasks,” Information Processing & Manage-
+ment,vol.45,no.4,pp.427–437,2009.
+[32] H.Phan,O.Y.Che´n,M.C.Tran,P.Koch,A.Mertins,andM.DeVos,
+“XSleepNet: Multi-view sequential model for automatic sleep stag-
+ing,”IEEETransactionsonPatternAnalysisandMachineIntelligence,
+vol.44,no.9,pp.5903–5915,2021.
+[33] L.Fiorillo,P.Favaro,andF.D.Faraci,“DeepSleepNet-Lite:Asimplified
+automaticsleepstagescoringmodelwithuncertaintyestimates,”IEEE
+TransactionsonNeuralSystemsandRehabilitationEngineering,vol.29,
+pp.2076–2085,2021.
+[34] H.Phan,K.Mikkelsen,O.Y.Che´n,P.Koch,A.Mertins,andM.DeVos,
+“SleepTransformer:Automaticsleepstagingwithinterpretabilityandun-
+certaintyquantification,”IEEETransactionsonBiomedicalEngineering,
+vol.69,no.8,pp.2456–2467,2022.
+[35] M.Perslev,M.Jensen,S.Darkner,P.J.Jennum,andC.Igel,“U-time:A
+fullyconvolutionalnetworkfortimeseriessegmentationappliedtosleep
+staging,”AdvancesinNeuralInformationProcessingSystems,vol.32,
+2019.
+[36] J.Zhu,H.Wang,B.K.Tsou,andM.Ma,“Activelearningwithsampling
+byuncertaintyanddensityfordataannotations,”IEEETransactionson
+Audio,Speech,andLanguageProcessing,vol.18,no.6,pp.1323–1331,
+2010.
+Authorized licensed use limited to: University of Electronic Science and Tech of China. Downloaded on September 14,2026 at 07:15:34 UTC from IEEE Xplore. Restrictions apply.
+© 2026 IEEE. All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies. Personal use is permitted,
+but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.

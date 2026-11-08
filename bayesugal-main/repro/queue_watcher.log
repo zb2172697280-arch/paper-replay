@@ -1,0 +1,8 @@
+2026-09-20 21:28:10  watcher up | idle<=4.5 GiB | stale_log>900s | poll=60s | confirm=5
+2026-09-20 21:28:11  dry-run: free=1.97 GiB stale=True done=False streak=0
+2026-09-20 21:28:33  watcher up | idle<=4.5 GiB | stale_log>900s | poll=60s | confirm=8
+2026-09-20 21:48:03  watcher up | idle<=4.5 GiB | stale_log>900s | poll=60s | confirm=8
+2026-09-21 12:16:14  watcher up | idle<=4.5 GiB | stale_log>900s | poll=60s | confirm=8
+2026-09-22 03:18:33  main summary.json found -> main job finished cleanly
+2026-09-22 03:18:33  LAUNCH "D:\Program Files\anaconda\envs\pytorch\python.exe" -u repro\run.py --mode cv --models 1 --bayesian 1 --mc-drop 1 --micro-batch 128 --batch-size 1024 --infer-chunk 256 --epochs 200 --n-subjects 39 --data-root D:/dataset\sleep-edf-20\processed --out repro\results_ablate_noensemble --tag noens
+2026-09-22 03:18:33  started pid=16460

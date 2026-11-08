@@ -1,0 +1,1348 @@
+====================================================================================================
+RUN 2026-09-20 17:53:50 | {'data_root': 'D:\\dataset\\sleep-edf-20\\processed', 'out': 'repro/results', 'mode': 'all', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'tag': ''}
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold0 ep   1/200 lr=6.00e-05 ce=1.4962 kl=2611.2  0m 57.5s
+      fold0 ep  11/200 lr=6.60e-04 ce=0.4304 kl=2820.5  8m 58.8s
+      fold0 ep  21/200 lr=1.20e-03 ce=0.3426 kl=3285.8  17m 1.8s
+      fold0 ep  31/200 lr=1.19e-03 ce=0.3031 kl=3747.3  25m 4.7s
+      fold0 ep  41/200 lr=1.16e-03 ce=0.2691 kl=4222.3  32m 58.0s
+      fold0 ep  51/200 lr=1.11e-03 ce=0.2510 kl=4622.8  41m 49.1s
+      fold0 ep  61/200 lr=1.05e-03 ce=0.2343 kl=4999.9  49m 20.8s
+      fold0 ep  71/200 lr=9.78e-04 ce=0.2141 kl=5345.0  56m 50.1s
+      fold0 ep  81/200 lr=8.91e-04 ce=0.1995 kl=5670.1  173m 21.2s
+      fold0 ep  91/200 lr=7.95e-04 ce=0.1860 kl=5965.0  181m 1.3s
+      fold0 ep 101/200 lr=6.94e-04 ce=0.1729 kl=6223.7  188m 37.0s
+      fold0 ep 111/200 lr=5.90e-04 ce=0.1643 kl=6430.9  204m 0.9s
+      fold0 ep 121/200 lr=4.86e-04 ce=0.1609 kl=6610.7  216m 27.3s
+      fold0 ep 131/200 lr=3.85e-04 ce=0.1475 kl=6756.9  224m 17.7s
+      fold0 ep 141/200 lr=2.91e-04 ce=0.1450 kl=6867.4  232m 1.6s
+      fold0 ep 151/200 lr=2.06e-04 ce=0.1354 kl=6947.4  239m 51.3s
+      fold0 ep 161/200 lr=1.34e-04 ce=0.1321 kl=6995.0  247m 35.5s
+      fold0 ep 171/200 lr=7.52e-05 ce=0.1251 kl=7028.7  255m 15.9s
+      fold0 ep 181/200 lr=3.27e-05 ce=0.1293 kl=7045.2  262m 54.7s
+      fold0 ep 191/200 lr=7.39e-06 ce=0.1262 kl=7051.7  270m 35.0s
+      fold0 ep 200/200 lr=0.00e+00 ce=0.1259 kl=7052.4  277m 29.5s
+      CV  acc=79.84 mf1=76.04 k=0.7299  per-class F1=['84.5', '51.7', '81.6', '81.1', '81.3']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4021E0 stage1: 102/1025 selected (k=10)
+      SC4021E0 ft ep   1/200 lr=3.60e-04 ce=0.6467 kl=7052.4  0m 5.0s
+      SC4021E0 ft ep  11/200 lr=3.60e-04 ce=0.1682 kl=7052.0  0m 7.5s
+      SC4021E0 ft ep  21/200 lr=3.60e-04 ce=0.1461 kl=7052.7  0m 10.0s
+      SC4021E0 ft ep  31/200 lr=3.60e-04 ce=0.0873 kl=7054.7  0m 12.4s
+      SC4021E0 ft ep  41/200 lr=3.60e-04 ce=0.0601 kl=7056.5  0m 14.9s
+      SC4021E0 ft ep  51/200 lr=3.60e-04 ce=0.0309 kl=7058.5  0m 17.4s
+      SC4021E0 ft ep  61/200 lr=3.60e-04 ce=0.0268 kl=7060.3  0m 19.9s
+      SC4021E0 ft ep  71/200 lr=3.60e-04 ce=0.0558 kl=7061.3  0m 22.4s
+      SC4021E0 ft ep  81/200 lr=3.60e-04 ce=0.0183 kl=7062.1  0m 24.8s
+      SC4021E0 ft ep  91/200 lr=3.60e-04 ce=0.0389 kl=7062.9  0m 27.2s
+      SC4021E0 ft ep 101/200 lr=3.60e-04 ce=0.0055 kl=7063.2  0m 29.6s
+      SC4021E0 ft ep 111/200 lr=3.60e-04 ce=0.0109 kl=7064.1  0m 32.0s
+      SC4021E0 ft ep 121/200 lr=3.60e-04 ce=0.0169 kl=7065.3  0m 34.3s
+      SC4021E0 ft ep 131/200 lr=3.60e-04 ce=0.0109 kl=7065.7  0m 36.7s
+      SC4021E0 ft ep 141/200 lr=3.60e-04 ce=0.0044 kl=7065.8  0m 39.0s
+      SC4021E0 ft ep 151/200 lr=3.60e-04 ce=0.0047 kl=7066.0  0m 41.4s
+      SC4021E0 ft ep 161/200 lr=3.60e-04 ce=0.0081 kl=7066.1  0m 43.8s
+      SC4021E0 ft ep 171/200 lr=3.60e-04 ce=0.0026 kl=7066.8  0m 46.1s
+      SC4021E0 ft ep 181/200 lr=3.60e-04 ce=0.0014 kl=7067.1  0m 48.5s
+      SC4021E0 ft ep 191/200 lr=3.60e-04 ce=0.0043 kl=7067.5  0m 50.8s
+      SC4021E0 ft ep 200/200 lr=3.60e-04 ce=0.0060 kl=7067.7  0m 53.0s
+      SC4021E0 stage2: 103 annotated, eval on 820 (80.0% of the subject)
+      SC4021E0     acc=94.51 mf1=91.99 k=0.9155
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4062E0 stage1: 101/1016 selected (k=10)
+      SC4062E0 ft ep   1/200 lr=3.60e-04 ce=0.5130 kl=7052.4  0m 5.1s
+      SC4062E0 ft ep  11/200 lr=3.60e-04 ce=0.1123 kl=7051.0  0m 7.5s
+      SC4062E0 ft ep  21/200 lr=3.60e-04 ce=0.0600 kl=7052.2  0m 10.0s
+      SC4062E0 ft ep  31/200 lr=3.60e-04 ce=0.0451 kl=7053.5  0m 12.5s
+      SC4062E0 ft ep  41/200 lr=3.60e-04 ce=0.0197 kl=7055.2  0m 15.2s
+      SC4062E0 ft ep  51/200 lr=3.60e-04 ce=0.0168 kl=7057.1  0m 17.7s
+      SC4062E0 ft ep  61/200 lr=3.60e-04 ce=0.0101 kl=7058.7  0m 20.2s
+      SC4062E0 ft ep  71/200 lr=3.60e-04 ce=0.0067 kl=7060.3  0m 22.7s
+      SC4062E0 ft ep  81/200 lr=3.60e-04 ce=0.0063 kl=7061.6  0m 25.3s
+      SC4062E0 ft ep  91/200 lr=3.60e-04 ce=0.0044 kl=7061.7  0m 27.8s
+      SC4062E0 ft ep 101/200 lr=3.60e-04 ce=0.0028 kl=7062.0  0m 30.3s
+      SC4062E0 ft ep 111/200 lr=3.60e-04 ce=0.0058 kl=7061.9  0m 32.7s
+      SC4062E0 ft ep 121/200 lr=3.60e-04 ce=0.0024 kl=7062.2  0m 35.0s
+      SC4062E0 ft ep 131/200 lr=3.60e-04 ce=0.0026 kl=7061.8  0m 37.4s
+      SC4062E0 ft ep 141/200 lr=3.60e-04 ce=0.0031 kl=7060.9  0m 39.9s
+      SC4062E0 ft ep 151/200 lr=3.60e-04 ce=0.0023 kl=7060.7  0m 42.2s
+      SC4062E0 ft ep 161/200 lr=3.60e-04 ce=0.0064 kl=7060.7  0m 44.6s
+      SC4062E0 ft ep 171/200 lr=3.60e-04 ce=0.0023 kl=7060.1  0m 47.1s
+      SC4062E0 ft ep 181/200 lr=3.60e-04 ce=0.0016 kl=7058.9  0m 49.5s
+      SC4062E0 ft ep 191/200 lr=3.60e-04 ce=0.0022 kl=7058.6  0m 51.9s
+      SC4062E0 ft ep 200/200 lr=3.60e-04 ce=0.0024 kl=7056.3  0m 53.9s
+      SC4062E0 stage2: 102 annotated, eval on 813 (80.0% of the subject)
+      SC4062E0     acc=94.34 mf1=90.07 k=0.9235
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4171E0 stage1: 100/1002 selected (k=10)
+      SC4171E0 ft ep   1/200 lr=3.60e-04 ce=1.4917 kl=7052.4  0m 5.0s
+      SC4171E0 ft ep  11/200 lr=3.60e-04 ce=0.6176 kl=7051.2  0m 7.5s
+      SC4171E0 ft ep  21/200 lr=3.60e-04 ce=0.2286 kl=7050.8  0m 9.9s
+      SC4171E0 ft ep  31/200 lr=3.60e-04 ce=0.2571 kl=7050.6  0m 12.4s
+      SC4171E0 ft ep  41/200 lr=3.60e-04 ce=0.1280 kl=7050.5  0m 14.8s
+      SC4171E0 ft ep  51/200 lr=3.60e-04 ce=0.0846 kl=7051.4  0m 17.1s
+      SC4171E0 ft ep  61/200 lr=3.60e-04 ce=0.0333 kl=7052.5  0m 19.4s
+      SC4171E0 ft ep  71/200 lr=3.60e-04 ce=0.0464 kl=7054.2  0m 21.6s
+      SC4171E0 ft ep  81/200 lr=3.60e-04 ce=0.0436 kl=7056.0  0m 23.9s
+      SC4171E0 ft ep  91/200 lr=3.60e-04 ce=0.0394 kl=7058.4  0m 26.2s
+      SC4171E0 ft ep 101/200 lr=3.60e-04 ce=0.0111 kl=7059.7  0m 28.7s
+      SC4171E0 ft ep 111/200 lr=3.60e-04 ce=0.0229 kl=7061.0  0m 31.2s
+      SC4171E0 ft ep 121/200 lr=3.60e-04 ce=0.0151 kl=7061.8  0m 33.5s
+      SC4171E0 ft ep 131/200 lr=3.60e-04 ce=0.0067 kl=7063.1  0m 35.9s
+      SC4171E0 ft ep 141/200 lr=3.60e-04 ce=0.0270 kl=7064.0  0m 38.2s
+      SC4171E0 ft ep 151/200 lr=3.60e-04 ce=0.0079 kl=7064.8  0m 40.5s
+      SC4171E0 ft ep 161/200 lr=3.60e-04 ce=0.0087 kl=7065.9  0m 42.8s
+      SC4171E0 ft ep 171/200 lr=3.60e-04 ce=0.0077 kl=7066.5  0m 45.1s
+      SC4171E0 ft ep 181/200 lr=3.60e-04 ce=0.0040 kl=7067.7  0m 47.4s
+      SC4171E0 ft ep 191/200 lr=3.60e-04 ce=0.0100 kl=7068.5  0m 49.7s
+      SC4171E0 ft ep 200/200 lr=3.60e-04 ce=0.0032 kl=7068.9  0m 51.8s
+      SC4171E0 stage2: 101 annotated, eval on 801 (79.9% of the subject)
+      SC4171E0     acc=91.64 mf1=82.30 k=0.8877
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4182E0 stage1: 92/920 selected (k=10)
+      SC4182E0 ft ep   1/200 lr=3.60e-04 ce=1.0594 kl=7052.4  0m 4.8s
+      SC4182E0 ft ep  11/200 lr=3.60e-04 ce=0.3221 kl=7053.9  0m 6.9s
+      SC4182E0 ft ep  21/200 lr=3.60e-04 ce=0.1968 kl=7055.3  0m 9.2s
+      SC4182E0 ft ep  31/200 lr=3.60e-04 ce=0.1037 kl=7057.2  0m 11.4s
+      SC4182E0 ft ep  41/200 lr=3.60e-04 ce=0.0807 kl=7058.7  0m 13.7s
+      SC4182E0 ft ep  51/200 lr=3.60e-04 ce=0.0405 kl=7059.0  0m 16.1s
+      SC4182E0 ft ep  61/200 lr=3.60e-04 ce=0.0267 kl=7060.5  0m 18.5s
+      SC4182E0 ft ep  71/200 lr=3.60e-04 ce=0.0253 kl=7062.1  0m 20.9s
+      SC4182E0 ft ep  81/200 lr=3.60e-04 ce=0.0255 kl=7063.8  0m 23.1s
+      SC4182E0 ft ep  91/200 lr=3.60e-04 ce=0.0164 kl=7065.9  0m 25.4s
+      SC4182E0 ft ep 101/200 lr=3.60e-04 ce=0.0173 kl=7067.5  0m 27.6s
+      SC4182E0 ft ep 111/200 lr=3.60e-04 ce=0.0150 kl=7069.1  0m 29.9s
+      SC4182E0 ft ep 121/200 lr=3.60e-04 ce=0.0098 kl=7070.2  0m 32.1s
+      SC4182E0 ft ep 131/200 lr=3.60e-04 ce=0.0117 kl=7071.2  0m 34.3s
+      SC4182E0 ft ep 141/200 lr=3.60e-04 ce=0.0099 kl=7073.3  0m 36.6s
+      SC4182E0 ft ep 151/200 lr=3.60e-04 ce=0.0110 kl=7074.7  0m 38.8s
+      SC4182E0 ft ep 161/200 lr=3.60e-04 ce=0.0078 kl=7075.1  0m 41.0s
+      SC4182E0 ft ep 171/200 lr=3.60e-04 ce=0.0058 kl=7076.0  0m 43.2s
+      SC4182E0 ft ep 181/200 lr=3.60e-04 ce=0.0185 kl=7077.4  0m 45.5s
+      SC4182E0 ft ep 191/200 lr=3.60e-04 ce=0.0062 kl=7078.0  0m 47.7s
+      SC4182E0 ft ep 200/200 lr=3.60e-04 ce=0.0029 kl=7077.8  0m 49.7s
+      SC4182E0 stage2: 92 annotated, eval on 736 (80.0% of the subject)
+      SC4182E0     acc=86.82 mf1=84.43 k=0.8312
+      fold 0 done in 298m 41.1s
+----------------------------------------------------------------------------------------------------
+FOLD 1  train=35 recordings  test=4 recordings (SC4031E0, SC4131E0, SC4141E0, SC4152E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold1 ep   1/200 lr=6.00e-05 ce=1.5728 kl=2918.8  0m 45.9s
+      fold1 ep  11/200 lr=6.60e-04 ce=0.4685 kl=3098.7  8m 25.5s
+      fold1 ep  21/200 lr=1.20e-03 ce=0.3718 kl=3529.0  16m 14.0s
+      fold1 ep  31/200 lr=1.19e-03 ce=0.3273 kl=3965.4  23m 48.4s
+      fold1 ep  41/200 lr=1.16e-03 ce=0.2978 kl=4368.0  31m 4.0s
+      fold1 ep  51/200 lr=1.11e-03 ce=0.2716 kl=4744.1  38m 8.2s
+      fold1 ep  61/200 lr=1.05e-03 ce=0.2507 kl=5117.1  45m 12.3s
+      fold1 ep  71/200 lr=9.78e-04 ce=0.2364 kl=5438.7  52m 16.5s
+      fold1 ep  81/200 lr=8.91e-04 ce=0.2185 kl=5758.0  59m 20.8s
+      fold1 ep  91/200 lr=7.95e-04 ce=0.2089 kl=6013.5  66m 25.1s
+      fold1 ep 101/200 lr=6.94e-04 ce=0.1909 kl=6255.2  73m 29.4s
+      fold1 ep 111/200 lr=5.90e-04 ce=0.1925 kl=6444.6  80m 33.8s
+      fold1 ep 121/200 lr=4.86e-04 ce=0.1778 kl=6610.8  87m 38.1s
+      fold1 ep 131/200 lr=3.85e-04 ce=0.1725 kl=6746.2  94m 42.3s
+      fold1 ep 141/200 lr=2.91e-04 ce=0.1553 kl=6854.0  101m 46.5s
+      fold1 ep 151/200 lr=2.06e-04 ce=0.1456 kl=6931.5  108m 50.7s
+      fold1 ep 161/200 lr=1.34e-04 ce=0.1461 kl=6979.9  115m 54.9s
+      fold1 ep 171/200 lr=7.52e-05 ce=0.1410 kl=7010.3  122m 59.2s
+      fold1 ep 181/200 lr=3.27e-05 ce=0.1415 kl=7026.1  130m 3.5s
+      fold1 ep 191/200 lr=7.39e-06 ce=0.1408 kl=7031.7  137m 7.8s
+      fold1 ep 200/200 lr=0.00e+00 ce=0.1391 kl=7032.4  143m 29.8s
+      CV  acc=88.60 mf1=82.09 k=0.8457  per-class F1=['95.8', '52.6', '87.3', '81.6', '93.2']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4031E0 stage1: 95/952 selected (k=10)
+      SC4031E0 ft ep   1/200 lr=3.60e-04 ce=0.9584 kl=7032.4  0m 4.5s
+      SC4031E0 ft ep  11/200 lr=3.60e-04 ce=0.1584 kl=7029.6  0m 6.7s
+      SC4031E0 ft ep  21/200 lr=3.60e-04 ce=0.1200 kl=7029.1  0m 8.8s
+      SC4031E0 ft ep  31/200 lr=3.60e-04 ce=0.0465 kl=7028.7  0m 10.9s
+      SC4031E0 ft ep  41/200 lr=3.60e-04 ce=0.0691 kl=7029.7  0m 13.0s
+      SC4031E0 ft ep  51/200 lr=3.60e-04 ce=0.0262 kl=7030.5  0m 15.1s
+      SC4031E0 ft ep  61/200 lr=3.60e-04 ce=0.0205 kl=7031.7  0m 17.2s
+      SC4031E0 ft ep  71/200 lr=3.60e-04 ce=0.0230 kl=7032.8  0m 19.3s
+      SC4031E0 ft ep  81/200 lr=3.60e-04 ce=0.0211 kl=7033.2  0m 21.4s
+      SC4031E0 ft ep  91/200 lr=3.60e-04 ce=0.0082 kl=7034.0  0m 23.5s
+      SC4031E0 ft ep 101/200 lr=3.60e-04 ce=0.0075 kl=7034.1  0m 25.6s
+      SC4031E0 ft ep 111/200 lr=3.60e-04 ce=0.0057 kl=7034.7  0m 27.7s
+      SC4031E0 ft ep 121/200 lr=3.60e-04 ce=0.0067 kl=7035.6  0m 29.8s
+      SC4031E0 ft ep 131/200 lr=3.60e-04 ce=0.0022 kl=7036.4  0m 32.0s
+      SC4031E0 ft ep 141/200 lr=3.60e-04 ce=0.0054 kl=7038.1  0m 34.1s
+      SC4031E0 ft ep 151/200 lr=3.60e-04 ce=0.0036 kl=7039.1  0m 36.2s
+      SC4031E0 ft ep 161/200 lr=3.60e-04 ce=0.0078 kl=7040.2  0m 38.3s
+      SC4031E0 ft ep 171/200 lr=3.60e-04 ce=0.0023 kl=7041.4  0m 40.4s
+      SC4031E0 ft ep 181/200 lr=3.60e-04 ce=0.0035 kl=7040.7  0m 42.5s
+      SC4031E0 ft ep 191/200 lr=3.60e-04 ce=0.0017 kl=7042.8  0m 44.6s
+      SC4031E0 ft ep 200/200 lr=3.60e-04 ce=0.0051 kl=7045.2  0m 46.5s
+      SC4031E0 stage2: 96 annotated, eval on 761 (79.9% of the subject)
+      SC4031E0     acc=95.27 mf1=88.68 k=0.9269
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4131E0 stage1: 102/1028 selected (k=10)
+      SC4131E0 ft ep   1/200 lr=3.60e-04 ce=0.3492 kl=7032.4  0m 0.2s
+      SC4131E0 ft ep  11/200 lr=3.60e-04 ce=0.1132 kl=7029.9  0m 2.5s
+      SC4131E0 ft ep  21/200 lr=3.60e-04 ce=0.0377 kl=7033.0  0m 4.7s
+      SC4131E0 ft ep  31/200 lr=3.60e-04 ce=0.0149 kl=7034.9  0m 7.0s
+      SC4131E0 ft ep  41/200 lr=3.60e-04 ce=0.0091 kl=7037.5  0m 9.2s
+      SC4131E0 ft ep  51/200 lr=3.60e-04 ce=0.0084 kl=7038.9  0m 11.5s
+      SC4131E0 ft ep  61/200 lr=3.60e-04 ce=0.0028 kl=7039.6  0m 13.7s
+      SC4131E0 ft ep  71/200 lr=3.60e-04 ce=0.0048 kl=7040.1  0m 15.9s
+      SC4131E0 ft ep  81/200 lr=3.60e-04 ce=0.0048 kl=7041.7  0m 18.2s
+      SC4131E0 ft ep  91/200 lr=3.60e-04 ce=0.0041 kl=7041.5  0m 20.4s
+      SC4131E0 ft ep 101/200 lr=3.60e-04 ce=0.0019 kl=7041.2  0m 22.7s
+      SC4131E0 ft ep 111/200 lr=3.60e-04 ce=0.0038 kl=7041.1  0m 24.9s
+      SC4131E0 ft ep 121/200 lr=3.60e-04 ce=0.0025 kl=7041.4  0m 27.2s
+      SC4131E0 ft ep 131/200 lr=3.60e-04 ce=0.0017 kl=7041.5  0m 29.5s
+      SC4131E0 ft ep 141/200 lr=3.60e-04 ce=0.0032 kl=7043.9  0m 31.7s
+      SC4131E0 ft ep 151/200 lr=3.60e-04 ce=0.0037 kl=7046.6  0m 34.0s
+      SC4131E0 ft ep 161/200 lr=3.60e-04 ce=0.0022 kl=7048.2  0m 36.2s
+      SC4131E0 ft ep 171/200 lr=3.60e-04 ce=0.0019 kl=7048.5  0m 38.5s
+      SC4131E0 ft ep 181/200 lr=3.60e-04 ce=0.0042 kl=7049.4  0m 40.7s
+      SC4131E0 ft ep 191/200 lr=3.60e-04 ce=0.0009 kl=7049.2  0m 43.0s
+      SC4131E0 ft ep 200/200 lr=3.60e-04 ce=0.0037 kl=7048.7  0m 45.0s
+      SC4131E0 stage2: 103 annotated, eval on 823 (80.1% of the subject)
+      SC4131E0     acc=91.74 mf1=87.88 k=0.8809
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4141E0 stage1: 100/1004 selected (k=10)
+      SC4141E0 ft ep   1/200 lr=3.60e-04 ce=0.1168 kl=7032.4  0m 0.2s
+      SC4141E0 ft ep  11/200 lr=3.60e-04 ce=0.0427 kl=7035.9  0m 2.5s
+      SC4141E0 ft ep  21/200 lr=3.60e-04 ce=0.0132 kl=7037.0  0m 4.7s
+      SC4141E0 ft ep  31/200 lr=3.60e-04 ce=0.0128 kl=7038.2  0m 6.9s
+      SC4141E0 ft ep  41/200 lr=3.60e-04 ce=0.0207 kl=7039.4  0m 9.2s
+      SC4141E0 ft ep  51/200 lr=3.60e-04 ce=0.0107 kl=7039.3  0m 11.4s
+      SC4141E0 ft ep  61/200 lr=3.60e-04 ce=0.0020 kl=7038.7  0m 13.6s
+      SC4141E0 ft ep  71/200 lr=3.60e-04 ce=0.0023 kl=7038.2  0m 15.9s
+      SC4141E0 ft ep  81/200 lr=3.60e-04 ce=0.0031 kl=7037.7  0m 18.1s
+      SC4141E0 ft ep  91/200 lr=3.60e-04 ce=0.0025 kl=7037.3  0m 20.3s
+      SC4141E0 ft ep 101/200 lr=3.60e-04 ce=0.0015 kl=7037.1  0m 22.6s
+      SC4141E0 ft ep 111/200 lr=3.60e-04 ce=0.0022 kl=7036.6  0m 24.8s
+      SC4141E0 ft ep 121/200 lr=3.60e-04 ce=0.0026 kl=7035.5  0m 27.0s
+      SC4141E0 ft ep 131/200 lr=3.60e-04 ce=0.0021 kl=7034.1  0m 29.3s
+      SC4141E0 ft ep 141/200 lr=3.60e-04 ce=0.0012 kl=7032.7  0m 31.5s
+      SC4141E0 ft ep 151/200 lr=3.60e-04 ce=0.0033 kl=7031.1  0m 33.7s
+      SC4141E0 ft ep 161/200 lr=3.60e-04 ce=0.0021 kl=7029.3  0m 36.0s
+      SC4141E0 ft ep 171/200 lr=3.60e-04 ce=0.0009 kl=7027.0  0m 38.2s
+      SC4141E0 ft ep 181/200 lr=3.60e-04 ce=0.0005 kl=7024.8  0m 40.4s
+      SC4141E0 ft ep 191/200 lr=3.60e-04 ce=0.0007 kl=7021.2  0m 42.7s
+      SC4141E0 ft ep 200/200 lr=3.60e-04 ce=0.0006 kl=7018.7  0m 44.7s
+      SC4141E0 stage2: 101 annotated, eval on 803 (80.0% of the subject)
+      SC4141E0     acc=95.27 mf1=80.48 k=0.9346
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4152E0 stage1: 176/1762 selected (k=10)
+      SC4152E0 ft ep   1/200 lr=3.60e-04 ce=0.3156 kl=7032.4  0m 3.1s
+      SC4152E0 ft ep  11/200 lr=3.60e-04 ce=0.1147 kl=7034.7  0m 6.9s
+      SC4152E0 ft ep  21/200 lr=3.60e-04 ce=0.1077 kl=7036.3  0m 10.9s
+      SC4152E0 ft ep  31/200 lr=3.60e-04 ce=0.0604 kl=7037.9  0m 14.8s
+      SC4152E0 ft ep  41/200 lr=3.60e-04 ce=0.0306 kl=7039.6  0m 18.7s
+      SC4152E0 ft ep  51/200 lr=3.60e-04 ce=0.0699 kl=7039.3  0m 22.5s
+      SC4152E0 ft ep  61/200 lr=3.60e-04 ce=0.0260 kl=7040.7  0m 26.4s
+      SC4152E0 ft ep  71/200 lr=3.60e-04 ce=0.0153 kl=7042.1  0m 30.3s
+      SC4152E0 ft ep  81/200 lr=3.60e-04 ce=0.0135 kl=7043.2  0m 34.2s
+      SC4152E0 ft ep  91/200 lr=3.60e-04 ce=0.0549 kl=7043.3  0m 38.1s
+      SC4152E0 ft ep 101/200 lr=3.60e-04 ce=0.0115 kl=7046.0  0m 41.9s
+      SC4152E0 ft ep 111/200 lr=3.60e-04 ce=0.0428 kl=7047.1  0m 45.8s
+      SC4152E0 ft ep 121/200 lr=3.60e-04 ce=0.0120 kl=7048.7  0m 49.7s
+      SC4152E0 ft ep 131/200 lr=3.60e-04 ce=0.0052 kl=7051.5  0m 53.6s
+      SC4152E0 ft ep 141/200 lr=3.60e-04 ce=0.0111 kl=7052.3  0m 57.5s
+      SC4152E0 ft ep 151/200 lr=3.60e-04 ce=0.0089 kl=7053.0  1m 1.3s
+      SC4152E0 ft ep 161/200 lr=3.60e-04 ce=0.0073 kl=7053.1  1m 5.2s
+      SC4152E0 ft ep 171/200 lr=3.60e-04 ce=0.0062 kl=7052.9  1m 9.1s
+      SC4152E0 ft ep 181/200 lr=3.60e-04 ce=0.0058 kl=7052.1  1m 13.0s
+      SC4152E0 ft ep 191/200 lr=3.60e-04 ce=0.0034 kl=7056.0  1m 16.9s
+      SC4152E0 ft ep 200/200 lr=3.60e-04 ce=0.0034 kl=7057.8  1m 20.4s
+      SC4152E0 stage2: 177 annotated, eval on 1409 (80.0% of the subject)
+      SC4152E0     acc=96.81 mf1=91.28 k=0.9520
+      fold 1 done in 166m 53.3s
+----------------------------------------------------------------------------------------------------
+FOLD 2  train=35 recordings  test=4 recordings (SC4041E0, SC4072E0, SC4082E0, SC4121E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold2 ep   1/200 lr=6.00e-05 ce=1.5411 kl=2634.8  0m 51.5s
+      fold2 ep  11/200 lr=6.60e-04 ce=0.4454 kl=2808.7  7m 48.2s
+      fold2 ep  21/200 lr=1.20e-03 ce=0.3520 kl=3251.0  14m 45.2s
+      fold2 ep  31/200 lr=1.19e-03 ce=0.3050 kl=3701.3  21m 43.0s
+      fold2 ep  41/200 lr=1.16e-03 ce=0.2729 kl=4133.5  28m 40.2s
+      fold2 ep  51/200 lr=1.11e-03 ce=0.2550 kl=4537.9  35m 37.4s
+      fold2 ep  61/200 lr=1.05e-03 ce=0.2407 kl=4935.7  42m 34.7s
+      fold2 ep  71/200 lr=9.78e-04 ce=0.2134 kl=5299.9  49m 32.0s
+      fold2 ep  81/200 lr=8.91e-04 ce=0.1968 kl=5634.1  56m 29.2s
+      fold2 ep  91/200 lr=7.95e-04 ce=0.1876 kl=5917.7  63m 26.4s
+      fold2 ep 101/200 lr=6.94e-04 ce=0.1756 kl=6168.3  70m 23.6s
+      fold2 ep 111/200 lr=5.90e-04 ce=0.1635 kl=6384.6  77m 20.9s
+      fold2 ep 121/200 lr=4.86e-04 ce=0.1527 kl=6558.2  84m 18.2s
+      fold2 ep 131/200 lr=3.85e-04 ce=0.1468 kl=6699.2  91m 15.7s
+      fold2 ep 141/200 lr=2.91e-04 ce=0.1403 kl=6797.2  98m 13.1s
+      fold2 ep 151/200 lr=2.06e-04 ce=0.1334 kl=6872.9  105m 10.2s
+      fold2 ep 161/200 lr=1.34e-04 ce=0.1255 kl=6930.1  112m 7.3s
+      fold2 ep 171/200 lr=7.52e-05 ce=0.1265 kl=6963.2  119m 4.8s
+      fold2 ep 181/200 lr=3.27e-05 ce=0.1250 kl=6980.6  126m 2.0s
+      fold2 ep 191/200 lr=7.39e-06 ce=0.1214 kl=6986.2  132m 59.1s
+      fold2 ep 200/200 lr=0.00e+00 ce=0.1189 kl=6986.9  139m 14.5s
+      CV  acc=88.03 mf1=82.62 k=0.8392  per-class F1=['96.2', '56.2', '88.1', '86.9', '85.8']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4041E0 stage1: 123/1235 selected (k=10)
+      SC4041E0 ft ep   1/200 lr=3.60e-04 ce=0.4788 kl=6986.9  0m 5.8s
+      SC4041E0 ft ep  11/200 lr=3.60e-04 ce=0.2374 kl=6987.9  0m 8.5s
+      SC4041E0 ft ep  21/200 lr=3.60e-04 ce=0.1321 kl=6988.9  0m 11.2s
+      SC4041E0 ft ep  31/200 lr=3.60e-04 ce=0.0685 kl=6990.4  0m 13.9s
+      SC4041E0 ft ep  41/200 lr=3.60e-04 ce=0.0534 kl=6992.3  0m 16.6s
+      SC4041E0 ft ep  51/200 lr=3.60e-04 ce=0.0256 kl=6993.9  0m 19.3s
+      SC4041E0 ft ep  61/200 lr=3.60e-04 ce=0.0161 kl=6995.4  0m 22.0s
+      SC4041E0 ft ep  71/200 lr=3.60e-04 ce=0.0173 kl=6996.9  0m 24.8s
+      SC4041E0 ft ep  81/200 lr=3.60e-04 ce=0.0125 kl=6997.9  0m 27.5s
+      SC4041E0 ft ep  91/200 lr=3.60e-04 ce=0.0444 kl=6998.9  0m 30.2s
+      SC4041E0 ft ep 101/200 lr=3.60e-04 ce=0.0104 kl=7000.4  0m 32.9s
+      SC4041E0 ft ep 111/200 lr=3.60e-04 ce=0.0101 kl=7001.7  0m 35.6s
+      SC4041E0 ft ep 121/200 lr=3.60e-04 ce=0.0102 kl=7002.4  0m 38.3s
+      SC4041E0 ft ep 131/200 lr=3.60e-04 ce=0.0082 kl=7002.9  0m 41.0s
+      SC4041E0 ft ep 141/200 lr=3.60e-04 ce=0.0060 kl=7003.3  0m 43.7s
+      SC4041E0 ft ep 151/200 lr=3.60e-04 ce=0.0055 kl=7003.1  0m 46.4s
+      SC4041E0 ft ep 161/200 lr=3.60e-04 ce=0.0091 kl=7003.0  0m 49.1s
+      SC4041E0 ft ep 171/200 lr=3.60e-04 ce=0.0064 kl=7002.7  0m 51.9s
+      SC4041E0 ft ep 181/200 lr=3.60e-04 ce=0.0031 kl=7003.5  0m 54.6s
+      SC4041E0 ft ep 191/200 lr=3.60e-04 ce=0.0043 kl=7005.2  0m 57.3s
+      SC4041E0 ft ep 200/200 lr=3.60e-04 ce=0.0025 kl=7006.3  0m 59.7s
+      SC4041E0 stage2: 124 annotated, eval on 988 (80.0% of the subject)
+      SC4041E0     acc=91.60 mf1=87.05 k=0.8693
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4072E0 stage1: 127/1273 selected (k=10)
+      SC4072E0 ft ep   1/200 lr=3.60e-04 ce=0.2590 kl=6986.9  0m 6.0s
+      SC4072E0 ft ep  11/200 lr=3.60e-04 ce=0.0614 kl=6987.7  0m 8.8s
+      SC4072E0 ft ep  21/200 lr=3.60e-04 ce=0.0287 kl=6989.6  0m 11.6s
+      SC4072E0 ft ep  31/200 lr=3.60e-04 ce=0.0121 kl=6991.6  0m 14.4s
+      SC4072E0 ft ep  41/200 lr=3.60e-04 ce=0.0085 kl=6992.5  0m 17.2s
+      SC4072E0 ft ep  51/200 lr=3.60e-04 ce=0.0123 kl=6992.9  0m 20.0s
+      SC4072E0 ft ep  61/200 lr=3.60e-04 ce=0.0059 kl=6993.5  0m 22.7s
+      SC4072E0 ft ep  71/200 lr=3.60e-04 ce=0.0071 kl=6994.0  0m 25.5s
+      SC4072E0 ft ep  81/200 lr=3.60e-04 ce=0.0028 kl=6994.1  0m 28.3s
+      SC4072E0 ft ep  91/200 lr=3.60e-04 ce=0.0091 kl=6994.4  0m 31.1s
+      SC4072E0 ft ep 101/200 lr=3.60e-04 ce=0.0038 kl=6995.0  0m 33.9s
+      SC4072E0 ft ep 111/200 lr=3.60e-04 ce=0.0019 kl=6995.3  0m 36.7s
+      SC4072E0 ft ep 121/200 lr=3.60e-04 ce=0.0067 kl=6995.1  0m 39.5s
+      SC4072E0 ft ep 131/200 lr=3.60e-04 ce=0.0027 kl=6994.3  0m 42.3s
+      SC4072E0 ft ep 141/200 lr=3.60e-04 ce=0.0018 kl=6993.1  0m 45.1s
+      SC4072E0 ft ep 151/200 lr=3.60e-04 ce=0.0011 kl=6991.5  0m 47.9s
+      SC4072E0 ft ep 161/200 lr=3.60e-04 ce=0.0010 kl=6989.7  0m 50.7s
+      SC4072E0 ft ep 171/200 lr=3.60e-04 ce=0.0012 kl=6987.3  0m 53.4s
+      SC4072E0 ft ep 181/200 lr=3.60e-04 ce=0.0040 kl=6984.7  0m 56.2s
+      SC4072E0 ft ep 191/200 lr=3.60e-04 ce=0.0005 kl=6982.1  0m 59.0s
+      SC4072E0 ft ep 200/200 lr=3.60e-04 ce=0.0033 kl=6979.6  1m 1.6s
+      SC4072E0 stage2: 128 annotated, eval on 1018 (80.0% of the subject)
+      SC4072E0     acc=95.68 mf1=89.20 k=0.9411
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4082E0 stage1: 105/1054 selected (k=10)
+      SC4082E0 ft ep   1/200 lr=3.60e-04 ce=1.0165 kl=6986.9  0m 5.0s
+      SC4082E0 ft ep  11/200 lr=3.60e-04 ce=0.3247 kl=6991.2  0m 7.3s
+      SC4082E0 ft ep  21/200 lr=3.60e-04 ce=0.1902 kl=6992.7  0m 9.6s
+      SC4082E0 ft ep  31/200 lr=3.60e-04 ce=0.1410 kl=6993.3  0m 11.9s
+      SC4082E0 ft ep  41/200 lr=3.60e-04 ce=0.1391 kl=6994.1  0m 14.2s
+      SC4082E0 ft ep  51/200 lr=3.60e-04 ce=0.0709 kl=6994.4  0m 16.5s
+      SC4082E0 ft ep  61/200 lr=3.60e-04 ce=0.0634 kl=6995.1  0m 18.9s
+      SC4082E0 ft ep  71/200 lr=3.60e-04 ce=0.0477 kl=6995.2  0m 21.2s
+      SC4082E0 ft ep  81/200 lr=3.60e-04 ce=0.0427 kl=6995.3  0m 23.5s
+      SC4082E0 ft ep  91/200 lr=3.60e-04 ce=0.0216 kl=6996.0  0m 25.8s
+      SC4082E0 ft ep 101/200 lr=3.60e-04 ce=0.0181 kl=6997.3  0m 28.1s
+      SC4082E0 ft ep 111/200 lr=3.60e-04 ce=0.0183 kl=6999.1  0m 30.5s
+      SC4082E0 ft ep 121/200 lr=3.60e-04 ce=0.0315 kl=7000.9  0m 32.8s
+      SC4082E0 ft ep 131/200 lr=3.60e-04 ce=0.0184 kl=7002.6  0m 35.1s
+      SC4082E0 ft ep 141/200 lr=3.60e-04 ce=0.0158 kl=7003.9  0m 37.4s
+      SC4082E0 ft ep 151/200 lr=3.60e-04 ce=0.0085 kl=7005.2  0m 39.7s
+      SC4082E0 ft ep 161/200 lr=3.60e-04 ce=0.0313 kl=7006.2  0m 42.1s
+      SC4082E0 ft ep 171/200 lr=3.60e-04 ce=0.0092 kl=7007.2  0m 44.4s
+      SC4082E0 ft ep 181/200 lr=3.60e-04 ce=0.0160 kl=7007.8  0m 46.7s
+      SC4082E0 ft ep 191/200 lr=3.60e-04 ce=0.0154 kl=7007.4  0m 49.0s
+      SC4082E0 ft ep 200/200 lr=3.60e-04 ce=0.0048 kl=7008.6  0m 51.1s
+      SC4082E0 stage2: 106 annotated, eval on 843 (80.0% of the subject)
+      SC4082E0     acc=88.61 mf1=73.91 k=0.8466
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4121E0 stage1: 178/1783 selected (k=10)
+      SC4121E0 ft ep   1/200 lr=3.60e-04 ce=0.5013 kl=6986.9  0m 2.6s
+      SC4121E0 ft ep  11/200 lr=3.60e-04 ce=0.1414 kl=6985.2  0m 6.6s
+      SC4121E0 ft ep  21/200 lr=3.60e-04 ce=0.0845 kl=6986.3  0m 10.5s
+      SC4121E0 ft ep  31/200 lr=3.60e-04 ce=0.0586 kl=6988.3  0m 14.4s
+      SC4121E0 ft ep  41/200 lr=3.60e-04 ce=0.0339 kl=6990.6  0m 18.4s
+      SC4121E0 ft ep  51/200 lr=3.60e-04 ce=0.0089 kl=6992.3  0m 22.3s
+      SC4121E0 ft ep  61/200 lr=3.60e-04 ce=0.0086 kl=6993.5  0m 26.2s
+      SC4121E0 ft ep  71/200 lr=3.60e-04 ce=0.0116 kl=6994.5  0m 30.1s
+      SC4121E0 ft ep  81/200 lr=3.60e-04 ce=0.0114 kl=6995.1  0m 34.1s
+      SC4121E0 ft ep  91/200 lr=3.60e-04 ce=0.0098 kl=6995.1  0m 38.0s
+      SC4121E0 ft ep 101/200 lr=3.60e-04 ce=0.0076 kl=6995.9  0m 41.9s
+      SC4121E0 ft ep 111/200 lr=3.60e-04 ce=0.0172 kl=6996.9  0m 45.9s
+      SC4121E0 ft ep 121/200 lr=3.60e-04 ce=0.0104 kl=6997.7  0m 49.8s
+      SC4121E0 ft ep 131/200 lr=3.60e-04 ce=0.0063 kl=6998.9  0m 53.7s
+      SC4121E0 ft ep 141/200 lr=3.60e-04 ce=0.0204 kl=6999.9  0m 57.6s
+      SC4121E0 ft ep 151/200 lr=3.60e-04 ce=0.0038 kl=6999.7  1m 1.6s
+      SC4121E0 ft ep 161/200 lr=3.60e-04 ce=0.0016 kl=6999.4  1m 5.5s
+      SC4121E0 ft ep 171/200 lr=3.60e-04 ce=0.0032 kl=6998.5  1m 9.4s
+      SC4121E0 ft ep 181/200 lr=3.60e-04 ce=0.0032 kl=6997.6  1m 13.4s
+      SC4121E0 ft ep 191/200 lr=3.60e-04 ce=0.0024 kl=6996.9  1m 17.3s
+      SC4121E0 ft ep 200/200 lr=3.60e-04 ce=0.0010 kl=6996.8  1m 20.9s
+      SC4121E0 stage2: 179 annotated, eval on 1426 (80.0% of the subject)
+      SC4121E0     acc=96.77 mf1=80.67 k=0.9485
+      fold 2 done in 166m 14.1s
+----------------------------------------------------------------------------------------------------
+FOLD 3  train=35 recordings  test=4 recordings (SC4042E0, SC4061E0, SC4081E0, SC4092E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold3 ep   1/200 lr=6.00e-05 ce=1.5430 kl=2636.9  0m 46.8s
+      fold3 ep  11/200 lr=6.60e-04 ce=0.4459 kl=2835.4  7m 55.3s
+      fold3 ep  21/200 lr=1.20e-03 ce=0.3531 kl=3308.5  15m 3.1s
+      fold3 ep  31/200 lr=1.19e-03 ce=0.3083 kl=3769.3  22m 11.1s
+      fold3 ep  41/200 lr=1.16e-03 ce=0.2779 kl=4207.7  29m 19.0s
+      fold3 ep  51/200 lr=1.11e-03 ce=0.2584 kl=4623.5  36m 27.0s
+      fold3 ep  61/200 lr=1.05e-03 ce=0.2373 kl=5009.9  43m 35.3s
+      fold3 ep  71/200 lr=9.78e-04 ce=0.2222 kl=5361.2  50m 43.4s
+      fold3 ep  81/200 lr=8.91e-04 ce=0.2046 kl=5683.9  57m 51.6s
+      fold3 ep  91/200 lr=7.95e-04 ce=0.1875 kl=5979.7  64m 59.6s
+      fold3 ep 101/200 lr=6.94e-04 ce=0.1727 kl=6227.5  72m 8.6s
+      fold3 ep 111/200 lr=5.90e-04 ce=0.1673 kl=6432.4  79m 16.9s
+      fold3 ep 121/200 lr=4.86e-04 ce=0.1566 kl=6613.1  86m 25.0s
+      fold3 ep 131/200 lr=3.85e-04 ce=0.1496 kl=6750.9  93m 33.0s
+      fold3 ep 141/200 lr=2.91e-04 ce=0.1413 kl=6861.8  100m 41.1s
+      fold3 ep 151/200 lr=2.06e-04 ce=0.1337 kl=6934.5  107m 49.4s
+      fold3 ep 161/200 lr=1.34e-04 ce=0.1326 kl=6988.6  114m 57.7s
+      fold3 ep 171/200 lr=7.52e-05 ce=0.1286 kl=7022.3  122m 5.7s
+      fold3 ep 181/200 lr=3.27e-05 ce=0.1268 kl=7039.9  129m 13.7s
+      fold3 ep 191/200 lr=7.39e-06 ce=0.1257 kl=7045.9  136m 21.7s
+      fold3 ep 200/200 lr=0.00e+00 ce=0.1264 kl=7046.6  142m 47.0s
+      CV  acc=86.56 mf1=81.67 k=0.8202  per-class F1=['90.6', '52.6', '89.5', '86.1', '89.5']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4042E0 stage1: 120/1200 selected (k=10)
+      SC4042E0 ft ep   1/200 lr=3.60e-04 ce=0.8727 kl=7046.6  0m 5.6s
+      SC4042E0 ft ep  11/200 lr=3.60e-04 ce=0.2426 kl=7047.4  0m 8.3s
+      SC4042E0 ft ep  21/200 lr=3.60e-04 ce=0.1580 kl=7050.0  0m 10.9s
+      SC4042E0 ft ep  31/200 lr=3.60e-04 ce=0.0854 kl=7051.8  0m 13.6s
+      SC4042E0 ft ep  41/200 lr=3.60e-04 ce=0.0581 kl=7053.8  0m 16.2s
+      SC4042E0 ft ep  51/200 lr=3.60e-04 ce=0.0575 kl=7055.9  0m 18.9s
+      SC4042E0 ft ep  61/200 lr=3.60e-04 ce=0.0500 kl=7058.1  0m 21.5s
+      SC4042E0 ft ep  71/200 lr=3.60e-04 ce=0.0415 kl=7061.5  0m 24.2s
+      SC4042E0 ft ep  81/200 lr=3.60e-04 ce=0.0197 kl=7063.4  0m 26.8s
+      SC4042E0 ft ep  91/200 lr=3.60e-04 ce=0.0278 kl=7065.3  0m 29.5s
+      SC4042E0 ft ep 101/200 lr=3.60e-04 ce=0.0228 kl=7066.7  0m 32.1s
+      SC4042E0 ft ep 111/200 lr=3.60e-04 ce=0.0152 kl=7068.8  0m 34.8s
+      SC4042E0 ft ep 121/200 lr=3.60e-04 ce=0.0129 kl=7071.4  0m 37.4s
+      SC4042E0 ft ep 131/200 lr=3.60e-04 ce=0.0099 kl=7072.6  0m 40.1s
+      SC4042E0 ft ep 141/200 lr=3.60e-04 ce=0.0087 kl=7073.8  0m 42.7s
+      SC4042E0 ft ep 151/200 lr=3.60e-04 ce=0.0136 kl=7074.5  0m 45.4s
+      SC4042E0 ft ep 161/200 lr=3.60e-04 ce=0.0051 kl=7074.1  0m 48.0s
+      SC4042E0 ft ep 171/200 lr=3.60e-04 ce=0.0060 kl=7074.5  0m 50.7s
+      SC4042E0 ft ep 181/200 lr=3.60e-04 ce=0.0072 kl=7075.2  0m 53.3s
+      SC4042E0 ft ep 191/200 lr=3.60e-04 ce=0.0070 kl=7075.7  0m 56.0s
+      SC4042E0 ft ep 200/200 lr=3.60e-04 ce=0.0083 kl=7076.3  0m 58.4s
+      SC4042E0 stage2: 120 annotated, eval on 960 (80.0% of the subject)
+      SC4042E0     acc=89.90 mf1=86.27 k=0.8565
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4061E0 stage1: 84/843 selected (k=10)
+      SC4061E0 ft ep   1/200 lr=3.60e-04 ce=0.2729 kl=7046.6  0m 4.1s
+      SC4061E0 ft ep  11/200 lr=3.60e-04 ce=0.0278 kl=7047.8  0m 5.9s
+      SC4061E0 ft ep  21/200 lr=3.60e-04 ce=0.0159 kl=7048.5  0m 7.8s
+      SC4061E0 ft ep  31/200 lr=3.60e-04 ce=0.0210 kl=7049.4  0m 9.6s
+      SC4061E0 ft ep  41/200 lr=3.60e-04 ce=0.0104 kl=7050.1  0m 11.5s
+      SC4061E0 ft ep  51/200 lr=3.60e-04 ce=0.0088 kl=7050.1  0m 13.3s
+      SC4061E0 ft ep  61/200 lr=3.60e-04 ce=0.0075 kl=7050.4  0m 15.2s
+      SC4061E0 ft ep  71/200 lr=3.60e-04 ce=0.0059 kl=7050.8  0m 17.1s
+      SC4061E0 ft ep  81/200 lr=3.60e-04 ce=0.0025 kl=7050.7  0m 18.9s
+      SC4061E0 ft ep  91/200 lr=3.60e-04 ce=0.0031 kl=7050.3  0m 20.8s
+      SC4061E0 ft ep 101/200 lr=3.60e-04 ce=0.0024 kl=7050.3  0m 22.6s
+      SC4061E0 ft ep 111/200 lr=3.60e-04 ce=0.0028 kl=7049.9  0m 24.5s
+      SC4061E0 ft ep 121/200 lr=3.60e-04 ce=0.0025 kl=7048.9  0m 26.3s
+      SC4061E0 ft ep 131/200 lr=3.60e-04 ce=0.0034 kl=7048.5  0m 28.2s
+      SC4061E0 ft ep 141/200 lr=3.60e-04 ce=0.0016 kl=7048.9  0m 30.1s
+      SC4061E0 ft ep 151/200 lr=3.60e-04 ce=0.0039 kl=7047.6  0m 31.9s
+      SC4061E0 ft ep 161/200 lr=3.60e-04 ce=0.0014 kl=7046.8  0m 33.8s
+      SC4061E0 ft ep 171/200 lr=3.60e-04 ce=0.0012 kl=7045.6  0m 35.6s
+      SC4061E0 ft ep 181/200 lr=3.60e-04 ce=0.0011 kl=7043.6  0m 37.5s
+      SC4061E0 ft ep 191/200 lr=3.60e-04 ce=0.0005 kl=7041.1  0m 39.3s
+      SC4061E0 ft ep 200/200 lr=3.60e-04 ce=0.0010 kl=7039.7  0m 41.0s
+      SC4061E0 stage2: 85 annotated, eval on 674 (80.0% of the subject)
+      SC4061E0     acc=96.14 mf1=94.67 k=0.9425
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4081E0 stage1: 113/1134 selected (k=10)
+      SC4081E0 ft ep   1/200 lr=3.60e-04 ce=1.0383 kl=7046.6  0m 5.3s
+      SC4081E0 ft ep  11/200 lr=3.60e-04 ce=0.3686 kl=7051.9  0m 7.8s
+      SC4081E0 ft ep  21/200 lr=3.60e-04 ce=0.2277 kl=7055.2  0m 10.3s
+      SC4081E0 ft ep  31/200 lr=3.60e-04 ce=0.1438 kl=7057.1  0m 12.8s
+      SC4081E0 ft ep  41/200 lr=3.60e-04 ce=0.0710 kl=7059.3  0m 15.3s
+      SC4081E0 ft ep  51/200 lr=3.60e-04 ce=0.0714 kl=7061.2  0m 17.8s
+      SC4081E0 ft ep  61/200 lr=3.60e-04 ce=0.0511 kl=7063.0  0m 20.3s
+      SC4081E0 ft ep  71/200 lr=3.60e-04 ce=0.0489 kl=7065.3  0m 22.8s
+      SC4081E0 ft ep  81/200 lr=3.60e-04 ce=0.0300 kl=7067.2  0m 25.3s
+      SC4081E0 ft ep  91/200 lr=3.60e-04 ce=0.0242 kl=7069.5  0m 27.8s
+      SC4081E0 ft ep 101/200 lr=3.60e-04 ce=0.0144 kl=7071.0  0m 30.3s
+      SC4081E0 ft ep 111/200 lr=3.60e-04 ce=0.0149 kl=7072.7  0m 32.9s
+      SC4081E0 ft ep 121/200 lr=3.60e-04 ce=0.0170 kl=7074.2  0m 35.4s
+      SC4081E0 ft ep 131/200 lr=3.60e-04 ce=0.0070 kl=7075.8  0m 37.9s
+      SC4081E0 ft ep 141/200 lr=3.60e-04 ce=0.0026 kl=7077.1  0m 40.4s
+      SC4081E0 ft ep 151/200 lr=3.60e-04 ce=0.0043 kl=7078.5  0m 42.9s
+      SC4081E0 ft ep 161/200 lr=3.60e-04 ce=0.0034 kl=7079.7  0m 45.4s
+      SC4081E0 ft ep 171/200 lr=3.60e-04 ce=0.0045 kl=7080.5  0m 47.9s
+      SC4081E0 ft ep 181/200 lr=3.60e-04 ce=0.0021 kl=7081.1  0m 50.4s
+      SC4081E0 ft ep 191/200 lr=3.60e-04 ce=0.0023 kl=7082.3  0m 52.9s
+      SC4081E0 ft ep 200/200 lr=3.60e-04 ce=0.0073 kl=7081.9  0m 55.1s
+      SC4081E0 stage2: 114 annotated, eval on 907 (80.0% of the subject)
+      SC4081E0     acc=93.38 mf1=90.59 k=0.9126
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4092E0 stage1: 120/1207 selected (k=10)
+      SC4092E0 ft ep   1/200 lr=3.60e-04 ce=0.2879 kl=7046.6  0m 0.3s
+      SC4092E0 ft ep  11/200 lr=3.60e-04 ce=0.0732 kl=7050.7  0m 2.9s
+      SC4092E0 ft ep  21/200 lr=3.60e-04 ce=0.0392 kl=7053.3  0m 5.6s
+      SC4092E0 ft ep  31/200 lr=3.60e-04 ce=0.0213 kl=7055.2  0m 8.2s
+      SC4092E0 ft ep  41/200 lr=3.60e-04 ce=0.0228 kl=7056.6  0m 10.9s
+      SC4092E0 ft ep  51/200 lr=3.60e-04 ce=0.0119 kl=7058.2  0m 13.5s
+      SC4092E0 ft ep  61/200 lr=3.60e-04 ce=0.0098 kl=7059.9  0m 16.2s
+      SC4092E0 ft ep  71/200 lr=3.60e-04 ce=0.0067 kl=7060.5  0m 18.8s
+      SC4092E0 ft ep  81/200 lr=3.60e-04 ce=0.0058 kl=7061.8  0m 21.5s
+      SC4092E0 ft ep  91/200 lr=3.60e-04 ce=0.0064 kl=7062.8  0m 24.1s
+      SC4092E0 ft ep 101/200 lr=3.60e-04 ce=0.0055 kl=7063.3  0m 26.8s
+      SC4092E0 ft ep 111/200 lr=3.60e-04 ce=0.0055 kl=7063.9  0m 29.4s
+      SC4092E0 ft ep 121/200 lr=3.60e-04 ce=0.0033 kl=7063.5  0m 32.1s
+      SC4092E0 ft ep 131/200 lr=3.60e-04 ce=0.0116 kl=7063.8  0m 34.7s
+      SC4092E0 ft ep 141/200 lr=3.60e-04 ce=0.0026 kl=7061.5  0m 37.4s
+      SC4092E0 ft ep 151/200 lr=3.60e-04 ce=0.0032 kl=7061.6  0m 40.0s
+      SC4092E0 ft ep 161/200 lr=3.60e-04 ce=0.0047 kl=7062.0  0m 42.7s
+      SC4092E0 ft ep 171/200 lr=3.60e-04 ce=0.0029 kl=7061.9  0m 45.3s
+      SC4092E0 ft ep 181/200 lr=3.60e-04 ce=0.0014 kl=7063.6  0m 48.0s
+      SC4092E0 ft ep 191/200 lr=3.60e-04 ce=0.0012 kl=7064.3  0m 50.6s
+      SC4092E0 ft ep 200/200 lr=3.60e-04 ce=0.0030 kl=7064.2  0m 53.0s
+      SC4092E0 stage2: 121 annotated, eval on 966 (80.0% of the subject)
+      SC4092E0     acc=95.45 mf1=90.82 k=0.9371
+      fold 3 done in 159m 45.1s
+----------------------------------------------------------------------------------------------------
+FOLD 4  train=35 recordings  test=4 recordings (SC4001E0, SC4022E0, SC4122E0, SC4162E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold4 ep   1/200 lr=6.00e-05 ce=1.5305 kl=2567.9  0m 48.4s
+      fold4 ep  11/200 lr=6.60e-04 ce=0.4149 kl=2774.4  8m 3.6s
+      fold4 ep  21/200 lr=1.20e-03 ce=0.3361 kl=3238.8  15m 18.1s
+      fold4 ep  31/200 lr=1.19e-03 ce=0.3014 kl=3725.7  22m 32.7s
+      fold4 ep  41/200 lr=1.16e-03 ce=0.2626 kl=4171.3  29m 47.2s
+      fold4 ep  51/200 lr=1.11e-03 ce=0.2453 kl=4581.7  37m 1.8s
+      fold4 ep  61/200 lr=1.05e-03 ce=0.2244 kl=4986.0  44m 16.3s
+      fold4 ep  71/200 lr=9.78e-04 ce=0.2118 kl=5346.1  51m 32.3s
+      fold4 ep  81/200 lr=8.91e-04 ce=0.1894 kl=5639.7  58m 47.0s
+      fold4 ep  91/200 lr=7.95e-04 ce=0.1830 kl=5937.7  66m 1.6s
+      fold4 ep 101/200 lr=6.94e-04 ce=0.1733 kl=6189.1  73m 15.5s
+      fold4 ep 111/200 lr=5.90e-04 ce=0.1623 kl=6409.9  80m 29.4s
+      fold4 ep 121/200 lr=4.86e-04 ce=0.1486 kl=6596.0  87m 43.2s
+      fold4 ep 131/200 lr=3.85e-04 ce=0.1355 kl=6742.5  94m 56.9s
+      fold4 ep 141/200 lr=2.91e-04 ce=0.1364 kl=6856.4  102m 10.5s
+      fold4 ep 151/200 lr=2.06e-04 ce=0.1234 kl=6939.6  109m 24.2s
+      fold4 ep 161/200 lr=1.34e-04 ce=0.1191 kl=6998.6  116m 37.7s
+      fold4 ep 171/200 lr=7.52e-05 ce=0.1180 kl=7032.4  123m 51.3s
+      fold4 ep 181/200 lr=3.27e-05 ce=0.1196 kl=7050.6  131m 4.8s
+      fold4 ep 191/200 lr=7.39e-06 ce=0.1144 kl=7056.3  138m 18.3s
+      fold4 ep 200/200 lr=0.00e+00 ce=0.1165 kl=7057.0  144m 48.4s
+      CV  acc=81.78 mf1=76.12 k=0.7588  per-class F1=['91.7', '35.0', '81.4', '81.3', '91.2']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4001E0 stage1: 84/841 selected (k=10)
+      SC4001E0 ft ep   1/200 lr=3.60e-04 ce=0.4467 kl=7057.0  0m 0.2s
+      SC4001E0 ft ep  11/200 lr=3.60e-04 ce=0.2036 kl=7058.8  0m 2.0s
+      SC4001E0 ft ep  21/200 lr=3.60e-04 ce=0.1464 kl=7058.3  0m 3.9s
+      SC4001E0 ft ep  31/200 lr=3.60e-04 ce=0.0624 kl=7059.4  0m 5.7s
+      SC4001E0 ft ep  41/200 lr=3.60e-04 ce=0.0344 kl=7060.4  0m 7.5s
+      SC4001E0 ft ep  51/200 lr=3.60e-04 ce=0.0355 kl=7061.2  0m 9.4s
+      SC4001E0 ft ep  61/200 lr=3.60e-04 ce=0.0197 kl=7061.6  0m 11.2s
+      SC4001E0 ft ep  71/200 lr=3.60e-04 ce=0.0123 kl=7061.8  0m 13.0s
+      SC4001E0 ft ep  81/200 lr=3.60e-04 ce=0.0435 kl=7062.5  0m 14.9s
+      SC4001E0 ft ep  91/200 lr=3.60e-04 ce=0.0090 kl=7064.5  0m 16.7s
+      SC4001E0 ft ep 101/200 lr=3.60e-04 ce=0.0079 kl=7066.6  0m 18.6s
+      SC4001E0 ft ep 111/200 lr=3.60e-04 ce=0.0060 kl=7067.9  0m 20.4s
+      SC4001E0 ft ep 121/200 lr=3.60e-04 ce=0.0038 kl=7068.1  0m 22.3s
+      SC4001E0 ft ep 131/200 lr=3.60e-04 ce=0.0116 kl=7067.9  0m 24.1s
+      SC4001E0 ft ep 141/200 lr=3.60e-04 ce=0.0027 kl=7068.1  0m 25.9s
+      SC4001E0 ft ep 151/200 lr=3.60e-04 ce=0.0028 kl=7067.8  0m 27.8s
+      SC4001E0 ft ep 161/200 lr=3.60e-04 ce=0.0023 kl=7067.1  0m 29.6s
+      SC4001E0 ft ep 171/200 lr=3.60e-04 ce=0.0027 kl=7066.7  0m 31.5s
+      SC4001E0 ft ep 181/200 lr=3.60e-04 ce=0.0031 kl=7065.8  0m 33.3s
+      SC4001E0 ft ep 191/200 lr=3.60e-04 ce=0.0033 kl=7064.7  0m 35.2s
+      SC4001E0 ft ep 200/200 lr=3.60e-04 ce=0.0013 kl=7063.7  0m 36.8s
+      SC4001E0 stage2: 85 annotated, eval on 672 (79.9% of the subject)
+      SC4001E0     acc=94.20 mf1=90.41 k=0.9237
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4022E0 stage1: 100/1009 selected (k=10)
+      SC4022E0 ft ep   1/200 lr=3.60e-04 ce=0.7561 kl=7057.0  0m 0.2s
+      SC4022E0 ft ep  11/200 lr=3.60e-04 ce=0.2829 kl=7056.5  0m 2.5s
+      SC4022E0 ft ep  21/200 lr=3.60e-04 ce=0.1776 kl=7056.8  0m 4.7s
+      SC4022E0 ft ep  31/200 lr=3.60e-04 ce=0.0966 kl=7057.4  0m 6.9s
+      SC4022E0 ft ep  41/200 lr=3.60e-04 ce=0.0586 kl=7057.4  0m 9.1s
+      SC4022E0 ft ep  51/200 lr=3.60e-04 ce=0.0549 kl=7057.8  0m 11.4s
+      SC4022E0 ft ep  61/200 lr=3.60e-04 ce=0.0597 kl=7058.7  0m 13.6s
+      SC4022E0 ft ep  71/200 lr=3.60e-04 ce=0.0161 kl=7059.7  0m 15.8s
+      SC4022E0 ft ep  81/200 lr=3.60e-04 ce=0.0170 kl=7060.4  0m 18.1s
+      SC4022E0 ft ep  91/200 lr=3.60e-04 ce=0.0289 kl=7060.9  0m 20.3s
+      SC4022E0 ft ep 101/200 lr=3.60e-04 ce=0.0118 kl=7061.0  0m 22.5s
+      SC4022E0 ft ep 111/200 lr=3.60e-04 ce=0.0132 kl=7061.1  0m 24.8s
+      SC4022E0 ft ep 121/200 lr=3.60e-04 ce=0.0083 kl=7061.7  0m 27.0s
+      SC4022E0 ft ep 131/200 lr=3.60e-04 ce=0.0073 kl=7062.0  0m 29.2s
+      SC4022E0 ft ep 141/200 lr=3.60e-04 ce=0.0039 kl=7062.1  0m 31.5s
+      SC4022E0 ft ep 151/200 lr=3.60e-04 ce=0.0049 kl=7062.1  0m 33.7s
+      SC4022E0 ft ep 161/200 lr=3.60e-04 ce=0.0092 kl=7062.6  0m 35.9s
+      SC4022E0 ft ep 171/200 lr=3.60e-04 ce=0.0080 kl=7063.0  0m 38.1s
+      SC4022E0 ft ep 181/200 lr=3.60e-04 ce=0.0085 kl=7062.9  0m 40.4s
+      SC4022E0 ft ep 191/200 lr=3.60e-04 ce=0.0037 kl=7063.5  0m 42.6s
+      SC4022E0 ft ep 200/200 lr=3.60e-04 ce=0.0037 kl=7064.0  0m 44.6s
+      SC4022E0 stage2: 101 annotated, eval on 808 (80.1% of the subject)
+      SC4022E0     acc=91.96 mf1=91.42 k=0.8919
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4122E0 stage1: 97/977 selected (k=10)
+      SC4122E0 ft ep   1/200 lr=3.60e-04 ce=1.1740 kl=7057.0  0m 4.6s
+      SC4122E0 ft ep  11/200 lr=3.60e-04 ce=0.4671 kl=7056.6  0m 6.7s
+      SC4122E0 ft ep  21/200 lr=3.60e-04 ce=0.2227 kl=7055.4  0m 8.9s
+      SC4122E0 ft ep  31/200 lr=3.60e-04 ce=0.1862 kl=7054.6  0m 11.0s
+      SC4122E0 ft ep  41/200 lr=3.60e-04 ce=0.0687 kl=7053.5  0m 13.2s
+      SC4122E0 ft ep  51/200 lr=3.60e-04 ce=0.0673 kl=7053.9  0m 15.3s
+      SC4122E0 ft ep  61/200 lr=3.60e-04 ce=0.0811 kl=7054.8  0m 17.5s
+      SC4122E0 ft ep  71/200 lr=3.60e-04 ce=0.0540 kl=7055.5  0m 19.6s
+      SC4122E0 ft ep  81/200 lr=3.60e-04 ce=0.0453 kl=7055.5  0m 21.8s
+      SC4122E0 ft ep  91/200 lr=3.60e-04 ce=0.0677 kl=7056.4  0m 23.9s
+      SC4122E0 ft ep 101/200 lr=3.60e-04 ce=0.0177 kl=7057.9  0m 26.1s
+      SC4122E0 ft ep 111/200 lr=3.60e-04 ce=0.0223 kl=7059.6  0m 28.2s
+      SC4122E0 ft ep 121/200 lr=3.60e-04 ce=0.0185 kl=7060.8  0m 30.4s
+      SC4122E0 ft ep 131/200 lr=3.60e-04 ce=0.0141 kl=7061.8  0m 32.5s
+      SC4122E0 ft ep 141/200 lr=3.60e-04 ce=0.0098 kl=7061.7  0m 34.7s
+      SC4122E0 ft ep 151/200 lr=3.60e-04 ce=0.0140 kl=7062.1  0m 36.8s
+      SC4122E0 ft ep 161/200 lr=3.60e-04 ce=0.0088 kl=7062.5  0m 39.0s
+      SC4122E0 ft ep 171/200 lr=3.60e-04 ce=0.0071 kl=7063.2  0m 41.1s
+      SC4122E0 ft ep 181/200 lr=3.60e-04 ce=0.0044 kl=7063.9  0m 43.3s
+      SC4122E0 ft ep 191/200 lr=3.60e-04 ce=0.0105 kl=7065.5  0m 45.4s
+      SC4122E0 ft ep 200/200 lr=3.60e-04 ce=0.0141 kl=7066.9  0m 47.4s
+      SC4122E0 stage2: 98 annotated, eval on 782 (80.0% of the subject)
+      SC4122E0     acc=91.82 mf1=87.69 k=0.8907
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4162E0 stage1: 100/1003 selected (k=10)
+      SC4162E0 ft ep   1/200 lr=3.60e-04 ce=0.4257 kl=7057.0  0m 0.2s
+      SC4162E0 ft ep  11/200 lr=3.60e-04 ce=0.1111 kl=7061.9  0m 2.5s
+      SC4162E0 ft ep  21/200 lr=3.60e-04 ce=0.0663 kl=7065.1  0m 4.7s
+      SC4162E0 ft ep  31/200 lr=3.60e-04 ce=0.0510 kl=7067.4  0m 7.0s
+      SC4162E0 ft ep  41/200 lr=3.60e-04 ce=0.0150 kl=7069.0  0m 9.2s
+      SC4162E0 ft ep  51/200 lr=3.60e-04 ce=0.0181 kl=7070.3  0m 11.5s
+      SC4162E0 ft ep  61/200 lr=3.60e-04 ce=0.0052 kl=7071.7  0m 13.7s
+      SC4162E0 ft ep  71/200 lr=3.60e-04 ce=0.0043 kl=7073.0  0m 15.9s
+      SC4162E0 ft ep  81/200 lr=3.60e-04 ce=0.0059 kl=7073.7  0m 18.2s
+      SC4162E0 ft ep  91/200 lr=3.60e-04 ce=0.0027 kl=7074.7  0m 20.4s
+      SC4162E0 ft ep 101/200 lr=3.60e-04 ce=0.0040 kl=7074.2  0m 22.7s
+      SC4162E0 ft ep 111/200 lr=3.60e-04 ce=0.0019 kl=7074.5  0m 24.9s
+      SC4162E0 ft ep 121/200 lr=3.60e-04 ce=0.0045 kl=7075.4  0m 27.1s
+      SC4162E0 ft ep 131/200 lr=3.60e-04 ce=0.0031 kl=7076.2  0m 29.4s
+      SC4162E0 ft ep 141/200 lr=3.60e-04 ce=0.0021 kl=7077.5  0m 31.6s
+      SC4162E0 ft ep 151/200 lr=3.60e-04 ce=0.0018 kl=7078.6  0m 33.9s
+      SC4162E0 ft ep 161/200 lr=3.60e-04 ce=0.0011 kl=7078.6  0m 36.1s
+      SC4162E0 ft ep 171/200 lr=3.60e-04 ce=0.0017 kl=7077.8  0m 38.3s
+      SC4162E0 ft ep 181/200 lr=3.60e-04 ce=0.0015 kl=7077.3  0m 40.6s
+      SC4162E0 ft ep 191/200 lr=3.60e-04 ce=0.0006 kl=7077.3  0m 42.8s
+      SC4162E0 ft ep 200/200 lr=3.60e-04 ce=0.0015 kl=7076.6  0m 44.8s
+      SC4162E0 stage2: 101 annotated, eval on 802 (80.0% of the subject)
+      SC4162E0     acc=91.27 mf1=84.92 k=0.8716
+      fold 4 done in 164m 33.5s
+----------------------------------------------------------------------------------------------------
+FOLD 5  train=35 recordings  test=4 recordings (SC4002E0, SC4052E0, SC4102E0, SC4191E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold5 ep   1/200 lr=6.00e-05 ce=1.5557 kl=2459.7  0m 43.9s
+      fold5 ep  11/200 lr=6.60e-04 ce=0.4713 kl=2631.6  7m 44.8s
+      fold5 ep  21/200 lr=1.20e-03 ce=0.3625 kl=3069.4  14m 45.6s
+      fold5 ep  31/200 lr=1.19e-03 ce=0.3248 kl=3532.1  21m 47.1s
+      fold5 ep  41/200 lr=1.16e-03 ce=0.2846 kl=3933.3  28m 48.3s
+      fold5 ep  51/200 lr=1.11e-03 ce=0.2652 kl=4311.4  35m 49.7s
+====================================================================================================
+RUN 2026-09-21 12:16:10 | {'data_root': 'D:\\dataset\\sleep-edf-20\\processed', 'out': 'repro/results', 'mode': 'all', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '', 'tag': ''}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+fold 0 already done, skip
+fold 1 already done, skip
+fold 2 already done, skip
+fold 3 already done, skip
+fold 4 already done, skip
+----------------------------------------------------------------------------------------------------
+FOLD 5  train=35 recordings  test=4 recordings (SC4002E0, SC4052E0, SC4102E0, SC4191E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold5 ep   1/200 lr=6.00e-05 ce=1.5015 kl=2611.3  0m 55.0s
+      fold5 ep  11/200 lr=6.60e-04 ce=0.4529 kl=2797.9  8m 32.8s
+      fold5 ep  21/200 lr=1.20e-03 ce=0.3703 kl=3208.0  15m 51.3s
+      fold5 ep  31/200 lr=1.19e-03 ce=0.3180 kl=3660.9  23m 10.7s
+      fold5 ep  41/200 lr=1.16e-03 ce=0.2858 kl=4080.3  30m 30.3s
+      fold5 ep  51/200 lr=1.11e-03 ce=0.2633 kl=4440.7  37m 48.2s
+      fold5 ep  61/200 lr=1.05e-03 ce=0.2572 kl=4786.7  45m 4.2s
+      fold5 ep  71/200 lr=9.78e-04 ce=0.2323 kl=5086.8  52m 31.2s
+      fold5 ep  81/200 lr=8.91e-04 ce=0.2181 kl=5357.1  60m 12.7s
+      fold5 ep  91/200 lr=7.95e-04 ce=0.2023 kl=5592.4  67m 52.7s
+      fold5 ep 101/200 lr=6.94e-04 ce=0.1839 kl=5804.9  75m 34.2s
+      fold5 ep 111/200 lr=5.90e-04 ce=0.1769 kl=5973.0  83m 13.8s
+      fold5 ep 121/200 lr=4.86e-04 ce=0.1728 kl=6104.6  90m 36.5s
+      fold5 ep 131/200 lr=3.85e-04 ce=0.1684 kl=6216.9  97m 52.0s
+      fold5 ep 141/200 lr=2.91e-04 ce=0.1558 kl=6304.0  105m 7.8s
+      fold5 ep 151/200 lr=2.06e-04 ce=0.1475 kl=6376.5  112m 23.1s
+      fold5 ep 161/200 lr=1.34e-04 ce=0.1427 kl=6424.3  119m 38.4s
+      fold5 ep 171/200 lr=7.52e-05 ce=0.1434 kl=6452.2  126m 53.7s
+      fold5 ep 181/200 lr=3.27e-05 ce=0.1428 kl=6468.0  134m 9.1s
+      fold5 ep 191/200 lr=7.39e-06 ce=0.1428 kl=6472.8  141m 24.3s
+      fold5 ep 200/200 lr=0.00e+00 ce=0.1423 kl=6473.4  147m 56.0s
+      CV  acc=85.94 mf1=80.88 k=0.8004  per-class F1=['87.3', '57.1', '90.4', '83.6', '85.9']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4002E0 stage1: 112/1127 selected (k=10)
+      SC4002E0 ft ep   1/200 lr=3.60e-04 ce=0.3675 kl=6473.4  0m 5.5s
+      SC4002E0 ft ep  11/200 lr=3.60e-04 ce=0.1794 kl=6476.1  0m 8.1s
+      SC4002E0 ft ep  21/200 lr=3.60e-04 ce=0.1179 kl=6476.1  0m 10.6s
+      SC4002E0 ft ep  31/200 lr=3.60e-04 ce=0.0721 kl=6476.2  0m 13.2s
+      SC4002E0 ft ep  41/200 lr=3.60e-04 ce=0.0437 kl=6477.1  0m 15.7s
+      SC4002E0 ft ep  51/200 lr=3.60e-04 ce=0.0496 kl=6477.6  0m 18.2s
+      SC4002E0 ft ep  61/200 lr=3.60e-04 ce=0.0219 kl=6479.0  0m 20.8s
+      SC4002E0 ft ep  71/200 lr=3.60e-04 ce=0.0247 kl=6479.7  0m 23.3s
+      SC4002E0 ft ep  81/200 lr=3.60e-04 ce=0.0110 kl=6479.9  0m 25.9s
+      SC4002E0 ft ep  91/200 lr=3.60e-04 ce=0.0133 kl=6480.0  0m 28.4s
+      SC4002E0 ft ep 101/200 lr=3.60e-04 ce=0.0089 kl=6480.5  0m 31.0s
+      SC4002E0 ft ep 111/200 lr=3.60e-04 ce=0.0113 kl=6481.9  0m 33.5s
+      SC4002E0 ft ep 121/200 lr=3.60e-04 ce=0.0082 kl=6482.7  0m 36.1s
+      SC4002E0 ft ep 131/200 lr=3.60e-04 ce=0.0098 kl=6483.2  0m 38.6s
+      SC4002E0 ft ep 141/200 lr=3.60e-04 ce=0.0227 kl=6483.4  0m 41.2s
+      SC4002E0 ft ep 151/200 lr=3.60e-04 ce=0.0054 kl=6485.1  0m 43.7s
+      SC4002E0 ft ep 161/200 lr=3.60e-04 ce=0.0041 kl=6485.0  0m 46.3s
+      SC4002E0 ft ep 171/200 lr=3.60e-04 ce=0.0066 kl=6485.4  0m 48.8s
+      SC4002E0 ft ep 181/200 lr=3.60e-04 ce=0.0039 kl=6486.0  0m 51.4s
+      SC4002E0 ft ep 191/200 lr=3.60e-04 ce=0.0024 kl=6485.9  0m 53.9s
+      SC4002E0 ft ep 200/200 lr=3.60e-04 ce=0.0019 kl=6485.7  0m 56.2s
+      SC4002E0 stage2: 113 annotated, eval on 902 (80.0% of the subject)
+      SC4002E0     acc=91.57 mf1=83.52 k=0.8882
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4052E0 stage1: 124/1246 selected (k=10)
+      SC4052E0 ft ep   1/200 lr=3.60e-04 ce=0.3990 kl=6473.4  0m 6.0s
+      SC4052E0 ft ep  11/200 lr=3.60e-04 ce=0.1439 kl=6473.4  0m 8.8s
+      SC4052E0 ft ep  21/200 lr=3.60e-04 ce=0.1117 kl=6474.5  0m 11.6s
+      SC4052E0 ft ep  31/200 lr=3.60e-04 ce=0.0651 kl=6474.9  0m 14.4s
+      SC4052E0 ft ep  41/200 lr=3.60e-04 ce=0.0530 kl=6475.1  0m 17.2s
+      SC4052E0 ft ep  51/200 lr=3.60e-04 ce=0.0579 kl=6476.7  0m 20.1s
+      SC4052E0 ft ep  61/200 lr=3.60e-04 ce=0.0291 kl=6478.2  0m 22.9s
+      SC4052E0 ft ep  71/200 lr=3.60e-04 ce=0.0245 kl=6479.8  0m 25.7s
+      SC4052E0 ft ep  81/200 lr=3.60e-04 ce=0.0094 kl=6480.9  0m 28.5s
+      SC4052E0 ft ep  91/200 lr=3.60e-04 ce=0.0095 kl=6482.5  0m 31.3s
+      SC4052E0 ft ep 101/200 lr=3.60e-04 ce=0.0103 kl=6483.5  0m 34.1s
+      SC4052E0 ft ep 111/200 lr=3.60e-04 ce=0.0078 kl=6485.3  0m 36.9s
+      SC4052E0 ft ep 121/200 lr=3.60e-04 ce=0.0077 kl=6487.3  0m 39.7s
+      SC4052E0 ft ep 131/200 lr=3.60e-04 ce=0.0063 kl=6489.6  0m 42.6s
+      SC4052E0 ft ep 141/200 lr=3.60e-04 ce=0.0101 kl=6490.9  0m 45.4s
+      SC4052E0 ft ep 151/200 lr=3.60e-04 ce=0.0057 kl=6492.7  0m 48.2s
+      SC4052E0 ft ep 161/200 lr=3.60e-04 ce=0.0054 kl=6493.9  0m 51.0s
+      SC4052E0 ft ep 171/200 lr=3.60e-04 ce=0.0036 kl=6495.8  0m 53.8s
+      SC4052E0 ft ep 181/200 lr=3.60e-04 ce=0.0040 kl=6495.9  0m 56.6s
+      SC4052E0 ft ep 191/200 lr=3.60e-04 ce=0.0050 kl=6495.9  0m 59.4s
+      SC4052E0 ft ep 200/200 lr=3.60e-04 ce=0.0040 kl=6497.2  1m 2.0s
+      SC4052E0 stage2: 125 annotated, eval on 997 (80.0% of the subject)
+      SC4052E0     acc=93.28 mf1=88.68 k=0.8977
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4102E0 stage1: 109/1092 selected (k=10)
+      SC4102E0 ft ep   1/200 lr=3.60e-04 ce=0.5754 kl=6473.4  0m 7.7s
+      SC4102E0 ft ep  11/200 lr=3.60e-04 ce=0.1686 kl=6467.7  0m 10.2s
+      SC4102E0 ft ep  21/200 lr=3.60e-04 ce=0.1101 kl=6468.4  0m 12.7s
+      SC4102E0 ft ep  31/200 lr=3.60e-04 ce=0.0834 kl=6470.5  0m 15.2s
+      SC4102E0 ft ep  41/200 lr=3.60e-04 ce=0.0535 kl=6472.6  0m 17.8s
+      SC4102E0 ft ep  51/200 lr=3.60e-04 ce=0.0497 kl=6473.1  0m 20.3s
+      SC4102E0 ft ep  61/200 lr=3.60e-04 ce=0.0210 kl=6474.5  0m 22.8s
+      SC4102E0 ft ep  71/200 lr=3.60e-04 ce=0.0252 kl=6476.0  0m 25.4s
+      SC4102E0 ft ep  81/200 lr=3.60e-04 ce=0.0185 kl=6477.2  0m 27.8s
+      SC4102E0 ft ep  91/200 lr=3.60e-04 ce=0.0121 kl=6477.9  0m 30.3s
+      SC4102E0 ft ep 101/200 lr=3.60e-04 ce=0.0082 kl=6479.2  0m 32.8s
+      SC4102E0 ft ep 111/200 lr=3.60e-04 ce=0.0093 kl=6479.9  0m 35.3s
+      SC4102E0 ft ep 121/200 lr=3.60e-04 ce=0.0075 kl=6481.4  0m 37.8s
+      SC4102E0 ft ep 131/200 lr=3.60e-04 ce=0.0086 kl=6481.0  0m 40.2s
+      SC4102E0 ft ep 141/200 lr=3.60e-04 ce=0.0098 kl=6480.4  0m 42.7s
+      SC4102E0 ft ep 151/200 lr=3.60e-04 ce=0.0029 kl=6481.4  0m 45.2s
+      SC4102E0 ft ep 161/200 lr=3.60e-04 ce=0.0043 kl=6481.6  0m 47.7s
+      SC4102E0 ft ep 171/200 lr=3.60e-04 ce=0.0070 kl=6481.6  0m 50.2s
+      SC4102E0 ft ep 181/200 lr=3.60e-04 ce=0.0038 kl=6480.9  0m 52.7s
+      SC4102E0 ft ep 191/200 lr=3.60e-04 ce=0.0022 kl=6479.8  0m 55.2s
+      SC4102E0 ft ep 200/200 lr=3.60e-04 ce=0.0017 kl=6478.5  0m 57.4s
+      SC4102E0 stage2: 110 annotated, eval on 873 (79.9% of the subject)
+      SC4102E0     acc=96.33 mf1=92.77 k=0.9402
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4191E0 stage1: 153/1535 selected (k=10)
+      SC4191E0 ft ep   1/200 lr=3.60e-04 ce=0.6814 kl=6473.4  0m 1.7s
+      SC4191E0 ft ep  11/200 lr=3.60e-04 ce=0.1479 kl=6476.7  0m 5.2s
+      SC4191E0 ft ep  21/200 lr=3.60e-04 ce=0.1964 kl=6478.8  0m 8.7s
+      SC4191E0 ft ep  31/200 lr=3.60e-04 ce=0.1088 kl=6481.6  0m 12.2s
+      SC4191E0 ft ep  41/200 lr=3.60e-04 ce=0.1014 kl=6483.2  0m 15.7s
+      SC4191E0 ft ep  51/200 lr=3.60e-04 ce=0.0811 kl=6484.8  0m 19.2s
+      SC4191E0 ft ep  61/200 lr=3.60e-04 ce=0.0381 kl=6486.3  0m 22.7s
+      SC4191E0 ft ep  71/200 lr=3.60e-04 ce=0.0315 kl=6488.4  0m 26.2s
+      SC4191E0 ft ep  81/200 lr=3.60e-04 ce=0.0270 kl=6489.8  0m 29.7s
+      SC4191E0 ft ep  91/200 lr=3.60e-04 ce=0.0200 kl=6491.3  0m 33.2s
+      SC4191E0 ft ep 101/200 lr=3.60e-04 ce=0.0210 kl=6492.4  0m 36.7s
+      SC4191E0 ft ep 111/200 lr=3.60e-04 ce=0.0203 kl=6493.9  0m 40.2s
+      SC4191E0 ft ep 121/200 lr=3.60e-04 ce=0.0155 kl=6495.1  0m 43.7s
+      SC4191E0 ft ep 131/200 lr=3.60e-04 ce=0.0154 kl=6496.4  0m 47.2s
+      SC4191E0 ft ep 141/200 lr=3.60e-04 ce=0.0094 kl=6497.6  0m 50.7s
+      SC4191E0 ft ep 151/200 lr=3.60e-04 ce=0.0085 kl=6499.3  0m 54.2s
+      SC4191E0 ft ep 161/200 lr=3.60e-04 ce=0.0320 kl=6500.6  0m 57.7s
+      SC4191E0 ft ep 171/200 lr=3.60e-04 ce=0.0172 kl=6500.7  1m 1.2s
+      SC4191E0 ft ep 181/200 lr=3.60e-04 ce=0.0128 kl=6501.1  1m 4.7s
+      SC4191E0 ft ep 191/200 lr=3.60e-04 ce=0.0131 kl=6502.1  1m 8.2s
+      SC4191E0 ft ep 200/200 lr=3.60e-04 ce=0.0073 kl=6502.0  1m 11.4s
+      SC4191E0 stage2: 154 annotated, eval on 1228 (80.0% of the subject)
+      SC4191E0     acc=92.35 mf1=88.55 k=0.8782
+      fold 5 done in 179m 5.2s
+----------------------------------------------------------------------------------------------------
+FOLD 6  train=35 recordings  test=4 recordings (SC4011E0, SC4012E0, SC4151E0, SC4181E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold6 ep   1/200 lr=6.00e-05 ce=1.5757 kl=2918.8  0m 44.2s
+      fold6 ep  11/200 lr=6.60e-04 ce=0.5370 kl=3038.8  7m 56.1s
+      fold6 ep  21/200 lr=1.20e-03 ce=0.4182 kl=3282.7  15m 7.4s
+      fold6 ep  31/200 lr=1.19e-03 ce=0.3653 kl=3604.0  22m 18.9s
+      fold6 ep  41/200 lr=1.16e-03 ce=0.3389 kl=3919.6  29m 30.5s
+      fold6 ep  51/200 lr=1.11e-03 ce=0.3184 kl=4176.0  36m 42.4s
+      fold6 ep  61/200 lr=1.05e-03 ce=0.3066 kl=4369.8  44m 23.4s
+      fold6 ep  71/200 lr=9.78e-04 ce=0.2913 kl=4559.5  52m 23.5s
+      fold6 ep  81/200 lr=8.91e-04 ce=0.2821 kl=4751.8  60m 14.6s
+      fold6 ep  91/200 lr=7.95e-04 ce=0.2691 kl=4938.9  68m 6.4s
+      fold6 ep 101/200 lr=6.94e-04 ce=0.2558 kl=5043.7  76m 3.3s
+      fold6 ep 111/200 lr=5.90e-04 ce=0.2499 kl=5187.5  83m 57.7s
+      fold6 ep 121/200 lr=4.86e-04 ce=0.2528 kl=5280.2  91m 46.0s
+      fold6 ep 131/200 lr=3.85e-04 ce=0.2335 kl=5347.1  99m 32.0s
+      fold6 ep 141/200 lr=2.91e-04 ce=0.2256 kl=5403.9  107m 23.3s
+      fold6 ep 151/200 lr=2.06e-04 ce=0.2252 kl=5446.8  115m 22.4s
+      fold6 ep 161/200 lr=1.34e-04 ce=0.2211 kl=5478.3  123m 16.8s
+      fold6 ep 171/200 lr=7.52e-05 ce=0.2159 kl=5496.1  131m 6.8s
+      fold6 ep 181/200 lr=3.27e-05 ce=0.2142 kl=5505.6  139m 9.0s
+      fold6 ep 191/200 lr=7.39e-06 ce=0.2118 kl=5508.7  147m 1.3s
+      fold6 ep 200/200 lr=0.00e+00 ce=0.2065 kl=5509.1  154m 2.3s
+      CV  acc=87.60 mf1=81.67 k=0.8312  per-class F1=['93.6', '55.1', '89.6', '86.1', '83.9']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4011E0 stage1: 110/1103 selected (k=10)
+      SC4011E0 ft ep   1/200 lr=3.60e-04 ce=0.3714 kl=5509.1  0m 5.7s
+      SC4011E0 ft ep  11/200 lr=3.60e-04 ce=0.1898 kl=5511.3  0m 8.5s
+      SC4011E0 ft ep  21/200 lr=3.60e-04 ce=0.1805 kl=5513.5  0m 11.2s
+      SC4011E0 ft ep  31/200 lr=3.60e-04 ce=0.1141 kl=5515.7  0m 14.0s
+      SC4011E0 ft ep  41/200 lr=3.60e-04 ce=0.0603 kl=5518.4  0m 16.7s
+      SC4011E0 ft ep  51/200 lr=3.60e-04 ce=0.0586 kl=5522.2  0m 19.4s
+      SC4011E0 ft ep  61/200 lr=3.60e-04 ce=0.0526 kl=5526.8  0m 22.2s
+      SC4011E0 ft ep  71/200 lr=3.60e-04 ce=0.0626 kl=5530.1  0m 25.0s
+      SC4011E0 ft ep  81/200 lr=3.60e-04 ce=0.0323 kl=5533.0  0m 27.8s
+      SC4011E0 ft ep  91/200 lr=3.60e-04 ce=0.0332 kl=5535.7  0m 30.6s
+      SC4011E0 ft ep 101/200 lr=3.60e-04 ce=0.0159 kl=5537.9  0m 33.4s
+      SC4011E0 ft ep 111/200 lr=3.60e-04 ce=0.0159 kl=5540.8  0m 36.1s
+      SC4011E0 ft ep 121/200 lr=3.60e-04 ce=0.0205 kl=5544.6  0m 38.9s
+      SC4011E0 ft ep 131/200 lr=3.60e-04 ce=0.0096 kl=5547.5  0m 41.7s
+      SC4011E0 ft ep 141/200 lr=3.60e-04 ce=0.0102 kl=5550.3  0m 44.5s
+      SC4011E0 ft ep 151/200 lr=3.60e-04 ce=0.0122 kl=5552.8  0m 47.3s
+      SC4011E0 ft ep 161/200 lr=3.60e-04 ce=0.0094 kl=5555.3  0m 50.0s
+      SC4011E0 ft ep 171/200 lr=3.60e-04 ce=0.0057 kl=5558.1  0m 52.8s
+      SC4011E0 ft ep 181/200 lr=3.60e-04 ce=0.0085 kl=5559.8  0m 55.5s
+      SC4011E0 ft ep 191/200 lr=3.60e-04 ce=0.0240 kl=5560.8  0m 58.3s
+      SC4011E0 ft ep 200/200 lr=3.60e-04 ce=0.0036 kl=5562.3  1m 0.8s
+      SC4011E0 stage2: 111 annotated, eval on 882 (80.0% of the subject)
+      SC4011E0     acc=93.42 mf1=90.96 k=0.8978
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4012E0 stage1: 226/2265 selected (k=10)
+      SC4012E0 ft ep   1/200 lr=3.60e-04 ce=0.6574 kl=5509.1  0m 5.0s
+      SC4012E0 ft ep  11/200 lr=3.60e-04 ce=0.1656 kl=5509.4  0m 10.7s
+      SC4012E0 ft ep  21/200 lr=3.60e-04 ce=0.0866 kl=5511.0  0m 16.4s
+      SC4012E0 ft ep  31/200 lr=3.60e-04 ce=0.0947 kl=5513.3  0m 22.1s
+      SC4012E0 ft ep  41/200 lr=3.60e-04 ce=0.0752 kl=5515.0  0m 27.7s
+      SC4012E0 ft ep  51/200 lr=3.60e-04 ce=0.0662 kl=5516.3  0m 33.4s
+      SC4012E0 ft ep  61/200 lr=3.60e-04 ce=0.0511 kl=5517.2  0m 39.0s
+      SC4012E0 ft ep  71/200 lr=3.60e-04 ce=0.0558 kl=5518.7  0m 44.6s
+      SC4012E0 ft ep  81/200 lr=3.60e-04 ce=0.0388 kl=5520.8  0m 50.3s
+      SC4012E0 ft ep  91/200 lr=3.60e-04 ce=0.0586 kl=5522.6  0m 55.9s
+      SC4012E0 ft ep 101/200 lr=3.60e-04 ce=0.0254 kl=5524.5  1m 1.5s
+      SC4012E0 ft ep 111/200 lr=3.60e-04 ce=0.0237 kl=5526.6  1m 7.2s
+      SC4012E0 ft ep 121/200 lr=3.60e-04 ce=0.0226 kl=5528.3  1m 12.8s
+      SC4012E0 ft ep 131/200 lr=3.60e-04 ce=0.0259 kl=5531.2  1m 18.5s
+      SC4012E0 ft ep 141/200 lr=3.60e-04 ce=0.0141 kl=5533.9  1m 24.1s
+      SC4012E0 ft ep 151/200 lr=3.60e-04 ce=0.0099 kl=5536.7  1m 29.8s
+      SC4012E0 ft ep 161/200 lr=3.60e-04 ce=0.0179 kl=5539.8  1m 35.4s
+      SC4012E0 ft ep 171/200 lr=3.60e-04 ce=0.0128 kl=5541.5  1m 41.0s
+      SC4012E0 ft ep 181/200 lr=3.60e-04 ce=0.0065 kl=5542.6  1m 46.7s
+      SC4012E0 ft ep 191/200 lr=3.60e-04 ce=0.0193 kl=5543.8  1m 52.3s
+      SC4012E0 ft ep 200/200 lr=3.60e-04 ce=0.0049 kl=5545.2  1m 57.4s
+      SC4012E0 stage2: 227 annotated, eval on 1812 (80.0% of the subject)
+      SC4012E0     acc=94.54 mf1=84.17 k=0.9028
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4151E0 stage1: 95/952 selected (k=10)
+      SC4151E0 ft ep   1/200 lr=3.60e-04 ce=0.1901 kl=5509.1  0m 4.9s
+      SC4151E0 ft ep  11/200 lr=3.60e-04 ce=0.1100 kl=5512.9  0m 7.2s
+      SC4151E0 ft ep  21/200 lr=3.60e-04 ce=0.0728 kl=5514.7  0m 9.5s
+      SC4151E0 ft ep  31/200 lr=3.60e-04 ce=0.0435 kl=5516.6  0m 11.8s
+      SC4151E0 ft ep  41/200 lr=3.60e-04 ce=0.0400 kl=5518.2  0m 14.1s
+      SC4151E0 ft ep  51/200 lr=3.60e-04 ce=0.0255 kl=5521.0  0m 16.4s
+      SC4151E0 ft ep  61/200 lr=3.60e-04 ce=0.0138 kl=5523.3  0m 18.7s
+      SC4151E0 ft ep  71/200 lr=3.60e-04 ce=0.0149 kl=5525.4  0m 21.1s
+      SC4151E0 ft ep  81/200 lr=3.60e-04 ce=0.0066 kl=5527.6  0m 23.4s
+      SC4151E0 ft ep  91/200 lr=3.60e-04 ce=0.0044 kl=5529.4  0m 25.7s
+      SC4151E0 ft ep 101/200 lr=3.60e-04 ce=0.0038 kl=5531.2  0m 28.0s
+      SC4151E0 ft ep 111/200 lr=3.60e-04 ce=0.0086 kl=5533.2  0m 30.3s
+      SC4151E0 ft ep 121/200 lr=3.60e-04 ce=0.0058 kl=5535.8  0m 32.7s
+      SC4151E0 ft ep 131/200 lr=3.60e-04 ce=0.0027 kl=5537.2  0m 35.0s
+      SC4151E0 ft ep 141/200 lr=3.60e-04 ce=0.0048 kl=5538.4  0m 37.3s
+      SC4151E0 ft ep 151/200 lr=3.60e-04 ce=0.0051 kl=5539.5  0m 39.6s
+      SC4151E0 ft ep 161/200 lr=3.60e-04 ce=0.0017 kl=5541.2  0m 41.9s
+      SC4151E0 ft ep 171/200 lr=3.60e-04 ce=0.0016 kl=5542.4  0m 44.3s
+      SC4151E0 ft ep 181/200 lr=3.60e-04 ce=0.0021 kl=5542.0  0m 46.6s
+      SC4151E0 ft ep 191/200 lr=3.60e-04 ce=0.0017 kl=5541.2  0m 48.9s
+      SC4151E0 ft ep 200/200 lr=3.60e-04 ce=0.0010 kl=5541.2  0m 51.0s
+      SC4151E0 stage2: 96 annotated, eval on 761 (79.9% of the subject)
+      SC4151E0     acc=95.53 mf1=89.30 k=0.9400
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4181E0 stage1: 96/964 selected (k=10)
+      SC4181E0 ft ep   1/200 lr=3.60e-04 ce=0.8866 kl=5509.1  0m 4.7s
+      SC4181E0 ft ep  11/200 lr=3.60e-04 ce=0.2805 kl=5514.0  0m 7.0s
+      SC4181E0 ft ep  21/200 lr=3.60e-04 ce=0.1895 kl=5520.3  0m 9.3s
+      SC4181E0 ft ep  31/200 lr=3.60e-04 ce=0.1670 kl=5525.4  0m 11.6s
+      SC4181E0 ft ep  41/200 lr=3.60e-04 ce=0.1126 kl=5528.5  0m 13.8s
+      SC4181E0 ft ep  51/200 lr=3.60e-04 ce=0.0679 kl=5532.5  0m 16.1s
+      SC4181E0 ft ep  61/200 lr=3.60e-04 ce=0.0562 kl=5535.8  0m 18.4s
+      SC4181E0 ft ep  71/200 lr=3.60e-04 ce=0.0409 kl=5539.1  0m 20.6s
+      SC4181E0 ft ep  81/200 lr=3.60e-04 ce=0.0261 kl=5541.8  0m 22.9s
+      SC4181E0 ft ep  91/200 lr=3.60e-04 ce=0.0180 kl=5543.8  0m 25.2s
+      SC4181E0 ft ep 101/200 lr=3.60e-04 ce=0.0160 kl=5544.9  0m 27.5s
+      SC4181E0 ft ep 111/200 lr=3.60e-04 ce=0.0421 kl=5546.6  0m 29.8s
+      SC4181E0 ft ep 121/200 lr=3.60e-04 ce=0.0108 kl=5547.8  0m 32.0s
+      SC4181E0 ft ep 131/200 lr=3.60e-04 ce=0.0088 kl=5549.0  0m 34.3s
+      SC4181E0 ft ep 141/200 lr=3.60e-04 ce=0.0085 kl=5551.5  0m 36.6s
+      SC4181E0 ft ep 151/200 lr=3.60e-04 ce=0.0062 kl=5553.4  0m 38.9s
+      SC4181E0 ft ep 161/200 lr=3.60e-04 ce=0.0073 kl=5554.3  0m 41.1s
+      SC4181E0 ft ep 171/200 lr=3.60e-04 ce=0.0059 kl=5554.6  0m 43.4s
+      SC4181E0 ft ep 181/200 lr=3.60e-04 ce=0.0030 kl=5555.3  0m 45.7s
+      SC4181E0 ft ep 191/200 lr=3.60e-04 ce=0.0026 kl=5556.0  0m 48.0s
+      SC4181E0 ft ep 200/200 lr=3.60e-04 ce=0.0026 kl=5556.8  0m 50.1s
+      SC4181E0 stage2: 97 annotated, eval on 771 (80.0% of the subject)
+      SC4181E0     acc=87.42 mf1=80.04 k=0.8202
+      fold 6 done in 187m 18.9s
+----------------------------------------------------------------------------------------------------
+FOLD 7  train=35 recordings  test=4 recordings (SC4051E0, SC4112E0, SC4161E0, SC4172E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold7 ep   1/200 lr=6.00e-05 ce=1.5389 kl=2635.0  0m 51.5s
+      fold7 ep  11/200 lr=6.60e-04 ce=0.4439 kl=2827.1  8m 15.0s
+      fold7 ep  21/200 lr=1.20e-03 ce=0.3434 kl=3264.9  15m 39.0s
+      fold7 ep  31/200 lr=1.19e-03 ce=0.2965 kl=3773.2  23m 2.6s
+      fold7 ep  41/200 lr=1.16e-03 ce=0.2770 kl=4231.6  30m 26.2s
+      fold7 ep  51/200 lr=1.11e-03 ce=0.2487 kl=4660.0  37m 50.2s
+      fold7 ep  61/200 lr=1.05e-03 ce=0.2240 kl=5067.0  45m 13.8s
+      fold7 ep  71/200 lr=9.78e-04 ce=0.2100 kl=5428.3  52m 37.6s
+      fold7 ep  81/200 lr=8.91e-04 ce=0.1948 kl=5770.4  60m 1.4s
+      fold7 ep  91/200 lr=7.95e-04 ce=0.1783 kl=6049.8  67m 24.9s
+      fold7 ep 101/200 lr=6.94e-04 ce=0.1743 kl=6312.6  74m 48.4s
+      fold7 ep 111/200 lr=5.90e-04 ce=0.1610 kl=6520.5  82m 12.0s
+      fold7 ep 121/200 lr=4.86e-04 ce=0.1479 kl=6701.6  89m 35.5s
+      fold7 ep 131/200 lr=3.85e-04 ce=0.1440 kl=6849.7  96m 59.1s
+      fold7 ep 141/200 lr=2.91e-04 ce=0.1367 kl=6965.7  104m 22.6s
+      fold7 ep 151/200 lr=2.06e-04 ce=0.1275 kl=7048.0  111m 46.4s
+      fold7 ep 161/200 lr=1.34e-04 ce=0.1245 kl=7104.3  119m 10.1s
+      fold7 ep 171/200 lr=7.52e-05 ce=0.1184 kl=7139.1  126m 33.4s
+      fold7 ep 181/200 lr=3.27e-05 ce=0.1191 kl=7156.4  133m 57.0s
+      fold7 ep 191/200 lr=7.39e-06 ce=0.1184 kl=7162.9  141m 20.4s
+      fold7 ep 200/200 lr=0.00e+00 ce=0.1165 kl=7163.6  147m 59.6s
+      CV  acc=85.52 mf1=77.02 k=0.8016  per-class F1=['94.9', '41.2', '84.7', '83.4', '81.0']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4051E0 stage1: 67/672 selected (k=10)
+      SC4051E0 ft ep   1/200 lr=3.60e-04 ce=0.4120 kl=7163.6  0m 3.6s
+      SC4051E0 ft ep  11/200 lr=3.60e-04 ce=0.0444 kl=7163.0  0m 5.2s
+      SC4051E0 ft ep  21/200 lr=3.60e-04 ce=0.0385 kl=7162.6  0m 6.7s
+      SC4051E0 ft ep  31/200 lr=3.60e-04 ce=0.0102 kl=7164.8  0m 8.2s
+      SC4051E0 ft ep  41/200 lr=3.60e-04 ce=0.0227 kl=7166.3  0m 9.7s
+      SC4051E0 ft ep  51/200 lr=3.60e-04 ce=0.0391 kl=7166.8  0m 11.3s
+      SC4051E0 ft ep  61/200 lr=3.60e-04 ce=0.0083 kl=7167.3  0m 12.8s
+      SC4051E0 ft ep  71/200 lr=3.60e-04 ce=0.0061 kl=7167.1  0m 14.3s
+      SC4051E0 ft ep  81/200 lr=3.60e-04 ce=0.0047 kl=7166.8  0m 15.9s
+      SC4051E0 ft ep  91/200 lr=3.60e-04 ce=0.0039 kl=7166.2  0m 17.4s
+      SC4051E0 ft ep 101/200 lr=3.60e-04 ce=0.0034 kl=7165.4  0m 18.9s
+      SC4051E0 ft ep 111/200 lr=3.60e-04 ce=0.0032 kl=7164.9  0m 20.4s
+      SC4051E0 ft ep 121/200 lr=3.60e-04 ce=0.0014 kl=7164.0  0m 22.0s
+      SC4051E0 ft ep 131/200 lr=3.60e-04 ce=0.0015 kl=7162.8  0m 23.5s
+      SC4051E0 ft ep 141/200 lr=3.60e-04 ce=0.0012 kl=7161.6  0m 25.0s
+      SC4051E0 ft ep 151/200 lr=3.60e-04 ce=0.0010 kl=7160.2  0m 26.6s
+      SC4051E0 ft ep 161/200 lr=3.60e-04 ce=0.0037 kl=7158.3  0m 28.1s
+      SC4051E0 ft ep 171/200 lr=3.60e-04 ce=0.0013 kl=7155.9  0m 29.6s
+      SC4051E0 ft ep 181/200 lr=3.60e-04 ce=0.0015 kl=7153.3  0m 31.1s
+      SC4051E0 ft ep 191/200 lr=3.60e-04 ce=0.0017 kl=7150.1  0m 32.7s
+      SC4051E0 ft ep 200/200 lr=3.60e-04 ce=0.0010 kl=7148.1  0m 34.1s
+      SC4051E0 stage2: 68 annotated, eval on 537 (79.9% of the subject)
+      SC4051E0     acc=93.67 mf1=90.40 k=0.9147
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4112E0 stage1: 80/802 selected (k=10)
+      SC4112E0 ft ep   1/200 lr=3.60e-04 ce=0.1448 kl=7163.6  0m 4.2s
+      SC4112E0 ft ep  11/200 lr=3.60e-04 ce=0.0421 kl=7165.6  0m 6.1s
+      SC4112E0 ft ep  21/200 lr=3.60e-04 ce=0.0178 kl=7166.3  0m 7.9s
+      SC4112E0 ft ep  31/200 lr=3.60e-04 ce=0.0093 kl=7167.9  0m 9.7s
+      SC4112E0 ft ep  41/200 lr=3.60e-04 ce=0.0096 kl=7169.4  0m 11.5s
+      SC4112E0 ft ep  51/200 lr=3.60e-04 ce=0.0082 kl=7170.3  0m 13.4s
+      SC4112E0 ft ep  61/200 lr=3.60e-04 ce=0.0034 kl=7171.4  0m 15.2s
+      SC4112E0 ft ep  71/200 lr=3.60e-04 ce=0.0029 kl=7171.8  0m 17.0s
+      SC4112E0 ft ep  81/200 lr=3.60e-04 ce=0.0020 kl=7172.1  0m 18.9s
+      SC4112E0 ft ep  91/200 lr=3.60e-04 ce=0.0026 kl=7172.2  0m 20.7s
+      SC4112E0 ft ep 101/200 lr=3.60e-04 ce=0.0059 kl=7171.8  0m 22.5s
+      SC4112E0 ft ep 111/200 lr=3.60e-04 ce=0.0012 kl=7171.5  0m 24.4s
+      SC4112E0 ft ep 121/200 lr=3.60e-04 ce=0.0028 kl=7171.4  0m 26.2s
+      SC4112E0 ft ep 131/200 lr=3.60e-04 ce=0.0027 kl=7171.3  0m 28.0s
+      SC4112E0 ft ep 141/200 lr=3.60e-04 ce=0.0010 kl=7171.0  0m 29.9s
+      SC4112E0 ft ep 151/200 lr=3.60e-04 ce=0.0006 kl=7170.2  0m 31.7s
+      SC4112E0 ft ep 161/200 lr=3.60e-04 ce=0.0007 kl=7169.1  0m 33.5s
+      SC4112E0 ft ep 171/200 lr=3.60e-04 ce=0.0017 kl=7168.9  0m 35.3s
+      SC4112E0 ft ep 181/200 lr=3.60e-04 ce=0.0008 kl=7168.2  0m 37.2s
+      SC4112E0 ft ep 191/200 lr=3.60e-04 ce=0.0003 kl=7167.1  0m 39.0s
+      SC4112E0 ft ep 200/200 lr=3.60e-04 ce=0.0007 kl=7165.3  0m 40.7s
+      SC4112E0 stage2: 81 annotated, eval on 641 (79.9% of the subject)
+      SC4112E0     acc=94.23 mf1=82.30 k=0.9148
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4161E0 stage1: 114/1144 selected (k=10)
+      SC4161E0 ft ep   1/200 lr=3.60e-04 ce=0.7053 kl=7163.6  0m 5.0s
+      SC4161E0 ft ep  11/200 lr=3.60e-04 ce=0.1653 kl=7165.9  0m 7.7s
+      SC4161E0 ft ep  21/200 lr=3.60e-04 ce=0.1068 kl=7166.7  0m 10.3s
+      SC4161E0 ft ep  31/200 lr=3.60e-04 ce=0.0532 kl=7169.0  0m 12.9s
+      SC4161E0 ft ep  41/200 lr=3.60e-04 ce=0.0290 kl=7170.8  0m 15.5s
+      SC4161E0 ft ep  51/200 lr=3.60e-04 ce=0.0203 kl=7172.1  0m 18.2s
+      SC4161E0 ft ep  61/200 lr=3.60e-04 ce=0.0268 kl=7173.3  0m 20.8s
+      SC4161E0 ft ep  71/200 lr=3.60e-04 ce=0.0185 kl=7174.0  0m 23.4s
+      SC4161E0 ft ep  81/200 lr=3.60e-04 ce=0.0121 kl=7174.8  0m 26.0s
+      SC4161E0 ft ep  91/200 lr=3.60e-04 ce=0.0101 kl=7174.9  0m 28.6s
+      SC4161E0 ft ep 101/200 lr=3.60e-04 ce=0.0069 kl=7175.0  0m 31.3s
+      SC4161E0 ft ep 111/200 lr=3.60e-04 ce=0.0146 kl=7175.5  0m 33.9s
+      SC4161E0 ft ep 121/200 lr=3.60e-04 ce=0.0092 kl=7176.8  0m 36.5s
+      SC4161E0 ft ep 131/200 lr=3.60e-04 ce=0.0044 kl=7177.7  0m 39.1s
+      SC4161E0 ft ep 141/200 lr=3.60e-04 ce=0.0142 kl=7178.5  0m 41.7s
+      SC4161E0 ft ep 151/200 lr=3.60e-04 ce=0.0053 kl=7179.8  0m 44.4s
+      SC4161E0 ft ep 161/200 lr=3.60e-04 ce=0.0109 kl=7180.6  0m 47.0s
+      SC4161E0 ft ep 171/200 lr=3.60e-04 ce=0.0026 kl=7180.7  0m 49.6s
+      SC4161E0 ft ep 181/200 lr=3.60e-04 ce=0.0020 kl=7180.8  0m 52.2s
+      SC4161E0 ft ep 191/200 lr=3.60e-04 ce=0.0016 kl=7181.0  0m 54.9s
+      SC4161E0 ft ep 200/200 lr=3.60e-04 ce=0.0018 kl=7181.2  0m 57.2s
+      SC4161E0 stage2: 115 annotated, eval on 915 (80.0% of the subject)
+      SC4161E0     acc=94.21 mf1=78.09 k=0.9199
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4172E0 stage1: 177/1773 selected (k=10)
+      SC4172E0 ft ep   1/200 lr=3.60e-04 ce=0.3813 kl=7163.6  0m 3.0s
+      SC4172E0 ft ep  11/200 lr=3.60e-04 ce=0.2476 kl=7160.7  0m 7.0s
+      SC4172E0 ft ep  21/200 lr=3.60e-04 ce=0.1203 kl=7160.6  0m 11.1s
+      SC4172E0 ft ep  31/200 lr=3.60e-04 ce=0.0754 kl=7161.5  0m 15.1s
+      SC4172E0 ft ep  41/200 lr=3.60e-04 ce=0.0962 kl=7162.7  0m 19.2s
+      SC4172E0 ft ep  51/200 lr=3.60e-04 ce=0.0602 kl=7163.7  0m 23.2s
+      SC4172E0 ft ep  61/200 lr=3.60e-04 ce=0.0322 kl=7165.9  0m 27.2s
+      SC4172E0 ft ep  71/200 lr=3.60e-04 ce=0.0298 kl=7168.5  0m 31.3s
+      SC4172E0 ft ep  81/200 lr=3.60e-04 ce=0.0352 kl=7171.1  0m 35.3s
+      SC4172E0 ft ep  91/200 lr=3.60e-04 ce=0.0142 kl=7173.3  0m 39.4s
+      SC4172E0 ft ep 101/200 lr=3.60e-04 ce=0.0252 kl=7175.8  0m 43.4s
+      SC4172E0 ft ep 111/200 lr=3.60e-04 ce=0.0139 kl=7178.3  0m 47.5s
+      SC4172E0 ft ep 121/200 lr=3.60e-04 ce=0.0113 kl=7179.7  0m 51.5s
+      SC4172E0 ft ep 131/200 lr=3.60e-04 ce=0.0112 kl=7180.6  0m 55.5s
+      SC4172E0 ft ep 141/200 lr=3.60e-04 ce=0.0170 kl=7181.7  0m 59.6s
+      SC4172E0 ft ep 151/200 lr=3.60e-04 ce=0.0246 kl=7183.2  1m 3.6s
+      SC4172E0 ft ep 161/200 lr=3.60e-04 ce=0.0095 kl=7185.3  1m 7.7s
+      SC4172E0 ft ep 171/200 lr=3.60e-04 ce=0.0032 kl=7186.9  1m 11.7s
+      SC4172E0 ft ep 181/200 lr=3.60e-04 ce=0.0066 kl=7188.2  1m 15.8s
+      SC4172E0 ft ep 191/200 lr=3.60e-04 ce=0.0067 kl=7188.6  1m 19.8s
+      SC4172E0 ft ep 200/200 lr=3.60e-04 ce=0.0054 kl=7189.2  1m 23.5s
+      SC4172E0 stage2: 178 annotated, eval on 1418 (80.0% of the subject)
+      SC4172E0     acc=94.29 mf1=86.53 k=0.9139
+      fold 7 done in 166m 59.7s
+----------------------------------------------------------------------------------------------------
+FOLD 8  train=35 recordings  test=4 recordings (SC4032E0, SC4091E0, SC4101E0, SC4111E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold8 ep   1/200 lr=6.00e-05 ce=1.5455 kl=2637.0  0m 54.2s
+      fold8 ep  11/200 lr=6.60e-04 ce=0.4335 kl=2835.9  8m 46.2s
+      fold8 ep  21/200 lr=1.20e-03 ce=0.3472 kl=3266.6  17m 11.3s
+      fold8 ep  31/200 lr=1.19e-03 ce=0.3052 kl=3714.8  25m 23.6s
+      fold8 ep  41/200 lr=1.16e-03 ce=0.2751 kl=4146.4  35m 2.2s
+      fold8 ep  51/200 lr=1.11e-03 ce=0.2543 kl=4567.6  50m 0.1s
+      fold8 ep  61/200 lr=1.05e-03 ce=0.2288 kl=4950.0  64m 47.9s
+      fold8 ep  71/200 lr=9.78e-04 ce=0.2155 kl=5297.3  79m 43.6s
+      fold8 ep  81/200 lr=8.91e-04 ce=0.2011 kl=5630.6  93m 21.7s
+      fold8 ep  91/200 lr=7.95e-04 ce=0.1825 kl=5925.2  101m 12.6s
+      fold8 ep 101/200 lr=6.94e-04 ce=0.1701 kl=6187.8  108m 42.4s
+      fold8 ep 111/200 lr=5.90e-04 ce=0.1579 kl=6405.3  116m 8.4s
+      fold8 ep 121/200 lr=4.86e-04 ce=0.1509 kl=6584.2  123m 34.3s
+      fold8 ep 131/200 lr=3.85e-04 ce=0.1430 kl=6726.5  131m 0.3s
+      fold8 ep 141/200 lr=2.91e-04 ce=0.1340 kl=6843.8  138m 25.9s
+      fold8 ep 151/200 lr=2.06e-04 ce=0.1241 kl=6929.5  145m 51.6s
+      fold8 ep 161/200 lr=1.34e-04 ce=0.1221 kl=6983.4  153m 17.2s
+      fold8 ep 171/200 lr=7.52e-05 ce=0.1186 kl=7018.6  160m 42.8s
+      fold8 ep 181/200 lr=3.27e-05 ce=0.1203 kl=7035.7  168m 8.6s
+      fold8 ep 191/200 lr=7.39e-06 ce=0.1202 kl=7041.8  175m 34.3s
+      fold8 ep 200/200 lr=0.00e+00 ce=0.1175 kl=7042.5  182m 15.6s
+      CV  acc=74.99 mf1=70.23 k=0.6489  per-class F1=['67.1', '49.2', '79.2', '78.5', '77.2']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4032E0 stage1: 91/911 selected (k=10)
+      SC4032E0 ft ep   1/200 lr=3.60e-04 ce=0.3675 kl=7042.5  0m 4.5s
+      SC4032E0 ft ep  11/200 lr=3.60e-04 ce=0.1549 kl=7044.3  0m 6.6s
+      SC4032E0 ft ep  21/200 lr=3.60e-04 ce=0.1251 kl=7047.2  0m 8.7s
+      SC4032E0 ft ep  31/200 lr=3.60e-04 ce=0.0636 kl=7048.7  0m 10.8s
+      SC4032E0 ft ep  41/200 lr=3.60e-04 ce=0.0220 kl=7050.4  0m 12.9s
+      SC4032E0 ft ep  51/200 lr=3.60e-04 ce=0.0282 kl=7052.3  0m 14.9s
+      SC4032E0 ft ep  61/200 lr=3.60e-04 ce=0.0186 kl=7054.2  0m 17.0s
+      SC4032E0 ft ep  71/200 lr=3.60e-04 ce=0.0116 kl=7055.8  0m 19.1s
+      SC4032E0 ft ep  81/200 lr=3.60e-04 ce=0.0109 kl=7057.8  0m 21.2s
+      SC4032E0 ft ep  91/200 lr=3.60e-04 ce=0.0159 kl=7059.0  0m 23.3s
+      SC4032E0 ft ep 101/200 lr=3.60e-04 ce=0.0076 kl=7060.2  0m 25.4s
+      SC4032E0 ft ep 111/200 lr=3.60e-04 ce=0.0037 kl=7061.1  0m 27.4s
+      SC4032E0 ft ep 121/200 lr=3.60e-04 ce=0.0021 kl=7062.0  0m 29.5s
+      SC4032E0 ft ep 131/200 lr=3.60e-04 ce=0.0016 kl=7062.4  0m 31.6s
+      SC4032E0 ft ep 141/200 lr=3.60e-04 ce=0.0314 kl=7063.8  0m 33.7s
+      SC4032E0 ft ep 151/200 lr=3.60e-04 ce=0.0039 kl=7065.5  0m 35.8s
+      SC4032E0 ft ep 161/200 lr=3.60e-04 ce=0.0039 kl=7066.7  0m 37.9s
+      SC4032E0 ft ep 171/200 lr=3.60e-04 ce=0.0014 kl=7067.2  0m 39.9s
+      SC4032E0 ft ep 181/200 lr=3.60e-04 ce=0.0011 kl=7067.4  0m 42.0s
+      SC4032E0 ft ep 191/200 lr=3.60e-04 ce=0.0016 kl=7066.9  0m 44.1s
+      SC4032E0 ft ep 200/200 lr=3.60e-04 ce=0.0013 kl=7067.0  0m 46.0s
+      SC4032E0 stage2: 92 annotated, eval on 728 (79.9% of the subject)
+      SC4032E0     acc=94.78 mf1=89.23 k=0.9259
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4091E0 stage1: 113/1132 selected (k=10)
+      SC4091E0 ft ep   1/200 lr=3.60e-04 ce=0.7643 kl=7042.5  0m 5.5s
+      SC4091E0 ft ep  11/200 lr=3.60e-04 ce=0.2438 kl=7041.3  0m 8.1s
+      SC4091E0 ft ep  21/200 lr=3.60e-04 ce=0.0814 kl=7039.7  0m 10.8s
+      SC4091E0 ft ep  31/200 lr=3.60e-04 ce=0.0834 kl=7040.2  0m 13.4s
+      SC4091E0 ft ep  41/200 lr=3.60e-04 ce=0.0368 kl=7040.9  0m 16.0s
+      SC4091E0 ft ep  51/200 lr=3.60e-04 ce=0.0272 kl=7041.2  0m 18.7s
+      SC4091E0 ft ep  61/200 lr=3.60e-04 ce=0.0222 kl=7041.6  0m 21.3s
+      SC4091E0 ft ep  71/200 lr=3.60e-04 ce=0.0318 kl=7042.2  0m 24.0s
+      SC4091E0 ft ep  81/200 lr=3.60e-04 ce=0.0193 kl=7042.4  0m 26.6s
+      SC4091E0 ft ep  91/200 lr=3.60e-04 ce=0.0119 kl=7042.5  0m 29.2s
+      SC4091E0 ft ep 101/200 lr=3.60e-04 ce=0.0176 kl=7042.2  0m 31.9s
+      SC4091E0 ft ep 111/200 lr=3.60e-04 ce=0.0069 kl=7042.8  0m 34.5s
+      SC4091E0 ft ep 121/200 lr=3.60e-04 ce=0.0104 kl=7043.5  0m 37.2s
+      SC4091E0 ft ep 131/200 lr=3.60e-04 ce=0.0102 kl=7045.7  0m 39.8s
+      SC4091E0 ft ep 141/200 lr=3.60e-04 ce=0.0037 kl=7047.9  0m 42.5s
+      SC4091E0 ft ep 151/200 lr=3.60e-04 ce=0.0042 kl=7050.0  0m 45.1s
+      SC4091E0 ft ep 161/200 lr=3.60e-04 ce=0.0029 kl=7051.2  0m 47.8s
+      SC4091E0 ft ep 171/200 lr=3.60e-04 ce=0.0116 kl=7052.1  0m 50.4s
+      SC4091E0 ft ep 181/200 lr=3.60e-04 ce=0.0037 kl=7053.2  0m 53.0s
+      SC4091E0 ft ep 191/200 lr=3.60e-04 ce=0.0012 kl=7053.7  0m 55.7s
+      SC4091E0 ft ep 200/200 lr=3.60e-04 ce=0.0020 kl=7053.9  0m 58.1s
+      SC4091E0 stage2: 114 annotated, eval on 905 (79.9% of the subject)
+      SC4091E0     acc=89.28 mf1=85.25 k=0.8438
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4101E0 stage1: 110/1104 selected (k=10)
+      SC4101E0 ft ep   1/200 lr=3.60e-04 ce=0.5686 kl=7042.5  0m 0.2s
+      SC4101E0 ft ep  11/200 lr=3.60e-04 ce=0.2511 kl=7042.9  0m 2.8s
+      SC4101E0 ft ep  21/200 lr=3.60e-04 ce=0.1172 kl=7043.4  0m 5.3s
+      SC4101E0 ft ep  31/200 lr=3.60e-04 ce=0.0670 kl=7043.8  0m 7.8s
+      SC4101E0 ft ep  41/200 lr=3.60e-04 ce=0.0498 kl=7044.9  0m 10.3s
+      SC4101E0 ft ep  51/200 lr=3.60e-04 ce=0.0273 kl=7045.9  0m 12.8s
+      SC4101E0 ft ep  61/200 lr=3.60e-04 ce=0.0281 kl=7047.4  0m 15.4s
+      SC4101E0 ft ep  71/200 lr=3.60e-04 ce=0.0117 kl=7049.4  0m 17.9s
+      SC4101E0 ft ep  81/200 lr=3.60e-04 ce=0.0236 kl=7050.4  0m 20.4s
+      SC4101E0 ft ep  91/200 lr=3.60e-04 ce=0.0180 kl=7051.1  0m 22.9s
+      SC4101E0 ft ep 101/200 lr=3.60e-04 ce=0.0083 kl=7052.0  0m 25.4s
+      SC4101E0 ft ep 111/200 lr=3.60e-04 ce=0.0052 kl=7053.1  0m 28.0s
+      SC4101E0 ft ep 121/200 lr=3.60e-04 ce=0.0112 kl=7054.0  0m 30.5s
+      SC4101E0 ft ep 131/200 lr=3.60e-04 ce=0.0100 kl=7054.0  0m 33.0s
+      SC4101E0 ft ep 141/200 lr=3.60e-04 ce=0.0070 kl=7054.4  0m 35.5s
+      SC4101E0 ft ep 151/200 lr=3.60e-04 ce=0.0066 kl=7054.8  0m 38.0s
+      SC4101E0 ft ep 161/200 lr=3.60e-04 ce=0.0036 kl=7055.6  0m 40.5s
+      SC4101E0 ft ep 171/200 lr=3.60e-04 ce=0.0083 kl=7056.0  0m 43.1s
+      SC4101E0 ft ep 181/200 lr=3.60e-04 ce=0.0019 kl=7055.6  0m 45.6s
+      SC4101E0 ft ep 191/200 lr=3.60e-04 ce=0.0074 kl=7055.4  0m 48.1s
+      SC4101E0 ft ep 200/200 lr=3.60e-04 ce=0.0046 kl=7055.3  0m 50.4s
+      SC4101E0 stage2: 111 annotated, eval on 883 (80.0% of the subject)
+      SC4101E0     acc=94.68 mf1=71.65 k=0.9035
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4111E0 stage1: 92/928 selected (k=10)
+      SC4111E0 ft ep   1/200 lr=3.60e-04 ce=3.2177 kl=7042.5  0m 4.5s
+      SC4111E0 ft ep  11/200 lr=3.60e-04 ce=0.3685 kl=7042.7  0m 6.6s
+      SC4111E0 ft ep  21/200 lr=3.60e-04 ce=0.3387 kl=7043.0  0m 8.7s
+      SC4111E0 ft ep  31/200 lr=3.60e-04 ce=0.2577 kl=7042.7  0m 10.8s
+      SC4111E0 ft ep  41/200 lr=3.60e-04 ce=0.2027 kl=7042.9  0m 12.9s
+      SC4111E0 ft ep  51/200 lr=3.60e-04 ce=0.1371 kl=7042.4  0m 15.0s
+      SC4111E0 ft ep  61/200 lr=3.60e-04 ce=0.1500 kl=7042.2  0m 17.1s
+      SC4111E0 ft ep  71/200 lr=3.60e-04 ce=0.0886 kl=7042.7  0m 19.3s
+      SC4111E0 ft ep  81/200 lr=3.60e-04 ce=0.1090 kl=7043.0  0m 21.4s
+      SC4111E0 ft ep  91/200 lr=3.60e-04 ce=0.0738 kl=7044.0  0m 23.5s
+      SC4111E0 ft ep 101/200 lr=3.60e-04 ce=0.0624 kl=7045.6  0m 25.6s
+      SC4111E0 ft ep 111/200 lr=3.60e-04 ce=0.0586 kl=7046.8  0m 27.7s
+      SC4111E0 ft ep 121/200 lr=3.60e-04 ce=0.0672 kl=7047.5  0m 29.9s
+      SC4111E0 ft ep 131/200 lr=3.60e-04 ce=0.0432 kl=7049.9  0m 32.0s
+      SC4111E0 ft ep 141/200 lr=3.60e-04 ce=0.0517 kl=7052.2  0m 34.1s
+      SC4111E0 ft ep 151/200 lr=3.60e-04 ce=0.0217 kl=7054.5  0m 36.2s
+      SC4111E0 ft ep 161/200 lr=3.60e-04 ce=0.0546 kl=7056.7  0m 38.3s
+      SC4111E0 ft ep 171/200 lr=3.60e-04 ce=0.0117 kl=7058.0  0m 40.4s
+      SC4111E0 ft ep 181/200 lr=3.60e-04 ce=0.0099 kl=7058.8  0m 42.6s
+      SC4111E0 ft ep 191/200 lr=3.60e-04 ce=0.0066 kl=7059.2  0m 44.7s
+      SC4111E0 ft ep 200/200 lr=3.60e-04 ce=0.0161 kl=7060.2  0m 46.6s
+      SC4111E0 stage2: 93 annotated, eval on 743 (80.1% of the subject)
+      SC4111E0     acc=78.87 mf1=75.56 k=0.6685
+      fold 8 done in 203m 17.6s
+----------------------------------------------------------------------------------------------------
+FOLD 9  train=36 recordings  test=3 recordings (SC4071E0, SC4142E0, SC4192E0)
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      fold9 ep   1/200 lr=6.00e-05 ce=1.5299 kl=2567.2  0m 47.1s
+      fold9 ep  11/200 lr=6.60e-04 ce=0.4596 kl=2707.6  8m 21.9s
+      fold9 ep  21/200 lr=1.20e-03 ce=0.3738 kl=3092.9  15m 56.8s
+      fold9 ep  31/200 lr=1.19e-03 ce=0.3147 kl=3511.7  23m 31.6s
+      fold9 ep  41/200 lr=1.16e-03 ce=0.3032 kl=3832.0  31m 6.5s
+      fold9 ep  51/200 lr=1.11e-03 ce=0.2845 kl=4122.1  38m 41.5s
+      fold9 ep  61/200 lr=1.05e-03 ce=0.2703 kl=4421.3  46m 16.8s
+      fold9 ep  71/200 lr=9.78e-04 ce=0.2578 kl=4673.1  53m 52.2s
+      fold9 ep  81/200 lr=8.91e-04 ce=0.2437 kl=4899.3  61m 27.8s
+      fold9 ep  91/200 lr=7.95e-04 ce=0.2262 kl=5105.9  69m 3.2s
+      fold9 ep 101/200 lr=6.94e-04 ce=0.2223 kl=5253.2  76m 38.9s
+      fold9 ep 111/200 lr=5.90e-04 ce=0.2026 kl=5414.8  84m 14.6s
+      fold9 ep 121/200 lr=4.86e-04 ce=0.1984 kl=5553.4  91m 50.0s
+      fold9 ep 131/200 lr=3.85e-04 ce=0.1893 kl=5653.8  99m 25.6s
+      fold9 ep 141/200 lr=2.91e-04 ce=0.1813 kl=5729.9  107m 1.1s
+      fold9 ep 151/200 lr=2.06e-04 ce=0.1796 kl=5782.9  114m 36.8s
+      fold9 ep 161/200 lr=1.34e-04 ce=0.1730 kl=5824.5  122m 12.6s
+      fold9 ep 171/200 lr=7.52e-05 ce=0.1743 kl=5846.2  129m 48.2s
+      fold9 ep 181/200 lr=3.27e-05 ce=0.1702 kl=5858.0  137m 24.0s
+      fold9 ep 191/200 lr=7.39e-06 ce=0.1689 kl=5862.7  144m 59.7s
+      fold9 ep 200/200 lr=0.00e+00 ce=0.1661 kl=5863.1  151m 50.0s
+      CV  acc=87.04 mf1=80.86 k=0.8263  per-class F1=['90.8', '48.3', '90.2', '85.9', '89.0']
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4071E0 stage1: 97/976 selected (k=10)
+      SC4071E0 ft ep   1/200 lr=3.60e-04 ce=0.1672 kl=5863.1  0m 4.8s
+      SC4071E0 ft ep  11/200 lr=3.60e-04 ce=0.0898 kl=5865.2  0m 7.0s
+      SC4071E0 ft ep  21/200 lr=3.60e-04 ce=0.0642 kl=5867.0  0m 9.2s
+      SC4071E0 ft ep  31/200 lr=3.60e-04 ce=0.0532 kl=5868.6  0m 11.5s
+      SC4071E0 ft ep  41/200 lr=3.60e-04 ce=0.0267 kl=5870.2  0m 13.7s
+      SC4071E0 ft ep  51/200 lr=3.60e-04 ce=0.0278 kl=5871.5  0m 15.9s
+      SC4071E0 ft ep  61/200 lr=3.60e-04 ce=0.0142 kl=5872.4  0m 18.1s
+      SC4071E0 ft ep  71/200 lr=3.60e-04 ce=0.0109 kl=5873.5  0m 20.4s
+      SC4071E0 ft ep  81/200 lr=3.60e-04 ce=0.0300 kl=5875.3  0m 22.6s
+      SC4071E0 ft ep  91/200 lr=3.60e-04 ce=0.0088 kl=5877.2  0m 24.8s
+      SC4071E0 ft ep 101/200 lr=3.60e-04 ce=0.0129 kl=5878.3  0m 27.1s
+      SC4071E0 ft ep 111/200 lr=3.60e-04 ce=0.0069 kl=5879.2  0m 29.3s
+      SC4071E0 ft ep 121/200 lr=3.60e-04 ce=0.0068 kl=5879.3  0m 31.5s
+      SC4071E0 ft ep 131/200 lr=3.60e-04 ce=0.0062 kl=5879.1  0m 33.7s
+      SC4071E0 ft ep 141/200 lr=3.60e-04 ce=0.0056 kl=5879.7  0m 36.0s
+      SC4071E0 ft ep 151/200 lr=3.60e-04 ce=0.0054 kl=5881.1  0m 38.2s
+      SC4071E0 ft ep 161/200 lr=3.60e-04 ce=0.0028 kl=5882.5  0m 40.4s
+      SC4071E0 ft ep 171/200 lr=3.60e-04 ce=0.0042 kl=5883.4  0m 42.7s
+      SC4071E0 ft ep 181/200 lr=3.60e-04 ce=0.0053 kl=5883.3  0m 44.9s
+      SC4071E0 ft ep 191/200 lr=3.60e-04 ce=0.0024 kl=5882.7  0m 47.1s
+      SC4071E0 ft ep 200/200 lr=3.60e-04 ce=0.0036 kl=5882.0  0m 49.1s
+      SC4071E0 stage2: 98 annotated, eval on 781 (80.0% of the subject)
+      SC4071E0     acc=95.13 mf1=92.34 k=0.9327
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4142E0 stage1: 95/952 selected (k=10)
+      SC4142E0 ft ep   1/200 lr=3.60e-04 ce=0.3260 kl=5863.1  0m 0.2s
+      SC4142E0 ft ep  11/200 lr=3.60e-04 ce=0.0889 kl=5862.6  0m 2.4s
+      SC4142E0 ft ep  21/200 lr=3.60e-04 ce=0.0471 kl=5864.0  0m 4.6s
+      SC4142E0 ft ep  31/200 lr=3.60e-04 ce=0.0322 kl=5865.9  0m 6.8s
+      SC4142E0 ft ep  41/200 lr=3.60e-04 ce=0.0215 kl=5867.2  0m 9.0s
+      SC4142E0 ft ep  51/200 lr=3.60e-04 ce=0.0296 kl=5868.7  0m 11.2s
+      SC4142E0 ft ep  61/200 lr=3.60e-04 ce=0.0080 kl=5870.8  0m 13.4s
+      SC4142E0 ft ep  71/200 lr=3.60e-04 ce=0.0062 kl=5872.2  0m 15.6s
+      SC4142E0 ft ep  81/200 lr=3.60e-04 ce=0.0061 kl=5873.5  0m 17.8s
+      SC4142E0 ft ep  91/200 lr=3.60e-04 ce=0.0074 kl=5874.5  0m 20.0s
+      SC4142E0 ft ep 101/200 lr=3.60e-04 ce=0.0045 kl=5875.2  0m 22.2s
+      SC4142E0 ft ep 111/200 lr=3.60e-04 ce=0.0031 kl=5875.6  0m 24.4s
+      SC4142E0 ft ep 121/200 lr=3.60e-04 ce=0.0026 kl=5875.9  0m 26.6s
+      SC4142E0 ft ep 131/200 lr=3.60e-04 ce=0.0016 kl=5875.5  0m 28.8s
+      SC4142E0 ft ep 141/200 lr=3.60e-04 ce=0.0028 kl=5874.6  0m 31.0s
+      SC4142E0 ft ep 151/200 lr=3.60e-04 ce=0.0034 kl=5873.3  0m 33.2s
+      SC4142E0 ft ep 161/200 lr=3.60e-04 ce=0.0028 kl=5872.6  0m 35.4s
+      SC4142E0 ft ep 171/200 lr=3.60e-04 ce=0.0024 kl=5872.8  0m 37.6s
+      SC4142E0 ft ep 181/200 lr=3.60e-04 ce=0.0020 kl=5873.2  0m 39.8s
+      SC4142E0 ft ep 191/200 lr=3.60e-04 ce=0.0009 kl=5872.8  0m 41.9s
+      SC4142E0 ft ep 200/200 lr=3.60e-04 ce=0.0012 kl=5871.3  0m 43.9s
+      SC4142E0 stage2: 96 annotated, eval on 761 (79.9% of the subject)
+      SC4142E0     acc=93.96 mf1=82.91 k=0.9164
+D:\Program Files\anaconda\envs\pytorch\lib\site-packages\torch\nn\modules\rnn.py:1011: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.5 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+      SC4192E0 stage1: 127/1274 selected (k=10)
+      SC4192E0 ft ep   1/200 lr=3.60e-04 ce=0.7325 kl=5863.1  0m 6.3s
+      SC4192E0 ft ep  11/200 lr=3.60e-04 ce=0.2340 kl=5859.7  0m 9.3s
+      SC4192E0 ft ep  21/200 lr=3.60e-04 ce=0.2192 kl=5859.7  0m 12.2s
+      SC4192E0 ft ep  31/200 lr=3.60e-04 ce=0.0893 kl=5860.5  0m 15.2s
+      SC4192E0 ft ep  41/200 lr=3.60e-04 ce=0.0725 kl=5861.4  0m 18.2s
+      SC4192E0 ft ep  51/200 lr=3.60e-04 ce=0.0712 kl=5862.4  0m 21.1s
+      SC4192E0 ft ep  61/200 lr=3.60e-04 ce=0.0307 kl=5863.3  0m 24.1s
+      SC4192E0 ft ep  71/200 lr=3.60e-04 ce=0.0328 kl=5865.1  0m 27.1s
+      SC4192E0 ft ep  81/200 lr=3.60e-04 ce=0.0370 kl=5867.8  0m 30.0s
+      SC4192E0 ft ep  91/200 lr=3.60e-04 ce=0.0169 kl=5870.2  0m 33.0s
+      SC4192E0 ft ep 101/200 lr=3.60e-04 ce=0.0239 kl=5873.2  0m 36.0s
+      SC4192E0 ft ep 111/200 lr=3.60e-04 ce=0.0150 kl=5875.1  0m 39.0s
+      SC4192E0 ft ep 121/200 lr=3.60e-04 ce=0.0118 kl=5876.8  0m 41.9s
+      SC4192E0 ft ep 131/200 lr=3.60e-04 ce=0.0143 kl=5878.7  0m 44.9s
+      SC4192E0 ft ep 141/200 lr=3.60e-04 ce=0.0127 kl=5880.2  0m 47.9s
+      SC4192E0 ft ep 151/200 lr=3.60e-04 ce=0.0126 kl=5880.5  0m 50.8s
+      SC4192E0 ft ep 161/200 lr=3.60e-04 ce=0.0134 kl=5881.0  0m 53.8s
+      SC4192E0 ft ep 171/200 lr=3.60e-04 ce=0.0069 kl=5882.0  0m 56.8s
+      SC4192E0 ft ep 181/200 lr=3.60e-04 ce=0.0071 kl=5882.9  0m 59.7s
+      SC4192E0 ft ep 191/200 lr=3.60e-04 ce=0.0118 kl=5883.5  1m 2.7s
+      SC4192E0 ft ep 200/200 lr=3.60e-04 ce=0.0058 kl=5884.6  1m 5.4s
+      SC4192E0 stage2: 128 annotated, eval on 1019 (80.0% of the subject)
+      SC4192E0     acc=93.33 mf1=85.57 k=0.9066
+      fold 9 done in 165m 17.5s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 10,
+  "acc": 84.58989950016927,
+  "mf1": 78.92118660934526,
+  "kappa": 0.7902094782434232,
+  "per_f1": [
+   89.23019313658249,
+   49.908732854564306,
+   86.196780621542,
+   83.46458126864374,
+   85.80564516539377
+  ]
+ },
+ "ugal": {
+  "subjects": 39,
+  "n_eval": 35369,
+  "acc": 93.13240408267127,
+  "mf1": 86.14896666694743,
+  "kappa": 0.8997961386647771,
+  "per_f1": [
+   96.23017553880536,
+   58.69222013672364,
+   93.39470370668083,
+   89.37936418915055,
+   93.04836976337681
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)

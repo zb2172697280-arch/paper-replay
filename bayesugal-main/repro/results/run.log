@@ -1,0 +1,135 @@
+====================================================================================================
+RUN 2026-09-20 17:53:50 | {'data_root': 'D:\\dataset\\sleep-edf-20\\processed', 'out': 'repro/results', 'mode': 'all', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'tag': ''}
+loaded 39 recordings, 44220 epochs total
+----------------------------------------------------------------------------------------------------
+FOLD 0  train=35 recordings  test=4 recordings (SC4021E0, SC4062E0, SC4171E0, SC4182E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=79.84 mf1=76.04 k=0.7299  per-class F1=['84.5', '51.7', '81.6', '81.1', '81.3']
+      SC4021E0     acc=94.51 mf1=91.99 k=0.9155
+      SC4062E0     acc=94.34 mf1=90.07 k=0.9235
+      SC4171E0     acc=91.64 mf1=82.30 k=0.8877
+      SC4182E0     acc=86.82 mf1=84.43 k=0.8312
+      fold 0 done in 298m 41.1s
+----------------------------------------------------------------------------------------------------
+FOLD 1  train=35 recordings  test=4 recordings (SC4031E0, SC4131E0, SC4141E0, SC4152E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=88.60 mf1=82.09 k=0.8457  per-class F1=['95.8', '52.6', '87.3', '81.6', '93.2']
+      SC4031E0     acc=95.27 mf1=88.68 k=0.9269
+      SC4131E0     acc=91.74 mf1=87.88 k=0.8809
+      SC4141E0     acc=95.27 mf1=80.48 k=0.9346
+      SC4152E0     acc=96.81 mf1=91.28 k=0.9520
+      fold 1 done in 166m 53.3s
+----------------------------------------------------------------------------------------------------
+FOLD 2  train=35 recordings  test=4 recordings (SC4041E0, SC4072E0, SC4082E0, SC4121E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=88.03 mf1=82.62 k=0.8392  per-class F1=['96.2', '56.2', '88.1', '86.9', '85.8']
+      SC4041E0     acc=91.60 mf1=87.05 k=0.8693
+      SC4072E0     acc=95.68 mf1=89.20 k=0.9411
+      SC4082E0     acc=88.61 mf1=73.91 k=0.8466
+      SC4121E0     acc=96.77 mf1=80.67 k=0.9485
+      fold 2 done in 166m 14.1s
+----------------------------------------------------------------------------------------------------
+FOLD 3  train=35 recordings  test=4 recordings (SC4042E0, SC4061E0, SC4081E0, SC4092E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=86.56 mf1=81.67 k=0.8202  per-class F1=['90.6', '52.6', '89.5', '86.1', '89.5']
+      SC4042E0     acc=89.90 mf1=86.27 k=0.8565
+      SC4061E0     acc=96.14 mf1=94.67 k=0.9425
+      SC4081E0     acc=93.38 mf1=90.59 k=0.9126
+      SC4092E0     acc=95.45 mf1=90.82 k=0.9371
+      fold 3 done in 159m 45.1s
+----------------------------------------------------------------------------------------------------
+FOLD 4  train=35 recordings  test=4 recordings (SC4001E0, SC4022E0, SC4122E0, SC4162E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=81.78 mf1=76.12 k=0.7588  per-class F1=['91.7', '35.0', '81.4', '81.3', '91.2']
+      SC4001E0     acc=94.20 mf1=90.41 k=0.9237
+      SC4022E0     acc=91.96 mf1=91.42 k=0.8919
+      SC4122E0     acc=91.82 mf1=87.69 k=0.8907
+      SC4162E0     acc=91.27 mf1=84.92 k=0.8716
+      fold 4 done in 164m 33.5s
+----------------------------------------------------------------------------------------------------
+FOLD 5  train=35 recordings  test=4 recordings (SC4002E0, SC4052E0, SC4102E0, SC4191E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+====================================================================================================
+RUN 2026-09-21 12:16:10 | {'data_root': 'D:\\dataset\\sleep-edf-20\\processed', 'out': 'repro/results', 'mode': 'all', 'folds': 10, 'n_subjects': 39, 'epochs': 200, 'ft_epochs': 0, 'lr': 0.0012, 'ft_lr_mul': 0.3, 'kl_weight': 2e-08, 'batch_size': 1024, 'micro_batch': 128, 'infer_chunk': 256, 'seqlen': 20, 'models': 2, 'mc_samples': 200, 'alpha': 0.5, 'k': 10, 'stage1_ratio': 0.1, 'stage2_ratio': 0.1, 'eval_ratio': None, 'prior_rho': -3.0, 'norm': 'batch', 'seed': 42, 'device': 'cuda:0', 'bayesian': True, 'mc_drop': True, 'clip': False, 'force': 0, 'mem_guard_gb': 0.0, 'mem_frac': 0.0, 'only_folds': '', 'tag': ''}
+GPU NVIDIA GeForce GTX 1660 SUPER | free 5.01 GiB of 6.00 GiB
+loaded 39 recordings, 44220 epochs total
+fold 0 already done, skip
+fold 1 already done, skip
+fold 2 already done, skip
+fold 3 already done, skip
+fold 4 already done, skip
+----------------------------------------------------------------------------------------------------
+FOLD 5  train=35 recordings  test=4 recordings (SC4002E0, SC4052E0, SC4102E0, SC4191E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=85.94 mf1=80.88 k=0.8004  per-class F1=['87.3', '57.1', '90.4', '83.6', '85.9']
+      SC4002E0     acc=91.57 mf1=83.52 k=0.8882
+      SC4052E0     acc=93.28 mf1=88.68 k=0.8977
+      SC4102E0     acc=96.33 mf1=92.77 k=0.9402
+      SC4191E0     acc=92.35 mf1=88.55 k=0.8782
+      fold 5 done in 179m 5.2s
+----------------------------------------------------------------------------------------------------
+FOLD 6  train=35 recordings  test=4 recordings (SC4011E0, SC4012E0, SC4151E0, SC4181E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=87.60 mf1=81.67 k=0.8312  per-class F1=['93.6', '55.1', '89.6', '86.1', '83.9']
+      SC4011E0     acc=93.42 mf1=90.96 k=0.8978
+      SC4012E0     acc=94.54 mf1=84.17 k=0.9028
+      SC4151E0     acc=95.53 mf1=89.30 k=0.9400
+      SC4181E0     acc=87.42 mf1=80.04 k=0.8202
+      fold 6 done in 187m 18.9s
+----------------------------------------------------------------------------------------------------
+FOLD 7  train=35 recordings  test=4 recordings (SC4051E0, SC4112E0, SC4161E0, SC4172E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=85.52 mf1=77.02 k=0.8016  per-class F1=['94.9', '41.2', '84.7', '83.4', '81.0']
+      SC4051E0     acc=93.67 mf1=90.40 k=0.9147
+      SC4112E0     acc=94.23 mf1=82.30 k=0.9148
+      SC4161E0     acc=94.21 mf1=78.09 k=0.9199
+      SC4172E0     acc=94.29 mf1=86.53 k=0.9139
+      fold 7 done in 166m 59.7s
+----------------------------------------------------------------------------------------------------
+FOLD 8  train=35 recordings  test=4 recordings (SC4032E0, SC4091E0, SC4101E0, SC4111E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=74.99 mf1=70.23 k=0.6489  per-class F1=['67.1', '49.2', '79.2', '78.5', '77.2']
+      SC4032E0     acc=94.78 mf1=89.23 k=0.9259
+      SC4091E0     acc=89.28 mf1=85.25 k=0.8438
+      SC4101E0     acc=94.68 mf1=71.65 k=0.9035
+      SC4111E0     acc=78.87 mf1=75.56 k=0.6685
+      fold 8 done in 203m 17.6s
+----------------------------------------------------------------------------------------------------
+FOLD 9  train=36 recordings  test=3 recordings (SC4071E0, SC4142E0, SC4192E0)
+      params/expert=266048  x2 = 532096   (paper 5.3e5)
+      CV  acc=87.04 mf1=80.86 k=0.8263  per-class F1=['90.8', '48.3', '90.2', '85.9', '89.0']
+      SC4071E0     acc=95.13 mf1=92.34 k=0.9327
+      SC4142E0     acc=93.96 mf1=82.91 k=0.9164
+      SC4192E0     acc=93.33 mf1=85.57 k=0.9066
+      fold 9 done in 165m 17.5s
+====================================================================================================
+SUMMARY {
+ "cv": {
+  "folds": 10,
+  "acc": 84.58989950016927,
+  "mf1": 78.92118660934526,
+  "kappa": 0.7902094782434232,
+  "per_f1": [
+   89.23019313658249,
+   49.908732854564306,
+   86.196780621542,
+   83.46458126864374,
+   85.80564516539377
+  ]
+ },
+ "ugal": {
+  "subjects": 39,
+  "n_eval": 35369,
+  "acc": 93.13240408267127,
+  "mf1": 86.14896666694743,
+  "kappa": 0.8997961386647771,
+  "per_f1": [
+   96.23017553880536,
+   58.69222013672364,
+   93.39470370668083,
+   89.37936418915055,
+   93.04836976337681
+  ]
+ }
+}
+paper ref: CV 86.75 / 81.12 / 0.819   UGAL 94.58 / 89.24 / 0.925   (SleepEDF-20)
